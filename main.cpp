@@ -1,10 +1,11 @@
 #include <iostream>
 
-using namespace std
 
-int main{
+
+int main
+{
   
-  cout << "Hello World!";
+  std::cout << "Tring out first commit";
   
  return 0; 
 }
