@@ -2,10 +2,11 @@
 
 
 
-int main()
+int main
 {
   
-  std::cout << "I want to merge this.";
+  std::cout << "Tring out first commit";
+  std::cout << "Hello World 2!";
   
  return 0; 
 }
