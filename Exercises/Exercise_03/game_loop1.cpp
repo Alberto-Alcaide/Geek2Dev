@@ -8,8 +8,8 @@ SDL_Window* window; // = SDL_CreateWindow("My Window", 0, 0, 800, 600, 0);
 SDL_Renderer* renderer; // = SDL_CreateRenderer(window, -1, 0);
 SDL_Event sdl_event;
 
-int player_x = 40;
-int player_y = 40;
+int player_x = 0;
+int player_y = 0;
 
 bool game_running = false;
 
@@ -107,6 +107,11 @@ void update()
 {
     player_x += 1;
     player_y += 1;
+    
+    if(player_x > 640)
+        player_x = 0;
+    if(player_y > 400)
+        player_y = 0;
 }
 
 void render()
