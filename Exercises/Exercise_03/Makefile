@@ -1,4 +1,4 @@
-OBJS = game_loop1.cpp game_loop2.cpp game_loop3.cpp
+OBJS = game_loop1.cpp 
 OBJ_NAME = test.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include
