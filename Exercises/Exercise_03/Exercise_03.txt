@@ -1,0 +1,8 @@
+EXERCISE 03
+Game Loop
+
+	▪ Implement different game loops (fixed delta-time and variable delta-time) and move
+	an object across the screen. (We've seen 3 different ways in class)
+
+	▪When the object reaches a boundary (top wall, right wall, etc.), resets its position.
+	(Only for extra credit)
