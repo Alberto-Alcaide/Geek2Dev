@@ -1,4 +1,4 @@
-/* First game loop, depends on nothing but cpu. Check update() function*/
+// GPU dependent game loop
 
 #include <iostream>
 #include <stdbool.h>
