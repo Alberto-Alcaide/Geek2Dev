@@ -47,20 +47,7 @@ bool init_graphics(int width, int height)
     return true;
 }
 
-void draw_rectangle(SDL_Rect rectangle)
-{
-    // Clean the video buffer
-    SDL_RenderClear(renderer);
-
-    // Draw the rectangle on the screen
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &rectangle);
-
-    // Swap the video buffer
-    SDL_RenderPresent(renderer);
-}
-
-void destroy_window()
+void destroy_graphics()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -68,28 +55,10 @@ void destroy_window()
     std::cout << "Graphics destroyed\n";
 }
 
-void wait()
-{
-    SDL_Event e;
-    bool quit = false;
-    while(!quit)
-    {
-        while(SDL_PollEvent(&e))
-        {
-            if(e.type == SDL_QUIT)
-                quit = true;
-            if(e.type == SDL_KEYDOWN)
-                quit = true;
-        }
-    }
-
-    return;
-}
-
 void process_input(bool *game_is_running)
 {
     
-    // Check for input, right now we are only checking if we close app.
+    // Check for input. Right now we are only checking if we close app.
     SDL_PollEvent(&sdl_event);
     switch(sdl_event.type)
     {
@@ -129,14 +98,6 @@ void render()
     SDL_RenderPresent(renderer);
 }
 
-void destroy()
-{
-    destroy_window();
-}
-
-
-
-
 int main(int argc, char** argv)
 {
 
@@ -150,7 +111,7 @@ int main(int argc, char** argv)
         render();
     }
 
-    destroy();
+    destroy_graphics();
 
     return 0;
 }
