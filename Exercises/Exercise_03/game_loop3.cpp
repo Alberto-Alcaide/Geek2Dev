@@ -1,7 +1,7 @@
 // Delta time game loop
 
 #include <iostream>
-#include <stdbool.h>
+//#include <stdbool.h>
 #include <SDL2/SDL.h>
 
 #define FPS 30
@@ -12,8 +12,8 @@ SDL_Renderer* renderer; // = SDL_CreateRenderer(window, -1, 0);
 SDL_Event sdl_event;
 
 int last_frame_time = 0;
-int player_x = 0;
-int player_y = 0;
+float player_x = 0;
+float player_y = 0;
 
 bool game_running = false;
 
@@ -62,7 +62,7 @@ void destroy_window()
 void process_input(bool *game_is_running)
 {
     
-    // Check for input. Right now we are only checking if we close app.
+    // Check for input. Right now we are only checking if we exit app.
     SDL_PollEvent(&sdl_event);
     switch(sdl_event.type)
     {
@@ -88,12 +88,10 @@ void update()
         The game will run as fast as it can and objects will move correctly regardless of the FPS */
 
     // Update player position
-    player_x += 10 * delta_time; // posicion = posicion_anterior + v*dt
+    player_x += 10 * delta_time; // position = previous_position + v*dt
     player_y += 10 * delta_time;
-    
-    std::cout << "Delta time: " << delta_time << std::endl;
-    std::cout << "Paso por aqui " << player_x << std::endl;
 
+    // Update coord when out of screen boundaries
     if(player_x > 640)
         player_x = 0;
     if(player_y > 400)
@@ -109,9 +107,9 @@ void render()
     SDL_RenderClear(renderer);
 
     // Rectangle to represent the player
-    SDL_Rect box = {player_x, player_y, 10, 10};
+    SDL_FRect box = {player_x, player_y, 10, 10};
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &box);
+    SDL_RenderFillRectF(renderer, &box);
 
     // Swap the video buffers
     SDL_RenderPresent(renderer);
