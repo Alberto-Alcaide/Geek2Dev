@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <iostream>
 
-
 struct Color
 {
     unsigned int r;
@@ -13,7 +12,7 @@ struct Color
     unsigned int a;
 
     Color();
-    Color(int r, int g, int b);
+    Color(int r, int g, int b); //Que se hace con alfa??
     Color(int r, int g, int b, int a);
     Color(uint32_t color);
 
@@ -26,8 +25,6 @@ struct Color
     static Color yellow();
     static Color white();
     static Color black();
-
-    Color toString(Color c);
 
     friend std::ostream& operator <<(std::ostream& os, const Color& c);
 
