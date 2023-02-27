@@ -1,4 +1,4 @@
-OBJS = test.cpp Color.cpp
+OBJS = test.cpp Color.cpp 
 OBJ_NAME = test.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -IC:\Geek2Dev\Engine

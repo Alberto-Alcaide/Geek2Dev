@@ -24,7 +24,7 @@ void Logger::Info(const std::string& message) {
 void Logger::Error(const std::string& message) {
     LogEntry logEntry;
     logEntry.type = LOG_ERROR;
-    logEntry.message = "INF [" +CurrentDateTimeToString() + "]: " + message;
+    logEntry.message = "ERR [" +CurrentDateTimeToString() + "]: " + message;
     messages.push_back(logEntry);
     std::cerr << "\x1B[91m" << logEntry.message << "\033[0m" << std::endl;
 }
@@ -32,7 +32,7 @@ void Logger::Error(const std::string& message) {
 void Logger::Warning(const std::string& message) {
     LogEntry logEntry;
     logEntry.type = LOG_WARNING;
-    logEntry.message = "INF [" +CurrentDateTimeToString() + "]: " + message;
+    logEntry.message = "WAR [" +CurrentDateTimeToString() + "]: " + message;
     messages.push_back(logEntry);
-    std::cerr << "\x1B[91m" << logEntry.message << "\033[0m" << std::endl;
+    std::cerr << "\x1B[33m" << logEntry.message << "\033[0m" << std::endl;
 }
