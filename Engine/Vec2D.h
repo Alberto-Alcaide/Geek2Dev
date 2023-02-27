@@ -48,7 +48,7 @@ struct Vec2D
     Vec2D& operator *= (const Vec2D& v);
     Vec2D& operator /= (const Vec2D& v);
 
-    friend std::ostream& operator<<(std::ostream os, const Vec2D& v);
+    friend std::ostream& operator<<(std::ostream &os, const Vec2D& v);
 };
 
 #endif
