@@ -155,7 +155,7 @@ Vec2D &Vec2D::operator/=(const Vec2D &v)
     return *this;
 }
 
-std::ostream& operator<<(std::ostream os, const Vec2D &v)
+std::ostream& operator<<(std::ostream &os, const Vec2D &v)
 {
     os << "(" << v.x << ", " << v.y << ")";
     return os;

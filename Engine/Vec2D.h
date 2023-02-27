@@ -18,7 +18,7 @@ struct Vec2D
     Vec2D rotate(const float angle) const;
 
     float magnitude() const;
-    float manitudeSquared() const;
+    float magnitudeSquared() const;
     
     // @return Angle in degrees
     float angle() const;
@@ -48,10 +48,7 @@ struct Vec2D
     Vec2D& operator *= (const Vec2D& v);
     Vec2D& operator /= (const Vec2D& v);
 
-    friend std::ostream& operator<<(std::ostream os, const Vec2D& v);
-
+    friend std::ostream& operator<<(std::ostream &os, const Vec2D& v);
 };
-
-
 
 #endif
