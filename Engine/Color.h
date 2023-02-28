@@ -6,9 +6,9 @@
 
 struct Color
 {
-    unsigned int r; //Red
-    unsigned int g; //Green
-    unsigned int b; //Blue
+    unsigned int r; 
+    unsigned int g; 
+    unsigned int b; 
     unsigned int a; //Alpha (opacity)
 
     //Constructors
@@ -20,16 +20,23 @@ struct Color
     ~Color()=default;
 
     //Functions
+    uint32_t getColorRGB32();
 
-    Color darkened(float p); //This makes RGB - p, so R-p, G-p, B-p
+    Color darkened(float p); //This makes RGB - p, so R-p, G-p, B-p -
     Color lightened(float p); //This makes RGB + p, so R+p, G+p, B+p
 
-    static Color red(); //Color red: (255,0,0)
-    static Color green(); //Color green: (0,255,0)
-    static Color blue(); //Color blue: (0,0,255)
-    static Color yellow(); //Color yellow: (255,255,0)
-    static Color white(); //Color white: (255,255,255)
-    static Color black(); //Color black: (0,0,0)
+    //Color red: (255,0,0,1)
+    static Color red(); 
+    //Color green: (0,255,0)
+    static Color green();
+    //Color blue: (0,0,255) 
+    static Color blue(); 
+    //Color yellow: (255,255,0)
+    static Color yellow();
+    //Color white: (255,255,255) 
+    static Color white(); 
+    //Color black: (0,0,0)
+    static Color black(); 
 
     //overload operator
 

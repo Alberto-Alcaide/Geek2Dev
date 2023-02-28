@@ -7,11 +7,24 @@ Color::Color(int r, int g, int b): r(r), g(g), b(b), a(1) {}
 
 Color::Color(int r, int g, int b, int a): r(r), g(g), b(b), a(a){}
 
-Color::Color(uint32_t color){
+Color::Color(uint32_t color)
+{
     r=color & 0xFF;
     g=(color >> 8) & 0xFF;
     b=(color >> 16) & 0xFF;
     a=(color >> 24) & 0xFF;
+}
+
+uint32_t Color::getColorRGB32()
+{
+    uint32_t color = 0;
+
+    color |= a;
+    color |= b << 8;
+    color |= g << 16;
+    color |= r << 24;
+
+    return color;
 }
 
 Color Color::darkened(float p)
@@ -28,22 +41,27 @@ Color Color::red()
 {
     return Color(255,0,0);
 }
+
 Color Color::green()
 {
     return Color(0,255,0);
 }
+
 Color Color::blue()
 {
     return Color(0,0,255);
 }
+
 Color Color::yellow()
 {
     return Color(255,255,0);
 }
+
 Color Color::white()
 {
     return Color(255,255,255);
 }
+
 Color Color::black()
 {
     return Color(0,0,0);
