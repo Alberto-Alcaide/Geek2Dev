@@ -1,5 +1,6 @@
 #include <iostream> 
-
+#include "Mouse.h"
+#include "Keyboard.h"
 
 class Engine2D
 {
@@ -14,7 +15,5 @@ public:
     ~Engine2D();
 
     Mouse* mouse;
-    Keyboard keyboard;
-
-
-}
+    Keyboard* keyboard;
+};
