@@ -1,5 +1,5 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef LOG_H
+#define LOG_H
 
 #include <vector>
 #include <string>
@@ -16,7 +16,7 @@ struct LogEntry
     std::string message;
 };
 
-class Logger {
+class Log {
     public:
         static std::vector<LogEntry> messages;
         static void Info(const std::string& message);
