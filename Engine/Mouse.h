@@ -14,9 +14,11 @@ struct Mouse
     Mouse() = default;
     ~Mouse() = default;
 
-    const Vec2D& getPosition() const;
-    const Vec2D& getPrevPosition() const;
-    void updatePosition(int x, int y);
+    inline void updatePosition(int x, int y)
+    {
+        prevPosition = position;
+        position = Vec2D(x, y);
+    }
 };
 
 
