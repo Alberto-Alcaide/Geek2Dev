@@ -1,26 +1,45 @@
-#ifndef Graphics_H
-#define Graphics_H
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
 
 #include <iostream>
 #include <stdint.h>
 #include "Color.h"
+#include "Log.h"
 #include "Vec2D.h"
+#include "vector"
+#include <SDL2/SDL.h>
 
 
-struct Graphics
+class Graphics
 {
-    void DrawGrid(void);
-    void DrawPixel(int x, int y, Color color);
-    void DrawLine(int x0, int y0, int x1, int y1, Color color);
-    void DrawRect(int x, int y, int width, int height, Color color);
-    void DrawFillRect(int x, int y, int width, int height, Color color);
-    void DrawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
-    void DrawCircle(int x0, int y0, int radius, Color color);
-    void DrawFillCircle(int x0, int y0, int radius, Color color);
-
-    void RenderFrame();
+private:
+    static int windowWidth_;
+    static int windowHeight_;
+    static uint32_t* colorBuffer_; // Array of pixels (uint32_t) that represent the colors of our screen
+    static SDL_Window* window_;
+    static SDL_Renderer* renderer_;
 
 
+public:
+    static bool openWindow(int width, int height);
+    static void closeWindow();
+
+    /**
+     * Cleans up screen with the given color. Black is default if not color is given.
+     * 
+     * @param c The color to clean up the screen with.
+     */
+    static void cleaUpScreen(Color c = Color::black());
+    static void renderFrame();
+
+    static void drawGrid(void);
+    static void drawPixel(int x, int y, Color color);
+    static void drawLine(int x0, int y0, int x1, int y1, Color color);
+    static void drawRect(int x, int y, int width, int height, Color color);
+    static void drawFillRect(int x, int y, int width, int height, Color color);
+    static void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
+    static void drawCircle(int x0, int y0, int radius, Color color);
+    static void drawFillCircle(int x0, int y0, int radius, Color color);
 };
 
 

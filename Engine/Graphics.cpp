@@ -1,19 +1,90 @@
 #include "Graphics.h"
 
-void Graphics::DrawGrid(void)
+void renderFrame();
+
+bool Graphics::openWindow(int width, int height)
+{
+    windowWidth_ = width;
+    windowHeight_ = height;
+
+    // Compute screen resolution and allocate memory
+    int resolution = windowWidth_ * windowHeight_;
+    colorBuffer_ = (uint32_t*) malloc(sizeof(uint32_t) * resolution);
+
+    // Initialize all SDL subsystems (timer, audio, video...etc), otherwise Log error
+    if(SDL_Init(SDL_INIT_EVERYTHING) !=0)
+    {
+        Log::Error("Failed to initialize SDL.");
+        return false;
+    }
+
+    // SDL_CreateWindow Returns NULL on failure so Log error if window is not created
+    window_ = SDL_CreateWindow("My Window", SDL_WINDOWPOS_CENTERED,  SDL_WINDOWPOS_CENTERED, windowWidth_, windowHeight_, SDL_WINDOW_BORDERLESS);
+    if(!window_)
+    {
+        Log::Error("Failed to create SDL window)");
+    }
+
+    // SDL_CreateRenderer returns NULL on failure so Log error if renderer is not created
+    renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if(!renderer_)
+    {
+        Log::Error("Failed to create SDL renderer");
+    }
+
+    return true;
+}
+
+void Graphics::closeWindow()
+{
+    SDL_DestroyRenderer(renderer_);
+    SDL_DestroyWindow(window_);
+    SDL_Quit();
+    Log::Info("Graphics destroyed");
+}
+
+void Graphics::cleaUpScreen(Color c = Color::black())
+{
+    SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer_, c.r, c.g, c.b, c.a);
+    SDL_RenderClear(renderer_);
+}
+
+void Graphics::renderFrame()
+{
+    /* que es color_buffer_texture ? un uint32_t con el color del pixel actual? 
+    SDL_UpdateTexture(
+        colorBufferTexture, 
+        NULL, 
+        colorBuffer_, 
+        (int)(windowWidth_* sizeof(uint32_t))
+    );
+
+    // copy  portion of the colorBufferTexture to the rendering target.
+    SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);
+
+    //Clear colorBuffer
+    memset(colorBuffer, 0, windowWidth_ * windowHeight_ * sizeof(uint32_t));
+
+    // Swap video buffer
+    SDL_RenderPresent(renderer_);
+    */
+}
+
+void Graphics::drawGrid(void)
 {
 
 }
 
-void Graphics::DrawPixel(int x, int y, Color color)
+void Graphics::drawPixel(int x, int y, Color color)
 {
-    if (x >= 0 && x < window_width && y >= 0 && y < window_height)
+    if (x >= 0 && x < windowWidth_ && y >= 0 && y < windowHeight_)
     {
-        color_buffer[(window_width * y) + x] = color;
+        colorBuffer_[(windowWidth_ * y) + x] = color.getColorRGB32();
     }
 }
 
-void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color)
+void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
 {
     int delta_x=(x1-x0);
     int delta_y=(y1-y0);
@@ -24,22 +95,22 @@ void Graphics::DrawLine(int x0, int y0, int x1, int y1, Color color)
     float current_y=y0;
     for(int i=0; i<= longest_side_lenght; i++)
     {
-        DrawPixel(round(current_x), round(current_y), color);
+        drawPixel(round(current_x), round(current_y), color);
         current_x += x_inc;
         current_y += y_inc;
     }
 }
 
-void DrawRect(int x, int y, int width, int height, Color color);
+void drawRect(int x, int y, int width, int height, Color color);
 
-void DrawFillRect(int x, int y, int width, int height, Color color);
+void drawFillRect(int x, int y, int width, int height, Color color);
 
-void DrawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
+void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
 
-void Graphics::DrawCircle(int x0, int y0, int radius, Color color)
+void Graphics::drawCircle(int x0, int y0, int radius, Color color)
 {
     const int32_t diameter = (radius * 2);
-    int32_t x= (radius-1);
+    int32_t x = (radius-1);
     int32_t y = 0;
     int32_t tx = 1;
     int32_t ty = 1;
@@ -47,14 +118,14 @@ void Graphics::DrawCircle(int x0, int y0, int radius, Color color)
 
     while(x>=y)
     {
-        DrawPixel(x0 + x, y0 + y, color);
-        DrawPixel(x0 + y, y0 + x, color);
-        DrawPixel(x0 - y, y0 + y, color);
-        DrawPixel(x0 - x, y0 + y, color);
-        DrawPixel(x0 - x, y0 - y, color);
-        DrawPixel(x0 - y, y0 - x, color);
-        DrawPixel(x0 + y, y0 - x, color);
-        DrawPixel(x0 + x, y0 - y, color);
+        drawPixel(x0 + x, y0 + y, color);
+        drawPixel(x0 + y, y0 + x, color);
+        drawPixel(x0 - y, y0 + y, color);
+        drawPixel(x0 - x, y0 + y, color);
+        drawPixel(x0 - x, y0 - y, color);
+        drawPixel(x0 - y, y0 - x, color);
+        drawPixel(x0 + y, y0 - x, color);
+        drawPixel(x0 + x, y0 - y, color);
 
         if (err <= 0)
         {
@@ -73,7 +144,7 @@ void Graphics::DrawCircle(int x0, int y0, int radius, Color color)
     }
 }
 
-void Graphics::DrawFillCircle(int x0, int y0, int radius, Color color)
+void Graphics::drawFillCircle(int x0, int y0, int radius, Color color)
 {
     const int32_t diameter = (radius * 2);
     int32_t x= (radius-1);
@@ -84,10 +155,10 @@ void Graphics::DrawFillCircle(int x0, int y0, int radius, Color color)
 
     while(x>=y) 
     { 
-        DrawLine(x0 + x, y0 - y, x0 + x, y0 + y, color);
-        DrawLine(x0 - x, y0 - y, x0 - x, y0 + y, color);
-        DrawLine(x0 + y, y0 - x, x0 + y, y0 + x, color);
-        DrawLine(x0 - y, y0 - x, x0 - y, y0 + x, color);
+        drawLine(x0 + x, y0 - y, x0 + x, y0 + y, color);
+        drawLine(x0 - x, y0 - y, x0 - x, y0 + y, color);
+        drawLine(x0 + y, y0 - x, x0 + y, y0 + x, color);
+        drawLine(x0 - y, y0 - x, x0 - y, y0 + x, color);
       
 
         if (err <= 0)
@@ -106,5 +177,3 @@ void Graphics::DrawFillCircle(int x0, int y0, int radius, Color color)
         }
     }
 }
-
-void RenderFrame();
