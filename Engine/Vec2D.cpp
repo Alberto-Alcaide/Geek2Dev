@@ -2,7 +2,9 @@
 #include <math.h>
 
 //#define _USE_MATH_DEFINES
-#define PI 3.14159265358979323846 
+#define PI 3.14159265358979323846
+
+Vec2D::Vec2D() : x(0.0), y(0.0) {}
 
 Vec2D::Vec2D(float x = 0.0, float y = 0.0) : x(x), y(y) {}
 
@@ -16,11 +18,6 @@ void Vec2D::scale(const float scale)
 {
     x *= scale;
     y *= scale;
-}
-
-void Vec2D::scale(const Vec2D &v)
-{
-    // TODO
 }
 
 Vec2D Vec2D::rotate(const float angle) const
@@ -39,43 +36,70 @@ float Vec2D::magnitudeSquared() const
     return m * m;
 }
 
-// @return Angle in degrees
 float Vec2D::angle() const
 {
     return atan2(y, x) * 180.0 / PI;
 }
 
-Vec2D Vec2D::normalize()
+Vec2D Vec2D::fromModuleAngle(float module, float angle)
 {
-    // TODO
-    return Vec2D();
+    // convert
+    float a = angle * PI /180;
+    return Vec2D(module * cos(a), module * sin(a));
+}
+
+Vec2D &Vec2D::normalize()
+{
+    if(x!=0 && y!=0)
+    {
+        float m = magnitude();
+        x = x / m;
+        y = y / m;
+    }
+
+    return *this;
 }
 
 Vec2D Vec2D::unitVector() const
-{
-    // TODO 
-    return Vec2D();
+{ 
+    if(x==0 && y==0)
+    {
+        return Vec2D(0.0, 0.0);
+    }
+
+    float m = magnitude();
+    return Vec2D(x/m, y/m);
 }
 
-Vec2D Vec2D::normal() const
+Vec2D Vec2D::normalClockwise() const
 {
-    // TODO
-    return Vec2D();
+    return Vec2D(y, -x);
+}
+
+Vec2D Vec2D::normalCounterclockwise() const
+{
+    return Vec2D(-y, x);
 }
 
 float Vec2D::dotProduct(const Vec2D &v) const
-{
-    // TODO
-    return 0.0f;
+{   
+    return x*v.x + y*v.y;
 }
 
 float Vec2D::crossProduct(const Vec2D &v) const
 {
-    // TODO
-    return 0.0f;
+    return x * v.y - y * v.x;
 }
 
-Vec2D& Vec2D::operator=(const Vec2D &v)
+Vec2D Vec2D::lerp(Vec2D &a, Vec2D &b, float t)
+{
+    float x = (1 - t) * a.x + t * b.x;
+    float y = (1 - t) * a.y + t * b.y;
+
+    return Vec2D(x, y);
+}
+
+Vec2D &Vec2D::operator=(const Vec2D &v)
 {
     x = v.x;
     y = v.y;
