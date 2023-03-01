@@ -19,9 +19,15 @@ struct LogEntry
 class Log {
     public:
         static std::vector<LogEntry> messages;
-        static void Info(const std::string& message);
-        static void Error(const std::string& message);
-        static void Warning(const std::string& message);
+        
+        //It shows a message in green
+        static void Info(const std::string& message); 
+
+        // It shows a message in red
+        static void Error(const std::string& message); 
+
+        // It shows a message in yellow
+        static void Warning(const std::string& message); 
 };
 
 #endif
