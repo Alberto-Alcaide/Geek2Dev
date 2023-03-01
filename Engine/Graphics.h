@@ -15,21 +15,21 @@ class Graphics
 private:
     static int windowWidth_;
     static int windowHeight_;
-    static uint32_t* colorBuffer_; // Array of pixels (uint32_t) that represent the colors of our screen
+    static uint32_t* colorBuffer_; // Array of pixels(uint32_t) that represent the colors of our screen
     static SDL_Window* window_;
     static SDL_Renderer* renderer_;
 
 
 public:
-    static bool openWindow(int width, int height);
+    static bool createWindow(int width, int height);
     static void closeWindow();
 
     /**
-     * Cleans up screen with the given color. Black is default if not color is given.
+     * Cleans up screen with the given color. Black is default if no color is given.
      * 
      * @param c The color to clean up the screen with.
      */
-    static void cleaUpScreen(Color c = Color::black());
+    static void cleanUpScreen(Color c = Color::black());
     static void renderFrame();
 
     static void drawGrid(void);

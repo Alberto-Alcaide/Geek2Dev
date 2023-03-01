@@ -2,12 +2,12 @@
 
 void renderFrame();
 
-bool Graphics::openWindow(int width, int height)
+bool Graphics::createWindow(int width, int height)
 {
     windowWidth_ = width;
     windowHeight_ = height;
 
-    // Compute screen resolution and allocate memory
+    // Compute screen resolution and allocate corresponding memory
     int resolution = windowWidth_ * windowHeight_;
     colorBuffer_ = (uint32_t*) malloc(sizeof(uint32_t) * resolution);
 
@@ -43,7 +43,7 @@ void Graphics::closeWindow()
     Log::Info("Graphics destroyed");
 }
 
-void Graphics::cleaUpScreen(Color c = Color::black())
+void Graphics::cleanUpScreen(Color c = Color::black())
 {
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer_, c.r, c.g, c.b, c.a);
@@ -52,7 +52,8 @@ void Graphics::cleaUpScreen(Color c = Color::black())
 
 void Graphics::renderFrame()
 {
-    /* que es color_buffer_texture ? un uint32_t con el color del pixel actual? 
+    /*
+    // que representa color_buffer_texture ?
     SDL_UpdateTexture(
         colorBufferTexture, 
         NULL, 
@@ -61,10 +62,10 @@ void Graphics::renderFrame()
     );
 
     // copy  portion of the colorBufferTexture to the rendering target.
-    SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);
+    SDL_RenderCopy(renderer_, colorBufferTexture, NULL, NULL);
 
     //Clear colorBuffer
-    memset(colorBuffer, 0, windowWidth_ * windowHeight_ * sizeof(uint32_t));
+    memset(colorBuffer_, 0, windowWidth_ * windowHeight_ * sizeof(uint32_t));
 
     // Swap video buffer
     SDL_RenderPresent(renderer_);
@@ -78,6 +79,7 @@ void Graphics::drawGrid(void)
 
 void Graphics::drawPixel(int x, int y, Color color)
 {
+    // Check if trying to draw inside screen boundaries
     if (x >= 0 && x < windowWidth_ && y >= 0 && y < windowHeight_)
     {
         colorBuffer_[(windowWidth_ * y) + x] = color.getColorRGB32();
@@ -118,6 +120,7 @@ void Graphics::drawCircle(int x0, int y0, int radius, Color color)
 
     while(x>=y)
     {
+        // Each of the following renders an octant of the circle
         drawPixel(x0 + x, y0 + y, color);
         drawPixel(x0 + y, y0 + x, color);
         drawPixel(x0 - y, y0 + y, color);
@@ -155,6 +158,7 @@ void Graphics::drawFillCircle(int x0, int y0, int radius, Color color)
 
     while(x>=y) 
     { 
+        // Each of the following renders an octant of the circle
         drawLine(x0 + x, y0 - y, x0 + x, y0 + y, color);
         drawLine(x0 - x, y0 - y, x0 - x, y0 + y, color);
         drawLine(x0 + y, y0 - x, x0 + y, y0 + x, color);
