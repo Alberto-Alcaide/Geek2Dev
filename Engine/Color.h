@@ -25,7 +25,7 @@ struct Color
     Color darkened(float p); //This makes RGB - p, so R-p, G-p, B-p -
     Color lightened(float p); //This makes RGB + p, so R+p, G+p, B+p
 
-    //Color red: (255,0,0,1)
+    //Color red: (255,0,0)
     static Color red(); 
     //Color green: (0,255,0)
     static Color green();
