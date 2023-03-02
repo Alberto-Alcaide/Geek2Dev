@@ -48,14 +48,20 @@ void Engine2D::checkInput()
     {
         switch (event.type) 
         {
+
             case SDL_QUIT:
                 isRunning = false;
                 break;
 
             case SDL_MOUSEMOTION:
+<<<<<<< Updated upstream
+=======
+            {
+>>>>>>> Stashed changes
                 int x = event.motion.x;
                 int y = event.motion.y;
                 mouse->updatePosition(x, y);
+            }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:

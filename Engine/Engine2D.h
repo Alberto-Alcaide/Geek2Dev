@@ -32,4 +32,10 @@ public:
     double getDeltaTime();
     int getTotalTimeInMilliSeconds();
     double getTotalTimeInSeconds();
+<<<<<<< Updated upstream
+=======
+
+    // EnTT (ECS)
+    entt::registry world;
+>>>>>>> Stashed changes
 };
