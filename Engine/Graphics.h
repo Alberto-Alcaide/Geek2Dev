@@ -29,7 +29,7 @@ public:
      * 
      * @param c The color to clean up the screen with.
      */
-    static void cleanUpScreen(Color c = Color::black());
+    static void cleanUpScreen(Color c);
     static void renderFrame();
 
     static void drawGrid(void);

@@ -43,8 +43,9 @@ void Graphics::closeWindow()
     Log::Info("Graphics destroyed");
 }
 
-void Graphics::cleanUpScreen(Color c = Color::black())
+void Graphics::cleanUpScreen(Color c)
 {
+    c = Color::black();
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer_, c.r, c.g, c.b, c.a);
     SDL_RenderClear(renderer_);
@@ -91,13 +92,13 @@ void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
     int delta_x=(x1-x0);
     int delta_y=(y1-y0);
     int longest_side_lenght=(abs(delta_x)>=abs(delta_y)) ? abs(delta_x) : abs(delta_y);
-    float x_inc=delta_x / (float)longest_side_lenght;
-    float y_inc=delta_y / (float)longest_side_lenght;
-    float current_x=x0;
-    float current_y=y0;
+    int x_inc=static_cast<int>(delta_x / (float)longest_side_lenght);
+    int y_inc=static_cast<int>(delta_y / (float)longest_side_lenght);
+    int current_x=static_cast<int>(x0);
+    int current_y=static_cast<int>(y0);
     for(int i=0; i<= longest_side_lenght; i++)
     {
-        drawPixel(round(current_x), round(current_y), color);
+        drawPixel(current_x, current_y, color);
         current_x += x_inc;
         current_y += y_inc;
     }
