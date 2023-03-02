@@ -3,8 +3,10 @@
 
 Color::Color(){}
 
+// Create Color (Red=r, Green=g, Blue=b, Alpha=1)
 Color::Color(int r, int g, int b): r(r), g(g), b(b), a(1) {}
 
+// Create Color (Red=r, Green=g, Blue=b, Alpha=a)
 Color::Color(int r, int g, int b, int a): r(r), g(g), b(b), a(a){}
 
 Color::Color(uint32_t color)
@@ -29,48 +31,56 @@ uint32_t Color::getColorRGB32()
 
 Color Color::darkened(float p)
 {
-    return Color(r-p,g-p,b-p); //Que pasa si es 0?
+    // (Red, Green, Blue)
+    //To darken the color we need to decrease the number of the RGBs color
+    return Color(r-p,g-p,b-p); 
 }
 
 Color Color::lightened(float p)
 {
-    return Color(r+p,g+p,b+p); //Que pasa si es 255?
+    // (Red, Green, Blue)
+    //To lighten the color we need to increase the number of the RGBs color
+    return Color(r+p,g+p,b+p); 
 }
 
 Color Color::red()
 {
+    // (Red, Green, Blue)
     return Color(255,0,0);
 }
 
 Color Color::green()
 {
+    // (Red, Green, Blue)
     return Color(0,255,0);
 }
 
 Color Color::blue()
 {
+    // (Red, Green, Blue)
     return Color(0,0,255);
 }
 
 Color Color::yellow()
 {
+    // (Red, Green, Blue)
     return Color(255,255,0);
 }
 
 Color Color::white()
 {
+    // (Red, Green, Blue)
     return Color(255,255,255);
 }
 
 Color Color::black()
 {
+    // (Red, Green, Blue)
     return Color(0,0,0);
 }
 
 std::ostream& operator <<(std::ostream& os, const Color& c)
 {
-    //Como expresarlo?? 0xFF es siempre al inicio o se pone para separar azul, verde, rojo, etc.
-    
     
     os << "Red: " << c.r << ", Green: "<< c.g << ", Blue: " << c.b << ", Alpha: "<< c.a;;
     return os;
