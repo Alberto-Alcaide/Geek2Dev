@@ -76,7 +76,11 @@ void Graphics::renderFrame()
     // Swap video buffer
     SDL_RenderPresent(renderer_);
     */
+    cleanUpScreen();
+    SDL_RenderPresent(renderer_);
 }
+
+
 /*  De momento no es necesaria, posible implementación futura.
 void Graphics::drawGrid(void)
 {
