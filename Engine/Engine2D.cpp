@@ -25,9 +25,14 @@ Engine2D::~Engine2D()
     Graphics::closeWindow();
 }
 
+Vec2D Engine2D::GetMouse()
+{
+    return mouse->position;
+}
+
 bool Engine2D::nextFrame()
 {
-    Graphics::cleanUpScreen();
+    Graphics::cleanUpScreen(Color::black());
     dt = (SDL_GetTicks() - last_frame_time) / 1000.0;
     last_frame_time = SDL_GetTicks();
 
@@ -43,9 +48,10 @@ void Engine2D::checkInput()
 {
     
     SDL_Event event;
-
+    int x, y;
     while (SDL_PollEvent(&event)) 
     {
+        
         switch (event.type) 
         {
             case SDL_QUIT:
@@ -53,13 +59,13 @@ void Engine2D::checkInput()
                 break;
 
             case SDL_MOUSEMOTION:
-                int x = event.motion.x;
-                int y = event.motion.y;
+                x = event.motion.x;
+                y = event.motion.y;
                 mouse->updatePosition(x, y);
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
-                int x, y;
+                
                 SDL_GetMouseState(&x, &y);
                 mouse->updatePosition(x, y);
 
