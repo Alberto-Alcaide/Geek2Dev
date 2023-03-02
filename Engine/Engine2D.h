@@ -5,6 +5,7 @@
 #include "Color.h"
 #include "Graphics.h"
 #include "Vec2D.h"
+#include "entt/entt.hpp"
 
 class Engine2D
 {
@@ -32,4 +33,7 @@ public:
     double getDeltaTime();
     int getTotalTimeInMilliSeconds();
     double getTotalTimeInSeconds();
+
+    // EnTT (ECS)
+    entt::registry world;
 };
