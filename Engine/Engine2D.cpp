@@ -25,11 +25,6 @@ Engine2D::~Engine2D()
     Graphics::closeWindow();
 }
 
-Vec2D Engine2D::GetMouse()
-{
-    return mouse->position;
-}
-
 bool Engine2D::nextFrame()
 {
     Graphics::cleanUpScreen();
