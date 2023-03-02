@@ -49,20 +49,8 @@ void Graphics::closeWindow()
     Log::Info("Graphics destroyed");
 }
 
-<<<<<<< Updated upstream
-void Graphics::cleanUpScreen(Color c)
-{
-    c = Color::black();
-=======
-<<<<<<< Updated upstream
-void Graphics::cleanUpScreen(Color c = Color::black())
-{
-=======
 void Graphics::cleanUpScreen(/*Color c=Color::black()*/)
 {
-    
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 1);
     SDL_RenderClear(renderer_);
