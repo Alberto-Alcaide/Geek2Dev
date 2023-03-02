@@ -26,11 +26,10 @@ int main(int argc, char *args[])
         engine.update();
 
         // Code of the game
-        double dt=engine.getDeltaTime();
         Vec2D direction = player.position-enemy.position;
 
         // We normalize de vector in order to make the velocity const
-        enemy.position += direction.normalize() * dt; 
+        enemy.position += direction.normalize() * engine.getDeltaTime(); 
 
         player.position = engine.mouse->position;
 
