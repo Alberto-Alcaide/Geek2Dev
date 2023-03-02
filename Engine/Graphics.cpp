@@ -77,12 +77,12 @@ void Graphics::renderFrame()
     SDL_RenderPresent(renderer_);
     */
 }
-
+/*  De momento no es necesaria, posible implementación futura.
 void Graphics::drawGrid(void)
 {
-
+    
 }
-
+*/
 void Graphics::drawPixel(int x, int y, Color color)
 {
     // Check if trying to draw inside screen boundaries
@@ -94,13 +94,18 @@ void Graphics::drawPixel(int x, int y, Color color)
 
 void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
 {
+
     int delta_x=(x1-x0);
     int delta_y=(y1-y0);
+
     int longest_side_lenght=(abs(delta_x)>=abs(delta_y)) ? abs(delta_x) : abs(delta_y);
+
     int x_inc=static_cast<int>(delta_x / (float)longest_side_lenght);
     int y_inc=static_cast<int>(delta_y / (float)longest_side_lenght);
+
     int current_x=static_cast<int>(x0);
     int current_y=static_cast<int>(y0);
+
     for(int i=0; i<= longest_side_lenght; i++)
     {
         drawPixel(current_x, current_y, color);

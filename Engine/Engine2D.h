@@ -23,10 +23,6 @@ public:
     Mouse* mouse;
     Keyboard* keyboard;
 
-    // Get Inputs
-    Vec2D GetMouse();
-    /*int GetKey();*/
-
     // Game loop
     bool nextFrame();
     void update();
