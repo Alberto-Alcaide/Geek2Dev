@@ -1,5 +1,11 @@
 #include "Graphics.h"
 
+SDL_Window* Graphics::window_=NULL;
+SDL_Renderer* Graphics::renderer_=NULL;
+int Graphics::windowWidth_, Graphics::windowHeight_=0;
+uint32_t* Graphics::colorBuffer_=NULL;
+
+
 void renderFrame();
 
 bool Graphics::createWindow(int width, int height)
@@ -31,7 +37,7 @@ bool Graphics::createWindow(int width, int height)
     {
         Log::Error("Failed to create SDL renderer");
     }
-
+    Log::Info("Windows opened!");
     return true;
 }
 
@@ -43,11 +49,22 @@ void Graphics::closeWindow()
     Log::Info("Graphics destroyed");
 }
 
+<<<<<<< Updated upstream
 void Graphics::cleanUpScreen(Color c)
 {
     c = Color::black();
+=======
+<<<<<<< Updated upstream
+void Graphics::cleanUpScreen(Color c = Color::black())
+{
+=======
+void Graphics::cleanUpScreen(/*Color c=Color::black()*/)
+{
+    
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
-    SDL_SetRenderDrawColor(renderer_, c.r, c.g, c.b, c.a);
+    SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 1);
     SDL_RenderClear(renderer_);
 }
 

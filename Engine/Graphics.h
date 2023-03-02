@@ -29,7 +29,15 @@ public:
      * 
      * @param c The color to clean up the screen with.
      */
+<<<<<<< Updated upstream
     static void cleanUpScreen(Color c);
+=======
+<<<<<<< Updated upstream
+    static void cleanUpScreen(Color c = Color::black());
+=======
+    static void cleanUpScreen(/*Color c=Color::black()*/);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     static void renderFrame();
 
     static void drawGrid(void);

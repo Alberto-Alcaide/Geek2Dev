@@ -28,11 +28,23 @@ int main(int argc, char *args[])
         // Code of the game
         double dt=engine.getDeltaTime();
         Vec2D direction = player.position-enemy.position;
+<<<<<<< Updated upstream
         enemy.position += direction * dt;
         player.position = engine.GetMouse();
         // int x, int y, int radius, Color color
         Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
         Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
+=======
+
+        // We normalize de vector in order to make the velocity const
+        enemy.position += direction.normalize() * dt; 
+
+        player.position = engine.mouse->position;
+
+        // int x, int y, int radius, Color color
+        Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
+        Graphics::drawFillCircle(enemy.position.x, enemy.position.y,enemy.radius,enemy.color);
+>>>>>>> Stashed changes
 
         engine.render();
         
