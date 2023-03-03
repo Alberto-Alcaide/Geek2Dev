@@ -128,9 +128,37 @@ void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
     }
 }
 
-void drawRect(int x, int y, int width, int height, Color color);
+void Graphics::drawRect(int x, int y, int width, int height, Color color)
+{
+    int x2 = x + width - 1; // Get the position of the second vertex on the X axis
+    int y2 = y + height -1; // Get the position o fthe second vertex on the Y axis
 
-void drawFillRect(int x, int y, int width, int height, Color color);
+    drawLine(x,y,x2,y,color); // Top of Rectangle
+    drawLine(x,y2,x2,y2,color); // Bottom of Rectangle
+    drawLine(x,y,x,y2,color); // Left of Rectangle
+    drawLine(x2,y,x2,y2,color); // Right of Rectangle
+
+}
+
+void Graphics::drawFillRect(int x, int y, int width, int height, Color color)
+{
+    int x2 = x + width - 1; // Get the position of the second vertex on the X axis
+    int y2 = y + height -1; // Get the position o fthe second vertex on the Y axis
+    int aux=y;
+
+    drawLine(x,y,x2,y,color); // Top of Rectangle
+    drawLine(x,y2,x2,y2,color); // Bottom of Rectangle
+    drawLine(x,y,x,y2,color); // Left of Rectangle
+    drawLine(x2,y,x2,y2,color); // Right of Rectangle
+
+    // Fill the rectangle with color
+    for (int y = aux + 1; y < y2; y++)
+    {
+        drawLine(x + 1, y, x2 - 1, y, color);
+        aux=y;
+    }
+
+}
 
 void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
 
