@@ -1,4 +1,4 @@
-OBJS = chase_test.cpp
+OBJS = hide_test.cpp
 OBJ_NAME = test.exe
 CPP = g++
 ENGINE_SOURCE_FILES = ./../../Engine/*.cpp

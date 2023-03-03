@@ -1,12 +1,13 @@
 #include "Engine2D.h"
-
+#include <cmath>
+#include <string>
 
 struct object{
     Vec2D position;
     int radius;
     Color color;
 } player, enemy;
-
+#define PI 3.14159265358979323846
 int main(int argc, char *args[])
 {
     // Initialize game engine
@@ -14,13 +15,14 @@ int main(int argc, char *args[])
     
 
     // Entities initialization
-    player.radius = 5;
+    player.radius = 10;
     player.position = Vec2D(10,10);
     player.color = Color::blue();
-    enemy.radius = 5;
-    enemy.position = Vec2D(400, 400);
+    enemy.radius = 10;
+    enemy.position = Vec2D(400, 200);
     enemy.color = Color::red();
-    Vec2D fov_enemy = player.position-enemy.position;
+    Vec2D dirfov_enemy = player.position-enemy.position;
+    float fov_enemy=PI;
 
     while (engine.nextFrame())
     {
@@ -30,12 +32,18 @@ int main(int argc, char *args[])
         Vec2D direction = player.position-enemy.position;
 
 
-        // we need to chose if the enemy is gonna move or not, that depends of the dot product of the fov_enemy and direction
-        
+        // we need to chose if the enemy is gonna move or not, that depends of the dot product of the dirfov_enemy and direction
+        if(abs(dirfov_enemy.normalize().dotProduct(direction.normalize())) > cos(fov_enemy/2)){
+            // We normalize de vector in order to make the velocity const
+            Log::Info("te veo");
+            enemy.position += direction.normalize() * engine.getDeltaTime(); 
+        }else{
+            Log::Error("no te veo");
+        }
+        float info = dirfov_enemy.dotProduct(direction);
+        Log::Info(std::to_string(info));
+        Log::Info(std::to_string(cos(fov_enemy/2)));
 
-
-        // We normalize de vector in order to make the velocity const
-        enemy.position += direction.normalize() * engine.getDeltaTime(); 
 
         player.position = engine.mouse->position;
 
