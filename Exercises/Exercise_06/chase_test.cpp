@@ -4,6 +4,8 @@
 struct object{
     Vec2D position;
     int radius;
+    int height;
+    int width;
     Color color;
 } player, enemy;
 
@@ -15,9 +17,13 @@ int main(int argc, char *args[])
 
     // Entities initialization
     player.radius = 5;
+    player.height = 10;
+    player.width = 10;
     player.position = Vec2D(10,10);
     player.color = Color::blue();
     enemy.radius = 5;
+    enemy.height = 10;
+    enemy.width = 10;
     enemy.position = Vec2D(400, 400);
     enemy.color = Color::red();
 
@@ -29,13 +35,17 @@ int main(int argc, char *args[])
         Vec2D direction = player.position-enemy.position;
 
         // We normalize de vector in order to make the velocity const
-        enemy.position += direction.normalize() * engine.getDeltaTime(); 
+        enemy.position += direction.normalize() * engine.getDeltaTime()*2; 
 
         player.position = engine.mouse->position;
 
         // int x, int y, int radius, Color color
-        Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
-        Graphics::drawFillCircle(enemy.position.x, enemy.position.y,enemy.radius,enemy.color);
+        //Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
+        //Graphics::drawFillCircle(enemy.position.x, enemy.position.y,enemy.radius,enemy.color);
+
+        // int x, int y, int width, int height, Color color
+        Graphics::drawFillRect(player.position.x, player.position.y, player.width, player.height, player.color);
+        Graphics::drawFillRect(enemy.position.x, enemy.position.y, enemy.width, enemy.height, enemy.color);
 
         engine.render();
         
