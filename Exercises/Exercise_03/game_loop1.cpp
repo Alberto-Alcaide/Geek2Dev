@@ -57,7 +57,6 @@ void destroy_graphics()
 
 void process_input(bool *game_is_running)
 {
-    
     // Check for input. Right now we are only checking if we close app.
     SDL_PollEvent(&sdl_event);
     switch(sdl_event.type)

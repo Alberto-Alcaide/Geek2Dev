@@ -3,7 +3,7 @@
 SDL_Window* Graphics::window_=NULL;
 SDL_Renderer* Graphics::renderer_=NULL;
 int Graphics::windowWidth_, Graphics::windowHeight_=0;
-uint32_t* Graphics::colorBuffer_=NULL;
+//uint32_t* Graphics::colorBuffer_=NULL;
 
 
 void renderFrame();
@@ -13,9 +13,11 @@ bool Graphics::createWindow(int width, int height)
     windowWidth_ = width;
     windowHeight_ = height;
 
+/*
     // Compute screen resolution and allocate corresponding memory
     int resolution = windowWidth_ * windowHeight_;
     colorBuffer_ = (uint32_t*) malloc(sizeof(uint32_t) * resolution);
+*/
 
     // Initialize all SDL subsystems (timer, audio, video...etc), otherwise Log error
     if(SDL_Init(SDL_INIT_EVERYTHING) !=0)
@@ -51,13 +53,16 @@ void Graphics::closeWindow()
 
 void Graphics::cleanUpScreen(/*Color c=Color::black()*/)
 {
-    SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 1);
     SDL_RenderClear(renderer_);
 }
 
 void Graphics::renderFrame()
 {
+    SDL_RenderPresent(renderer_);
+
+
+    // How we would do it with colorBuffer_
     /*
     // que representa color_buffer_texture ?
     SDL_UpdateTexture(
@@ -76,24 +81,29 @@ void Graphics::renderFrame()
     // Swap video buffer
     SDL_RenderPresent(renderer_);
     */
-    cleanUpScreen();
-    SDL_RenderPresent(renderer_);
+    
 }
 
 
-/*  De momento no es necesaria, posible implementación futura.
+// De momento no es necesaria, posible implementación futura.
 void Graphics::drawGrid(void)
 {
     
 }
-*/
+
 void Graphics::drawPixel(int x, int y, Color color)
 {
+
+    SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
+    SDL_RenderDrawPoint(renderer_, x, y);
+
+    /*
     // Check if trying to draw inside screen boundaries
     if (x >= 0 && x < windowWidth_ && y >= 0 && y < windowHeight_)
     {
         colorBuffer_[(windowWidth_ * y) + x] = color.getColorRGB32();
     }
+    */
 }
 
 void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
