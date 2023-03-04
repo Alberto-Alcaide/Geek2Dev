@@ -21,8 +21,8 @@ int main(int argc, char *args[])
     enemy.radius = 10;
     enemy.position = Vec2D(400, 200);
     enemy.color = Color::red();
-    Vec2D dirfov_enemy = player.position-enemy.position;
-    float fov_enemy=PI;
+    Vec2D dirfov_enemy = Vec2D(1,0);
+    float fov_enemy=2*PI/3;
 
     while (engine.nextFrame())
     {
@@ -31,19 +31,15 @@ int main(int argc, char *args[])
         // Code of the game
         Vec2D direction = player.position-enemy.position;
 
-
         // we need to chose if the enemy is gonna move or not, that depends of the dot product of the dirfov_enemy and direction
-        if(abs(dirfov_enemy.normalize().dotProduct(direction.normalize())) > cos(fov_enemy/2)){
+        if(dirfov_enemy.normalize().dotProduct(direction.normalize()) > cos(fov_enemy/2)){
             // We normalize de vector in order to make the velocity const
             Log::Info("te veo");
             enemy.position += direction.normalize() * engine.getDeltaTime(); 
         }else{
             Log::Error("no te veo");
         }
-        float info = dirfov_enemy.dotProduct(direction);
-        Log::Info(std::to_string(info));
-        Log::Info(std::to_string(cos(fov_enemy/2)));
-
+        float info = dirfov_enemy.normalize().dotProduct(direction.normalize());
 
         player.position = engine.mouse->position;
 
