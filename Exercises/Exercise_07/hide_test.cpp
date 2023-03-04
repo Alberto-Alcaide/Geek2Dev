@@ -21,8 +21,8 @@ int main(int argc, char *args[])
     enemy.radius = 10;
     enemy.position = Vec2D(400, 200);
     enemy.color = Color::red();
-    Vec2D dirfov_enemy = Vec2D(1,0);
-    float fov_enemy=2*PI/3;
+    Vec2D dirfov_enemy = Vec2D(1,0);//the direction of the eyes
+    float fov_enemy=2*PI/3;//this is the angle from dirfov_enemy that he can see
 
     while (engine.nextFrame())
     {
@@ -39,7 +39,6 @@ int main(int argc, char *args[])
         }else{
             Log::Error("no te veo");
         }
-        float info = dirfov_enemy.normalize().dotProduct(direction.normalize());
 
         player.position = engine.mouse->position;
 
