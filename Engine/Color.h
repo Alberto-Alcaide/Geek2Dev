@@ -22,8 +22,9 @@ struct Color
     //Functions
     uint32_t getColorRGB32();
 
-    Color darkened(float p); //This makes RGB - p, so R-p, G-p, B-p -
+    Color darkened(float p); //This makes RGB - p, so R-p, G-p, B-p
     Color lightened(float p); //This makes RGB + p, so R+p, G+p, B+p
+    static Color Lerp(Color color_1, Color color_2, float t); // Makes a gradient of color that goes from color_1 to color_2 depending on the number of objects
 
     //Color red: (255,0,0)
     static Color red(); 
