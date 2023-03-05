@@ -16,7 +16,7 @@ int main(int argc, char *args[])
     
 
     // Entities initialization
-    Vec2D player_speed(10,10);
+    Vec2D player_speed(50,50);
     player.height = 10;
     player.width = 10;
     player.position = Vec2D(10,10);
@@ -38,10 +38,10 @@ int main(int argc, char *args[])
         // we need to chose if the enemy is gonna move or not, that depends of the dot product of the dirfov_enemy and direction
         if(dirfov_enemy.normalize().dotProduct(direction.normalize()) > cos(fov_enemy/2)){
             // We normalize de vector in order to make the velocity const
-            Log::Info("te veo");
+            Log::Info("i see you");
             enemy.position += player_speed*direction.normalize() * engine.getDeltaTime(); 
         }else{
-            Log::Warning("no te veo");
+            Log::Warning("i dont see you");
         }
 
         player.position = engine.mouse->position;

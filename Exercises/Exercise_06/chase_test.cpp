@@ -16,6 +16,7 @@ int main(int argc, char *args[])
     
 
     // Entities initialization
+    Vec2D player_speed(50,50);
     player.radius = 5;
     player.height = 10;
     player.width = 10;
@@ -35,7 +36,7 @@ int main(int argc, char *args[])
         Vec2D direction = player.position-enemy.position;
 
         // We normalize de vector in order to make the velocity const
-        enemy.position += direction.normalize() * engine.getDeltaTime()*2; 
+        enemy.position += player_speed*direction.normalize() * engine.getDeltaTime(); 
 
         player.position = engine.mouse->position;
 
