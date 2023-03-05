@@ -16,6 +16,7 @@ int main(int argc, char *args[])
     
 
     // Entities initialization
+    Vec2D player_speed(10,10);
     player.height = 10;
     player.width = 10;
     player.position = Vec2D(10,10);
@@ -38,9 +39,9 @@ int main(int argc, char *args[])
         if(dirfov_enemy.normalize().dotProduct(direction.normalize()) > cos(fov_enemy/2)){
             // We normalize de vector in order to make the velocity const
             Log::Info("te veo");
-            enemy.position += Vec2D(10,10)*direction.normalize() * engine.getDeltaTime(); 
+            enemy.position += player_speed*direction.normalize() * engine.getDeltaTime(); 
         }else{
-            Log::Error("no te veo");
+            Log::Warning("no te veo");
         }
 
         player.position = engine.mouse->position;
