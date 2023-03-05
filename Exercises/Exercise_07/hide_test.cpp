@@ -4,7 +4,8 @@
 
 struct object{
     Vec2D position;
-    int radius;
+    int height;
+    int width;
     Color color;
 } player, enemy;
 #define PI 3.14159265358979323846
@@ -15,10 +16,12 @@ int main(int argc, char *args[])
     
 
     // Entities initialization
-    player.radius = 10;
+    player.height = 10;
+    player.width = 10;
     player.position = Vec2D(10,10);
     player.color = Color::blue();
-    enemy.radius = 10;
+    enemy.height = 10;
+    enemy.width = 10;
     enemy.position = Vec2D(400, 200);
     enemy.color = Color::red();
     Vec2D dirfov_enemy = Vec2D(1,0);//the direction of the eyes
@@ -35,7 +38,7 @@ int main(int argc, char *args[])
         if(dirfov_enemy.normalize().dotProduct(direction.normalize()) > cos(fov_enemy/2)){
             // We normalize de vector in order to make the velocity const
             Log::Info("te veo");
-            enemy.position += direction.normalize() * engine.getDeltaTime(); 
+            enemy.position += Vec2D(10,10)*direction.normalize() * engine.getDeltaTime(); 
         }else{
             Log::Error("no te veo");
         }
@@ -43,8 +46,8 @@ int main(int argc, char *args[])
         player.position = engine.mouse->position;
 
         // int x, int y, int radius, Color color
-        Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
-        Graphics::drawFillCircle(enemy.position.x, enemy.position.y,enemy.radius,enemy.color);
+        Graphics::drawFillRect(player.position.x, player.position.y, player.width, player.height, player.color);
+        Graphics::drawRect(enemy.position.x, enemy.position.y, enemy.width, enemy.height, enemy.color);
 
         engine.render();
         
