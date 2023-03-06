@@ -1,5 +1,5 @@
-#ifndef VEC2_H
-#define VEC2_H
+#ifndef VEC2D_H
+#define VEC2D_H
 
 #include <iostream>
 
