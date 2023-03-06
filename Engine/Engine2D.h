@@ -38,4 +38,7 @@ public:
 
     // EnTT (ECS)
     entt::registry world;
+
+    //sistems
+    KinematicSystem kinematicsystem;
 };
