@@ -18,7 +18,7 @@ int main(int argc, char *args[])
         const auto transform = engine.world.get<TransformComponent>(ball);
         Graphics::drawFillCircle(transform.position.x, transform.position.y, radius, Color::blue());
 
-        engine.render()
+        engine.render();
     }
 
 
