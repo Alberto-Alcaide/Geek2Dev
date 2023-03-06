@@ -44,6 +44,14 @@ int main(int argc, char *args[])
         //Graphics::drawFillCircle(player.position.x, player.position.y,player.radius,player.color);
         //Graphics::drawFillCircle(enemy.position.x, enemy.position.y,enemy.radius,enemy.color);
 
+        //Player position
+        Log::Info("Ball position: ("
+                + std::to_string(player.position.x)
+                + ", "
+                + std::to_string(player.position.y)
+                + ")"
+        );
+
         // int x, int y, int width, int height, Color color
         Graphics::drawFillRect(player.position.x, player.position.y, player.width, player.height, player.color);
         Graphics::drawFillRect(enemy.position.x, enemy.position.y, enemy.width, enemy.height, enemy.color);
