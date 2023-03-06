@@ -11,9 +11,9 @@ int main(int argc, char *args[])
     // Entities initialization
 
     const auto ball = engine.world.create();
-    engine.world.emplace<Transform>(ball, Vec2D(100,100));
+    engine.world.emplace<TransformComponent>(ball, Vec2D(100,100));
     const auto ball2 = engine.world.create();
-    engine.world.emplace<Transform>(ball2, Vec2D(200,100));
+    engine.world.emplace<TransformComponent>(ball2, Vec2D(200,100));
     int radius=10;
 
 
@@ -22,10 +22,10 @@ int main(int argc, char *args[])
         engine.update();
 
         // Code of the game
-        auto view = engine.world.view<Transform>();
+        auto view = engine.world.view<TransformComponent>();
         for (auto entity: view)
         {
-            auto& transform = view.get<Transform>(entity);
+            auto& transform = view.get<TransformComponent>(entity);
 
             //Ball 1 and 2 positions
             Log::Info("Ball position: ("
