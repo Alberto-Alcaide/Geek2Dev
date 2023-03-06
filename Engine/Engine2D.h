@@ -6,7 +6,8 @@
 #include "Graphics.h"
 #include "Vec2D.h"
 #include "entt/entt.hpp"
-#include "Transform.h"
+#include "TransformComponent.h"
+#include "KinematicSystem.h" 
 
 class Engine2D
 {
