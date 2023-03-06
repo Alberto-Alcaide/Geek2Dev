@@ -1,4 +1,4 @@
-OBJS = color_test.cpp 
+OBJS = 04.cpp 
 OBJ_NAME = test.exe
 CPP = g++
 ENGINE_SOURCE_FILES = ./../../Engine/*.cpp
