@@ -2,7 +2,7 @@ OBJS = main.cpp
 OBJ_NAME = test.exe
 CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -IC:\mingw_dev_lib\bin
-LIBRARY_PATHS = -IC:\mingw_dev_lib\lib
+LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
 COMPILER_FLAGS = -std=c++17 -Wall
 LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2
 
