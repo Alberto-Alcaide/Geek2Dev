@@ -10,7 +10,7 @@ struct object{
     Color color;
 } player, enemy;
 
-int main()
+int main(int argc, char *args[])
 {
 
     // Initialize game engine
