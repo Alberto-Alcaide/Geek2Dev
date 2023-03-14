@@ -8,7 +8,7 @@ struct KinematicComponent
     Vec2D velocity;
     Vec2D acceleration;
 
-    KinematicComponent() 
+    KinematicComponent(Vec2D velocity = Vec2D(0,0), Vec2D acceleration = Vec2D(0,0)) 
     {
         this->velocity = velocity;
         this->acceleration = acceleration;
