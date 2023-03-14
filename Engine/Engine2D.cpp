@@ -5,22 +5,22 @@ Engine2D::Engine2D(int width, int height)
     Log::Info("Turning on Engine2D");
 
     // Setting core variables
-    mouse = new Mouse();
-    keyboard = new Keyboard();
+    mouse_ = new Mouse();
+    keyboard_ = new Keyboard();
 
     // Graphics initialization
     if(Graphics::createWindow(width, height))
         Log::Info("Graphics initialized");
     
-    isRunning = true;
+    isRunning_ = true;
 }
 
 Engine2D::~Engine2D()
 {
     Log::Info("Turning off Engine2D");
 
-    delete mouse;
-    delete keyboard;
+    delete mouse_;
+    delete keyboard_;
 
     Graphics::closeWindow();
 }
@@ -28,17 +28,18 @@ Engine2D::~Engine2D()
 bool Engine2D::nextFrame()
 {
     Graphics::cleanUpScreen();
-    dt = (SDL_GetTicks() - last_frame_time) / 1000.0;
-    last_frame_time = SDL_GetTicks();
+    dt_ = (SDL_GetTicks() - lastFrameTime_) / 1000.0;
+    lastFrameTime_ = SDL_GetTicks();
 
-    return isRunning;
+    return isRunning_;
 }
 
 void Engine2D::update()
 {
     checkInput();
+
     //ask all systems to update
-    kinematicsystem.Update(dt,world);
+    kinematicSystem_.Update(dt_, world_);
 }
 
 void Engine2D::checkInput()
@@ -53,7 +54,7 @@ void Engine2D::checkInput()
         {
 
             case SDL_QUIT:
-                isRunning = false;
+                isRunning_ = false;
                 break;
 
             case SDL_MOUSEMOTION:
@@ -62,50 +63,50 @@ void Engine2D::checkInput()
                 int x = event.motion.x;
                 int y = event.motion.y;
 
-                mouse->updatePosition(x, y);
+                mouse_->updatePosition(x, y);
             }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
                 int x, y;
                 SDL_GetMouseState(&x, &y);
-                mouse->updatePosition(x, y);
+                mouse_->updatePosition(x, y);
 
                 if(event.button.button == SDL_BUTTON_LEFT)
-                    mouse->leftButtonPressed = true;
+                    mouse_->leftButtonPressed = true;
                 if(event.button.button == SDL_BUTTON_RIGHT)
-                    mouse->rightButtonPressed = true;
+                    mouse_->rightButtonPressed = true;
                 break;
 
             case SDL_MOUSEBUTTONUP:
                 if(event.button.button == SDL_BUTTON_LEFT)
-                    mouse->leftButtonPressed = true;
+                    mouse_->leftButtonPressed = true;
                 if(event.button.button == SDL_BUTTON_RIGHT)
-                    mouse->rightButtonPressed = true;
+                    mouse_->rightButtonPressed = true;
                 break;
 
             case SDL_KEYDOWN:
                 if(event.key.keysym.sym == SDLK_ESCAPE)
-                    isRunning = false;
+                    isRunning_ = false;
                 if(event.key.keysym.sym == SDLK_UP)
-                    keyboard->upKeyPressed = true;
+                    keyboard_->upKeyPressed = true;
                 if(event.key.keysym.sym == SDLK_DOWN)
-                    keyboard->downKeyPressed = true;
+                    keyboard_->downKeyPressed = true;
                 if(event.key.keysym.sym == SDLK_RIGHT)
-                    keyboard->rightKeyPressed = true;
+                    keyboard_->rightKeyPressed = true;
                 if(event.key.keysym.sym == SDLK_LEFT)
-                    keyboard->leftKeyPressed = true;
+                    keyboard_->leftKeyPressed = true;
                 break;
 
             case SDL_KEYUP:
                 if(event.key.keysym.sym == SDLK_UP)
-                    keyboard->upKeyPressed = false;
+                    keyboard_->upKeyPressed = false;
                 if(event.key.keysym.sym == SDLK_DOWN)
-                    keyboard->downKeyPressed = false;
+                    keyboard_->downKeyPressed = false;
                 if(event.key.keysym.sym == SDLK_RIGHT)
-                    keyboard->rightKeyPressed = false;
+                    keyboard_->rightKeyPressed = false;
                 if(event.key.keysym.sym == SDLK_LEFT)
-                    keyboard->leftKeyPressed = false;
+                    keyboard_->leftKeyPressed = false;
                 break;
 
             default:
@@ -121,7 +122,7 @@ void Engine2D::render()
 
 double Engine2D::getDeltaTime()
 {
-    return dt;
+    return dt_;
 }
 
 int Engine2D::getTotalTimeInMilliSeconds()

@@ -12,9 +12,9 @@
 class Engine2D
 {
 private:
-    bool isRunning = 0;
-    double dt = 0;  // seconds
-    int last_frame_time = 0; // miliseconds
+    bool isRunning_ = 0;
+    double dt_ = 0;  // seconds
+    int lastFrameTime_ = 0; // miliseconds
 
 public:
 
@@ -22,8 +22,8 @@ public:
     ~Engine2D();
 
     // Input
-    Mouse* mouse;
-    Keyboard* keyboard;
+    Mouse* mouse_;
+    Keyboard* keyboard_;
 
     // Game loop
     bool nextFrame();
@@ -37,8 +37,8 @@ public:
     double getTotalTimeInSeconds();
 
     // EnTT (ECS)
-    entt::registry world;
+    entt::registry world_;
 
     //sistems
-    KinematicSystem kinematicsystem;
+    KinematicSystem kinematicSystem_;
 };
