@@ -4,20 +4,25 @@ int main(int argc, char *args[])
 {
     Engine2D engine(800,800);
 
-    const auto ball= engine.world_.create();
+    // Creates an object in our world
+    const auto ball = engine.world_.create();
+
+    // Attaches components to an object
     engine.world_.emplace<TransformComponent>(ball, Vec2D(400.0,400.0));
-    engine.world_.emplace<KinematicComponent>(ball, Vec2D(0, -200), Vec2D(0, 100));
+    engine.world_.emplace<KinematicsComponent>(ball, Vec2D(0, -200), Vec2D(0, 100));
+
     int radius=40;
 
     while(engine.nextFrame())
     {
+        // The kinematic system update function will be called in the engine update
         engine.update();
 
-        // Code of example
-        // The kinematic system is updating the positing behind the scenes
+        // Manually introducing the new coordenates in our render.
         const auto transform = engine.world_.get<TransformComponent>(ball);
         Graphics::drawFillCircle(transform.position.x, transform.position.y, radius, Color::blue());
 
+        // Render the buffer
         engine.render();
     }
 
