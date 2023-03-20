@@ -1,0 +1,22 @@
+#include "Force.h"
+
+Vec2D Force::Generate_Drag_Vector(float k, Vec2D velocity){
+    Vec2D dragForce = Vec2D(0,0);
+
+    if(velocity.magnitudeSquared() > 0){
+        Vec2D dragDirection = velocity.unitVector()*-1;
+        float dragMagnitude = k*velocity.magnitudeSquared();
+        dragForce=dragDirection*dragMagnitude;
+    }
+
+    return dragForce;
+}
+
+Vec2D Force::Generate_Spring_Vector(Vec2D position, Vec2D anchor, float restLeng, float k){
+    Vec2D d = position - anchor;
+    float displacement = d.magnitude() - restLeng;
+    Vec2D springDirection = d.unitVector();
+    float springMagnitude = -k*displacement;
+    Vec2D springForce = springDirection * springMagnitude;
+    return springForce;
+}
