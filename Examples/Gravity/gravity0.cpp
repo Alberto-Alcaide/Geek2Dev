@@ -9,7 +9,7 @@ int main(int argc, char *args[])
 
     // Attaches components to an object
     engine.world_.emplace<TransformComponent>(ball, Vec2D(400.0,400.0));
-    engine.world_.emplace<KinematicsComponent>(ball, Vec2D(0, -200), Vec2D(0, 100));
+    engine.world_.emplace<KinematicsComponent>(ball, Vec2D(0, 0), Vec2D(0, 200));
 
     int radius=40;
 
