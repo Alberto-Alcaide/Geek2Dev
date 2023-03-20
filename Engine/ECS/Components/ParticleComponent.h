@@ -12,7 +12,7 @@ struct ParticleComponent
     Color color;
     Vec2D sumForces;
 
-    ParticleComponent(float mass = 1.0, int radius = 1, Color color= Color::White())
+    ParticleComponent(float mass = 1.0, int radius = 1, Color color= Color::white())
     {
         this->mass = mass;
         if (mass != 0.0)
