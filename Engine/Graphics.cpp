@@ -8,6 +8,16 @@ int Graphics::windowWidth_, Graphics::windowHeight_=0;
 
 void renderFrame();
 
+int Graphics::getWindowWidth()
+{
+    return windowWidth_;
+}
+
+int Graphics::getWindowHeight()
+{
+    return windowHeight_;
+}
+
 bool Graphics::createWindow(int width, int height)
 {
     windowWidth_ = width;

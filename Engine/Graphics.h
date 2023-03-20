@@ -21,6 +21,10 @@ private:
 
 
 public:
+
+    static int getWindowWidth();
+    static int getWindowHeight();
+
     static bool createWindow(int width, int height);
     static void closeWindow();
 
