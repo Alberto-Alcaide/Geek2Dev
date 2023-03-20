@@ -9,6 +9,7 @@
 #include "TransformComponent.h"
 #include "KinematicSystem.h"
 #include "ParticleSystem.h"
+#include "Force.h"
 
 class Engine2D
 {
