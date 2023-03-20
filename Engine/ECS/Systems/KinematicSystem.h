@@ -20,9 +20,9 @@ public:
             auto& transform = objectsID_List.get<TransformComponent>(entity);
             auto& kinematic = objectsID_List.get<KinematicsComponent>(entity);
             
-            // Update components
-            kinematic.velocity += kinematic.acceleration * dt; // v = v0 + a * dt (euler)
-            transform.position += kinematic.velocity * dt; // x = x0 + v * dt
+            // Update components using euler method (x(n+1) = x(n) + dx * dt)
+            kinematic.velocity += kinematic.acceleration * dt; 
+            transform.position += kinematic.velocity * dt; 
         }
     }
 };

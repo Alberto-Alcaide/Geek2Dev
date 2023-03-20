@@ -22,9 +22,12 @@ struct Color
     //Functions
     uint32_t getColorRGB32();
 
-    Color darkened(float p); //This makes RGB - p, so R-p, G-p, B-p
-    Color lightened(float p); //This makes RGB + p, so R+p, G+p, B+p
-    static Color Lerp(Color color_1, Color color_2, float t); // Makes a gradient of color that goes from color_1 to color_2 depending on the number of objects
+    // Takes Color attributes and subtract them a constant pRGB - p, so: R-p, G-p, B-p
+    Color darkened(float p); 
+    // RGB + p, so R+p, G+p, B+p
+    Color lightened(float p); 
+    // Linearly interpolates between color1 and color2 based on t (100% of color1 when t=0 and 100% of color 2 when t=1)
+    static Color Lerp(Color color_1, Color color_2, float t); 
 
     //Color red: (255,0,0)
     static Color red(); 
@@ -38,8 +41,6 @@ struct Color
     static Color white(); 
     //Color black: (0,0,0)
     static Color black(); 
-
-    //overload operator
 
     //Shows how the Color struct will show its variables. For Example: Red: 255, Green: 0, Blue: 0, Alpha: 1
     friend std::ostream& operator <<(std::ostream& os, const Color& c); 
