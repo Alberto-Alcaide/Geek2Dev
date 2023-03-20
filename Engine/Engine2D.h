@@ -7,7 +7,8 @@
 #include "Vec2D.h"
 #include "entt/entt.hpp"
 #include "TransformComponent.h"
-#include "KinematicSystem.h" 
+#include "KinematicSystem.h"
+#include "ParticleSystem.h"
 
 class Engine2D
 {
@@ -41,4 +42,5 @@ public:
 
     //sistems
     KinematicSystem kinematicSystem_;
+    ParticleSystem particleSystem_;
 };
