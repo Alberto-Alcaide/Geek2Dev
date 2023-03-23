@@ -40,6 +40,7 @@ void Engine2D::update()
 
     //ask all systems to update
     kinematicSystem_.Update(dt_, world_);
+    particleSystem_.Update(dt_,world_);
 }
 
 void Engine2D::checkInput()

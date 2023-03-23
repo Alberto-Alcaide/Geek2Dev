@@ -18,11 +18,13 @@ int main(int argc, char *args[]){
     auto& k = engine.world_.get<KinematicsComponent>(particle);
     auto& p = engine.world_.get<ParticleComponent>(particle);
 
+    
     while (engine.nextFrame())
     {
         engine.update();
 
         p.AddForce(gravityForce);
+        std::cout<<"sum force: "<<p.getSumForce()<<std::endl;
 
         if (t.position.y >= height/2){
             dragForce = Force::Generate_Drag_Vector(0.1, k.velocity);
@@ -30,9 +32,10 @@ int main(int argc, char *args[]){
             dragForce = Vec2D();
         }
         p.AddForce(dragForce);
-        std::cout << k.velocity << " " << dragForce << std::endl;
+        std::cout << "Velocidad: " << k.velocity << " Drag" << dragForce << std::endl;
         Graphics::drawFillRect(0, height/2, width, height, Color(14,91,158));
         Graphics::drawFillCircle(t.position.x, t.position.y, 20, Color::red());
+        std::cout << k.acceleration << std::endl;
         engine.render();
     }
     
