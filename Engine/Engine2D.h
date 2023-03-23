@@ -10,6 +10,8 @@
 #include "KinematicSystem.h"
 #include "ParticleSystem.h"
 #include "Force.h"
+#include "CircleShape.h"
+#include "Shape.h"
 
 class Engine2D
 {
@@ -41,7 +43,7 @@ public:
     // EnTT (ECS)
     entt::registry world_;
 
-    //sistems
+    // Systems
     KinematicSystem kinematicSystem_;
     ParticleSystem particleSystem_;
 };

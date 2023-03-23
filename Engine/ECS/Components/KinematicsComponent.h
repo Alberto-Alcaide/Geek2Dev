@@ -13,7 +13,7 @@ struct KinematicsComponent
     float angularVelocity;
     float angularAcceleration;
 
-    KinematicsComponent(Vec2D velocity = Vec2D(0,0), Vec2D acceleration = Vec2D(0,0)) 
+    KinematicsComponent(Vec2D velocity = Vec2D(0,0), Vec2D acceleration = Vec2D(0,0), float angularVelocity = 0, float angularAcceleration = 0) 
     {
         this->velocity = velocity;
         this->acceleration = acceleration;
