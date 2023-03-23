@@ -36,6 +36,7 @@ bool Engine2D::nextFrame()
 
 void Engine2D::update()
 {
+    
     checkInput();
 
     //ask all systems to update
@@ -118,6 +119,7 @@ void Engine2D::checkInput()
 
 void Engine2D::render()
 {
+    particleSystem_.Render(world_);
     Graphics::renderFrame();
 }
 
