@@ -48,6 +48,7 @@ int main(int argc, char *args[])
 
         // Render the buffer
         engine.render();
+        std::cout << engine.getDeltaTime() << std::endl;
     }
 
 

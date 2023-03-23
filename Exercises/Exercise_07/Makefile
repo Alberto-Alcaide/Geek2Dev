@@ -1,8 +1,8 @@
 OBJS = hide_test.cpp
 OBJ_NAME = test.exe
 CPP = g++
-ENGINE_SOURCE_FILES = ./../../Engine/*.cpp
-ENGINE_INCLUDE_PATHS = -I./../../Engine/ -I./../../libs/entt/src
+ENGINE_SOURCE_FILES = ./../../Engine/*.cpp 
+ENGINE_INCLUDE_PATHS = -I./../../Engine/ -I./../../libs/entt/src -I./../../Engine/ECS/Components -I./../../Engine/ECS/Systems
 
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
