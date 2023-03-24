@@ -39,6 +39,7 @@ struct ParticleComponent
     {
         return sumForces;
     }
+    
     void ClearForces()
     {
         sumForces = Vec2D(0.0, 0.0);

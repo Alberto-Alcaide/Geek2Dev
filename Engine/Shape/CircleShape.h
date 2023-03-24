@@ -1,7 +1,9 @@
 #ifndef CIRCLESHAPE_H
 #define CIRCLESHAPE_H
 
+#include "TransformComponent.h"
 #include "Graphics.h"
+#include <cmath>
 
 struct CircleShape
 {
@@ -27,6 +29,12 @@ struct CircleShape
         return CIRCLE;
     }
     */
+   void UpdateCircle(TransformComponent transform)
+   {
+        transform.position.x = radius * cos(transform.rotation);
+        transform.position.y = radius * sin(transform.rotation);
+        Render(transform);
+   }
 
     float GetMomentOfInertia() const
     {

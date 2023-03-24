@@ -6,10 +6,6 @@ int main(int argc, char *args[])
     int height=800;
     Engine2D engine(width, height);
 
-    KinematicSystem kinematicSystem;
-    
-
-    const double dt = 1.0/100.0;
 
     // Variables of Objects
     float inertia=1;
@@ -27,17 +23,16 @@ int main(int argc, char *args[])
 
     while (engine.nextFrame())
     {
-        //engine.update();
-        kinematicSystem.Update(dt, engine.world_);
+        engine.update();
 
         auto& circleRb = engine.world_.get<RigidBodyComponent>(circle);
         circleRb.AddTorque(500);
 
         std::cout << "Circle Angular velocity: " << engine.world_.get<KinematicsComponent>(circle).angularVelocity << "\n";
+        std::cout << "Circle Angular position: " << engine.world_.get<TransformComponent>(circle).rotation << "\n";
 
         
-        kinematicSystem.Render(engine.world_);
-        //engine.render();
+        engine.render();
     }
 
     return 0;

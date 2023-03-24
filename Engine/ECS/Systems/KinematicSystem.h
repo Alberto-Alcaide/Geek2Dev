@@ -48,6 +48,9 @@ class KinematicSystem
                 // Gets the angularAcceleration of the object
                 kinematics.angularAcceleration = rigidbody.sumTorques * rigidbody.invInertia;
 
+                rigidbody.ClearForces();
+                rigidbody.ClearTorque();
+
                 // Integrate linear motion
                 kinematics.velocity += kinematics.acceleration * dt;
                 transform.position += kinematics.velocity * dt;
@@ -55,6 +58,8 @@ class KinematicSystem
                 // Integrate angular motion
                 kinematics.angularVelocity += kinematics.angularAcceleration * dt;
                 transform.rotation += kinematics.angularVelocity * dt;
+
+
 
                 // We don't have PolygonShape just yet
                 /*
@@ -96,7 +101,7 @@ class KinematicSystem
                 const auto transform = view.get<TransformComponent>(entity);
                 const auto rigidbody = view.get<RigidBodyComponent>(entity);
                 
-                rigidbody.circleShape->Render(transform);
+                rigidbody.circleShape->UpdateCircle(transform);
             }
         }
 };
