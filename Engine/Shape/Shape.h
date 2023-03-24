@@ -10,7 +10,7 @@ enum ShapeType
     RECTANGLE
 };
 
-struct Shape
+class Shape
 {
     //Color color;
     //bool filled;

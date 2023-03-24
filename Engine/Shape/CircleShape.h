@@ -4,7 +4,7 @@
 #include "Shape.h"
 #include "Engine2D.h"
 
-struct CircleShape: Shape
+class CircleShape : public Shape
 {
 
     float radius;
@@ -49,7 +49,6 @@ struct CircleShape: Shape
                 this->color
             );
     }
-
 
 };
 
