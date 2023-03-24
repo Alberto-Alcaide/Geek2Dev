@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdint.h>
+#include <cmath>
 #include "Color.h"
 #include "Log.h"
 #include "Vec2D.h"

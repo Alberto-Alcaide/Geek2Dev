@@ -1,5 +1,6 @@
 #include "Graphics.h"
 
+
 SDL_Window* Graphics::window_=NULL;
 SDL_Renderer* Graphics::renderer_=NULL;
 int Graphics::windowWidth_, Graphics::windowHeight_=0;
@@ -118,24 +119,30 @@ void Graphics::drawPixel(int x, int y, Color color)
 
 void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
 {
+    
+    SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
+    SDL_RenderDrawLine(renderer_, x0, y0, x1, y1);
+    
 
-    int delta_x=(x1-x0);
-    int delta_y=(y1-y0);
+   /*
+    int delta_x = (x1 - x0);
+    int delta_y = (y1 - y0);
 
-    int longest_side_lenght=(abs(delta_x)>=abs(delta_y)) ? abs(delta_x) : abs(delta_y);
+    int longest_side_lenght = (abs(delta_x) >= abs(delta_y)) ? abs(delta_x) : abs(delta_y);
 
-    int x_inc=static_cast<int>(delta_x / (float)longest_side_lenght);
-    int y_inc=static_cast<int>(delta_y / (float)longest_side_lenght);
+    int x_inc = delta_x / (float)longest_side_lenght;
+    int y_inc = delta_y / (float)longest_side_lenght;
 
-    int current_x=static_cast<int>(x0);
-    int current_y=static_cast<int>(y0);
+    float current_x = x0;
+    float current_y = y0;
 
     for(int i=0; i<= longest_side_lenght; i++)
     {
-        drawPixel(current_x, current_y, color);
+        drawPixel(round(current_x), round(current_y), color);
         current_x += x_inc;
         current_y += y_inc;
     }
+    */
 }
 
 void Graphics::drawRect(int x, int y, int width, int height, Color color)
