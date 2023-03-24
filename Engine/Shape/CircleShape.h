@@ -1,10 +1,9 @@
 #ifndef CIRCLESHAPE_H
 #define CIRCLESHAPE_H
 
-#include "Shape.h"
-#include "Engine2D.h"
+#include "Graphics.h"
 
-class CircleShape : public Shape
+struct CircleShape
 {
 
     float radius;
@@ -18,22 +17,24 @@ class CircleShape : public Shape
         this->filled = filled;
     }
 
-    Shape* Clone() const
+    CircleShape* Clone() const
     {
         return new CircleShape(radius, color, filled);
     }
-
+    /*
     ShapeType GetType() const 
     {
         return CIRCLE;
     }
+    */
 
     float GetMomentOfInertia() const
     {
         return 0.5 * (radius * radius);
     }
 
-    void Render(TransformComponent transform) const override{
+    void Render(TransformComponent transform) const
+    {
         if (this->filled)
             Graphics::drawFillCircle(
                 transform.position.x,

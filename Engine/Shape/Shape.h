@@ -1,7 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include "Engine2D.h"
+
 
 enum ShapeType
 {
@@ -10,7 +10,7 @@ enum ShapeType
     RECTANGLE
 };
 
-class Shape
+struct Shape
 {
     //Color color;
     //bool filled;

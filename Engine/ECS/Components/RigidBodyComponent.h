@@ -1,9 +1,9 @@
 #ifndef RIGIDBODYCOMPONENT_H
 #define RIGIDBODYCOMPONENT_H
 
-#include "Shape.h"
+#include "CircleShape.h"
 #include "Vec2D.h"
-#include "RigidBodyComponent.h"
+
 
 struct RigidBodyComponent
 {
@@ -17,11 +17,12 @@ struct RigidBodyComponent
     Vec2D sumForces;
     float sumTorques;
 
-    Shape* shape;
+    // Shapes
+    CircleShape* circleShape;
 
-    RigidBodyComponent(float mass, float inertia, Shape shape)
+    RigidBodyComponent(float mass, float inertia, CircleShape circleShape)
     {
-        this->shape = shape.Clone();
+        this->circleShape = circleShape.Clone();
         this->mass = mass;
 
         if (mass != 0.0)
@@ -33,7 +34,7 @@ struct RigidBodyComponent
             this->invMass = 0.0;
         }
 
-        inertia = shape.GetMomentOfInertia() * mass;
+        inertia = circleShape.GetMomentOfInertia() * mass;
 
         if (inertia != 0.0)
         {
@@ -47,6 +48,7 @@ struct RigidBodyComponent
         this->sumForces = Vec2D(0,0);
         this->sumTorques = 0.0;
     }
+
 
     void AddForce(const Vec2D& force)
     {
@@ -68,11 +70,5 @@ struct RigidBodyComponent
         sumTorques = 0.0;
     }
 };
-
-
-
-
-
-
 
 #endif

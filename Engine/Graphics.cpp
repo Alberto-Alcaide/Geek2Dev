@@ -119,6 +119,8 @@ void Graphics::drawPixel(int x, int y, Color color)
 void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
 {
 
+
+    /*
     int delta_x=(x1-x0);
     int delta_y=(y1-y0);
 
@@ -136,6 +138,7 @@ void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
         current_x += x_inc;
         current_y += y_inc;
     }
+    */
 }
 
 void Graphics::drawRect(int x, int y, int width, int height, Color color)
