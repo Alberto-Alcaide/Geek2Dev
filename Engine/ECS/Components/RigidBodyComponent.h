@@ -10,8 +10,8 @@ struct RigidBodyComponent
     // Mass
     float mass;
     float invMass;
-    float I;
-    float invI;
+    float inertia;
+    float invInertia;
 
     // Forces and torques
     Vec2D sumForces;
@@ -19,10 +19,11 @@ struct RigidBodyComponent
 
     Shape* shape;
 
-    RigidBodyComponent(float mass, float I, Shape shape)
+    RigidBodyComponent(float mass, float inertia, Shape shape)
     {
         this->shape = shape.Clone();
         this->mass = mass;
+
         if (mass != 0.0)
         {
             this->invMass = 1.0 / mass;
@@ -31,15 +32,18 @@ struct RigidBodyComponent
         {
             this->invMass = 0.0;
         }
-        I = shape.GetMomentOfInertia() * mass;
-        if (I != 0.0)
+
+        inertia = shape.GetMomentOfInertia() * mass;
+
+        if (inertia != 0.0)
         {
-            this->invI = 1.0 / I;
+            this->invInertia = 1.0 / inertia;
         } 
         else
         {
-            this->invI = 0.0;
+            this->invInertia = 0.0;
         }
+
         this->sumForces = Vec2D(0,0);
         this->sumTorques = 0.0;
     }
