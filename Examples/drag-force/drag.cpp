@@ -26,11 +26,15 @@ int main(int argc, char *args[]){
         p.AddForce(gravityForce);
         //std::cout<<"sum force: "<<p.getSumForce()<<std::endl;
 
-        if (t.position.y >= height/2){
+        if (t.position.y >= height/2)
+        {
             dragForce = Force::Generate_Drag_Vector(0.1, k.velocity);
-        }else{
+        }
+        else
+        {
             dragForce = Vec2D();
         }
+        
         p.AddForce(dragForce);
         //std::cout << "Velocidad: " << k.velocity << " Drag" << dragForce << std::endl;
         Graphics::drawFillRect(0, height/2, width, height, Color(14,91,158));
