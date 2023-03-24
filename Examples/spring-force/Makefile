@@ -1,4 +1,4 @@
-OBJS = hide_test.cpp
+OBJS = spring.cpp
 OBJ_NAME = test.exe
 CPP = g++
 ENGINE_SOURCE_FILES = ./../../Engine/*.cpp 
