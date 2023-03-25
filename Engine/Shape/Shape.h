@@ -1,7 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-
+#include "Engine2D"
 
 enum ShapeType
 {
@@ -20,11 +20,6 @@ struct Shape
     virtual float GetMomentOfInertia() const = 0;
     virtual void Render(TransformComponent transform) const = 0;
 };
-
-
-
-
-
 
 
 #endif
