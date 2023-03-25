@@ -5,6 +5,8 @@ int main(int argc, char *args[])
 {
     int width = 800;
     int height = 800;
+
+    // Engine start up
     Engine2D engine (width,height);
     Vec2D anchor = Vec2D(width/2, 50);
     float k = 20;

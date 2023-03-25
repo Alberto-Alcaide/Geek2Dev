@@ -1,7 +1,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include "Engine2D"
+#include "Color.h"
+#include "TransformComponent.h"
 
 enum ShapeType
 {
@@ -10,10 +11,11 @@ enum ShapeType
     RECTANGLE
 };
 
-struct Shape
+class Shape
 {
-    //Color color;
-    //bool filled;
+public:
+    Color color;
+    bool filled;
 
     virtual Shape* Clone() const = 0;
     virtual ShapeType GetType() const = 0;
