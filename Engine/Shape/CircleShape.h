@@ -8,7 +8,6 @@
 
 class CircleShape : public Shape
 {
-
 public:
     float radius;
     //Color color;

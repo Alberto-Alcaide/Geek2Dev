@@ -36,13 +36,17 @@ int main(int argc, char *args[])
         }
 
         
-        std::cout << "Torque: " << circleRb.sumTorques << "\n";
-        //std::cout << "Circle Angular acceleration: " << engine.world_.get<KinematicsComponent>(circle).angularAcceleration << "\n";
-        //std::cout << "Circle Angular velocity: " << engine.world_.get<KinematicsComponent>(circle).angularVelocity << "\n";
-        //std::cout << "Circle Angular position: " << engine.world_.get<TransformComponent>(circle).rotation << "\n";
+        //std::cout << "Torque: " << circleRb.sumTorques << "\n";
 
+        //Log::Info("Circle Angular acceleration: ");
+        std::cout << "Acceleration: " <<  engine.world_.get<KinematicsComponent>(circle).angularAcceleration;
 
-        
+        //Log::Info("Circle Angular velocity: ");
+        std::cout << " Velocity: " << engine.world_.get<KinematicsComponent>(circle).angularVelocity;
+
+        //Log::Info("Circle Angular position: ");
+        std::cout << " Rotation: " << engine.world_.get<TransformComponent>(circle).rotation << "\n";
+ 
         engine.render();
     }
 
