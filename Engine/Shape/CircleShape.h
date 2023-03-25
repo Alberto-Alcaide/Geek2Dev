@@ -29,13 +29,14 @@ struct CircleShape
         return CIRCLE;
     }
     */
+   /*
    void UpdateCircle(TransformComponent transform)
    {
         transform.position.x = radius * cos(transform.rotation);
         transform.position.y = radius * sin(transform.rotation);
         Render(transform);
    }
-
+    */
     float GetMomentOfInertia() const
     {
         return 0.5 * (radius * radius);
@@ -55,6 +56,7 @@ struct CircleShape
                 transform.position.x,
                 transform.position.y,
                 this->radius,
+                transform.rotation,
                 this->color
             );
     }
