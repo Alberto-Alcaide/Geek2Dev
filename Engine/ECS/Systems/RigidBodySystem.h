@@ -35,7 +35,7 @@ class RigidBodySystem
             {
                 const auto transform = view.get<TransformComponent>(entity);
                 const auto rigidbody = view.get<RigidBodyComponent>(entity);
-                rigidbody.circleShape->Render(transform);
+                rigidbody.shape->Render(transform);
             }
         }
 };

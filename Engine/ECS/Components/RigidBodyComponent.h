@@ -18,11 +18,11 @@ struct RigidBodyComponent
     float sumTorques;
 
     // Shapes
-    CircleShape* circleShape;
+    Shape* shape;
 
-    RigidBodyComponent(float mass, CircleShape circleShape)
+    RigidBodyComponent(float mass, const Shape& shape)
     {
-        this->circleShape = circleShape.Clone();
+        this->shape = shape.Clone();
         this->mass = mass;
 
         if (mass != 0.0)
@@ -34,7 +34,7 @@ struct RigidBodyComponent
             this->invMass = 0.0;
         }
 
-        inertia = circleShape.GetMomentOfInertia() * mass;
+        inertia = shape.GetMomentOfInertia() * mass;
 
         if (inertia != 0.0)
         {
