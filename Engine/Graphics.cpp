@@ -181,7 +181,7 @@ void Graphics::drawFillRect(int x, int y, int width, int height, Color color)
 
 void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
 
-void Graphics::drawCircle(int x0, int y0, int radius, Color color)
+void Graphics::drawCircle(int x0, int y0, int radius, double rotation, Color color)
 {
     const int32_t diameter = (radius * 2);
     int32_t x = (radius-1);
@@ -189,9 +189,12 @@ void Graphics::drawCircle(int x0, int y0, int radius, Color color)
     int32_t tx = 1;
     int32_t ty = 1;
     int32_t err= (tx - diameter);
+    int32_t rotationx=radius*cos(rotation);
+    int32_t rotationy=radius*sin(rotation);
 
     while(x>=y)
     {
+        drawLine(x0,y0,x0+rotationx,y0+rotationy, color);
         // Each of the following renders an octant of the circle
         drawPixel(x0 + x, y0 + y, color);
         drawPixel(x0 + y, y0 + x, color);
