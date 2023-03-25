@@ -1,4 +1,4 @@
-OBJS = drag.cpp  
+OBJS = projectile_drag.cpp  
 ENGINE = C:\Geek2Dev\Engine/Color.cpp C:\Geek2Dev\Engine/Engine2D.cpp C:\Geek2Dev\Engine/Graphics.cpp C:\Geek2Dev\Engine/Log.cpp C:\Geek2Dev\Engine/Vec2D.cpp C:\Geek2Dev\Engine/Force.cpp 
 OBJ_NAME = test.exe
 CPP = g++

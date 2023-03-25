@@ -5,8 +5,8 @@
 
 struct Force
 {
-    static Vec2D Generate_Drag_Vector(float k, Vec2D velocity);
-    static Vec2D Generate_Spring_Vector(Vec2D position, Vec2D anchor, float restLeng, float k);
+    static Vec2D generateDragVector(float k, Vec2D velocity);
+    static Vec2D generateSpringVector(Vec2D position, Vec2D anchor, float restLeng, float k);
 };
 
 #endif

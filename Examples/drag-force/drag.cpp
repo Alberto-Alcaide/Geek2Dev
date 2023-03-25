@@ -28,7 +28,7 @@ int main(int argc, char *args[]){
 
         if (t.position.y >= height/2)
         {
-            dragForce = Force::Generate_Drag_Vector(0.1, k.velocity);
+            dragForce = Force::generateDragVector(0.1, k.velocity);
         }
         else
         {
