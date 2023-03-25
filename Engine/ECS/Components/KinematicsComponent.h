@@ -5,13 +5,20 @@
 
 struct KinematicsComponent
 {
+    // Linear version
     Vec2D velocity;
     Vec2D acceleration;
 
-    KinematicsComponent(Vec2D velocity = Vec2D(0,0), Vec2D acceleration = Vec2D(0,0)) 
+    // Angular version
+    float angularVelocity;
+    float angularAcceleration;
+
+    KinematicsComponent(Vec2D velocity = Vec2D(0,0), Vec2D acceleration = Vec2D(0,0), float angularVelocity = 0, float angularAcceleration = 0) 
     {
         this->velocity = velocity;
         this->acceleration = acceleration;
+        this->angularVelocity = angularVelocity;
+        this->angularAcceleration = angularAcceleration;
     }
 };
 

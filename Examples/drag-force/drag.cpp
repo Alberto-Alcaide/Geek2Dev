@@ -1,5 +1,5 @@
-#include "Engine2D.h"
 
+#include "Engine2D.h"
 
 int main(int argc, char *args[]){
     int width = 800;
@@ -36,6 +36,8 @@ int main(int argc, char *args[]){
         }
         
         p.AddForce(dragForce);
+
+        std::cout << "Transform: " << t.position << "\n";
         //std::cout << "Velocidad: " << k.velocity << " Drag" << dragForce << std::endl;
         Graphics::drawFillRect(0, height/2, width, height, Color(14,91,158));
         //Graphics::drawFillCircle(t.position.x, t.position.y, 20, Color::red());

@@ -40,8 +40,9 @@ void Engine2D::update()
     checkInput();
 
     //ask all systems to update
-    kinematicSystem_.Update(dt_, world_);
     particleSystem_.Update(dt_,world_);
+    kinematicSystem_.Update(dt_, world_);
+    
 }
 
 void Engine2D::checkInput()
@@ -119,6 +120,7 @@ void Engine2D::checkInput()
 
 void Engine2D::render()
 {
+    kinematicSystem_.Render(world_);
     particleSystem_.Render(world_);
     Graphics::renderFrame();
 }
