@@ -9,6 +9,7 @@
 #include "TransformComponent.h"
 #include "KinematicSystem.h"
 #include "ParticleSystem.h"
+#include "RigidBodySystem.h"
 #include "Force.h"
 #include "CircleShape.h"
 
@@ -46,4 +47,5 @@ public:
     // Systems
     KinematicSystem kinematicSystem_;
     ParticleSystem particleSystem_;
+    RigidBodySystem rigidbodySystem_;
 };

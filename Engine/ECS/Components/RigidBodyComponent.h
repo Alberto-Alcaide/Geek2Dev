@@ -20,7 +20,7 @@ struct RigidBodyComponent
     // Shapes
     CircleShape* circleShape;
 
-    RigidBodyComponent(float mass, float inertia, CircleShape circleShape)
+    RigidBodyComponent(float mass, CircleShape circleShape)
     {
         this->circleShape = circleShape.Clone();
         this->mass = mass;

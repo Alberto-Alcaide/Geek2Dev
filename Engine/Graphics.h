@@ -9,6 +9,7 @@
 #include "Vec2D.h"
 #include "vector"
 #include <SDL2/SDL.h>
+#include "TransformComponent.h"
 
 
 class Graphics
@@ -43,7 +44,7 @@ public:
     static void drawRect(int x, int y, int width, int height, Color color);
     static void drawFillRect(int x, int y, int width, int height, Color color);
     static void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
-    static void drawCircle(int x0, int y0, int radius, Color color);
+    static void drawCircle(int x0, int y0, int radius, double rotation, Color color);
     static void drawFillCircle(int x0, int y0, int radius, Color color);
 };
 

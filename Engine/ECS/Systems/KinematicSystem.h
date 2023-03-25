@@ -22,8 +22,14 @@ public:
             auto& kinematic = objectsID_List.get<KinematicsComponent>(entity);
             
             // Update components using euler method (x(n+1) = x(n) + dx * dt)
+            
             kinematic.velocity += kinematic.acceleration * dt; 
             transform.position += kinematic.velocity * dt; 
+
+            // Integrate angular motion
+        
+            kinematic.angularVelocity += kinematic.angularAcceleration * dt;
+            transform.rotation += kinematic.angularVelocity * dt;
         }
     }
 };
@@ -62,7 +68,7 @@ public:
 
 
                 // We don't have PolygonShape just yet
-                /*
+                
                 if (world.all_of<RigidBodyComponent>(entity))
                 {
                     Shape* shape;
@@ -74,8 +80,8 @@ public:
                         // polygonShape->UpdateVertices(transform.rotation, transform.position);
                     }
                 }
-                */
-                /* Implements Collisions
+                
+                 Implements Collisions
                 
                 if (world.all_of<ColliderComponent>(entity))
                 {
@@ -101,7 +107,7 @@ public:
                 const auto transform = view.get<TransformComponent>(entity);
                 const auto rigidbody = view.get<RigidBodyComponent>(entity);
                 
-                rigidbody.circleShape->UpdateCircle(transform);
+                rigidbody.circleShape->Render(transform);
             }
         }
 };*/
