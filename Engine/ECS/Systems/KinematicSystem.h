@@ -6,7 +6,6 @@
 #include "TransformComponent.h"
 #include "entt/entt.hpp"
 
-
 class KinematicSystem
 {
 public:
@@ -35,8 +34,7 @@ public:
     }
 };
 
-/*
-class KinematicSystem
+/*class KinematicSystem
 {
     public: 
         void Update(const double dt, entt::registry& world)
@@ -112,6 +110,6 @@ class KinematicSystem
                 rigidbody.circleShape->Render(transform);
             }
         }
-};
-*/
+};*/
+
 #endif
