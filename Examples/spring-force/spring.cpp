@@ -13,12 +13,12 @@ int main(int argc, char *args[]){
 
 
     const auto particle = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle, Vec2D(width/2-50,500));
+    engine.world_.emplace<TransformComponent>(particle, Vec2D(width/2-200,200));
     engine.world_.emplace<KinematicsComponent>(particle);
     engine.world_.emplace<ParticleComponent>(particle, 1, 10, Color::red());
 
     auto& t = engine.world_.get<TransformComponent>(particle);
-    auto& kinematic = engine.world_.get<KinematicsComponent>(particle);s
+    auto& kinematic = engine.world_.get<KinematicsComponent>(particle);
     auto& p = engine.world_.get<ParticleComponent>(particle);
 
     
@@ -27,12 +27,13 @@ int main(int argc, char *args[]){
         engine.update();
 
         Vec2D spring_force = Force::generateSpringVector(t.position, anchor,restlenght, k);
-        drag_force=Force::generateDragVector(0.001, kinematic.velocity);
+        //drag_force=Force::generateDragVector(0.001, kinematic.velocity);
         p.AddForce(spring_force);
         p.AddForce(gravity_force);
         p.AddForce(drag_force);
         
         Graphics::drawFillRect(0, height/2, width, height, Color(14,91,158));
+
         Graphics::drawLine(t.position.x, t.position.y, anchor.x, anchor.y, Color::white());
         Graphics::drawFillRect(anchor.x-15, anchor.y, 30, 10, Color::red());
         engine.render();
