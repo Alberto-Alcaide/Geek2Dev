@@ -5,7 +5,7 @@
 #include "KinematicsComponent.h"
 #include "TransformComponent.h"
 #include "entt/entt.hpp"
-/*
+
 class KinematicSystem
 {
 public:
@@ -27,8 +27,8 @@ public:
         }
     }
 };
-*/
-class KinematicSystem
+
+/*class KinematicSystem
 {
     public: 
         void Update(const double dt, entt::registry& world)
@@ -88,7 +88,7 @@ class KinematicSystem
                         // polygonShape->UpdateVertices(transform.rotation, transform.position);
                     }
                 }
-                */
+                
 
             }
         }
@@ -104,6 +104,6 @@ class KinematicSystem
                 rigidbody.circleShape->UpdateCircle(transform);
             }
         }
-};
+};*/
 
 #endif

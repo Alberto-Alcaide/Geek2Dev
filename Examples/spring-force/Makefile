@@ -2,7 +2,7 @@ OBJS = spring.cpp
 ENGINE = C:\Geek2Dev\Engine/Color.cpp C:\Geek2Dev\Engine/Engine2D.cpp C:\Geek2Dev\Engine/Graphics.cpp C:\Geek2Dev\Engine/Log.cpp C:\Geek2Dev\Engine/Vec2D.cpp C:\Geek2Dev\Engine/Force.cpp 
 OBJ_NAME = test.exe
 CPP = g++
-INCLUDE_PATHS = -IC:\mingw_dev_lib\include -IC:\mingw_dev_lib\bin -IC:\Geek2Dev\Engine -IC:\Geek2Dev\libs\entt\src -IC:\Geek2Dev\Engine\ECS\Components -IC:\Geek2Dev\Engine\ECS\Systems
+INCLUDE_PATHS = -IC:\mingw_dev_lib\include -IC:\mingw_dev_lib\bin -IC:\Geek2Dev\Engine -IC:\Geek2Dev\libs\entt\src -IC:\Geek2Dev\Engine\ECS\Components -IC:\Geek2Dev\Engine\ECS\Systems -IC:\Geek2Dev\Engine\ECS\Components -IC:\Geek2Dev\Engine\Shape
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
 COMPILER_FLAGS = -std=c++17 -Wall
 LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2

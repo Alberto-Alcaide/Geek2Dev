@@ -120,7 +120,7 @@ void Engine2D::checkInput()
 
 void Engine2D::render()
 {
-    kinematicSystem_.Render(world_);
+    //kinematicSystem_.Render(world_);
     particleSystem_.Render(world_);
     Graphics::renderFrame();
 }
