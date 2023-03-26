@@ -20,19 +20,27 @@ int main(int argc, char *args[])
     engine.world_.emplace<KinematicsComponent>(circleFilled);
     engine.world_.emplace<RigidBodyComponent>(circleFilled, mass, CircleShape(100, Color::green(), true));
 
+    const auto rectangle = engine.world_.create();
+    engine.world_.emplace<TransformComponent>(rectangle, Vec2D(200,600));
+    engine.world_.emplace<KinematicsComponent>(rectangle);
+    engine.world_.emplace<RigidBodyComponent>(rectangle, mass, RectangleShape(200, 100, Color::green(), false));
+
     while (engine.nextFrame())
     {
         engine.update();
 
         auto& circleRb = engine.world_.get<RigidBodyComponent>(circle);
+        auto& rectangleRb = engine.world_.get<RigidBodyComponent>(rectangle);
 
         if (engine.keyboard_->rightKeyPressed)
         {
             circleRb.AddTorque(500);
+            rectangleRb.AddTorque(500);
         }
         if (engine.keyboard_->leftKeyPressed)
         {
             circleRb.AddTorque(-500);
+            rectangleRb.AddTorque(-500);
         }
 
         

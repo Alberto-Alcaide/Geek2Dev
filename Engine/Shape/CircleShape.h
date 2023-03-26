@@ -20,12 +20,12 @@ public:
         this->filled = filled;
     }
 
-    Shape* Clone() const
+    Shape* Clone() const override
     {
         return new CircleShape(radius, color, filled);
     }
     
-    ShapeType GetType() const 
+    ShapeType GetType() const override
     {
         return CIRCLE;
     }
@@ -38,7 +38,7 @@ public:
         Render(transform);
    }
     
-    float GetMomentOfInertia() const
+    float GetMomentOfInertia() const override
     {
         return 0.5 * (radius * radius);
     }

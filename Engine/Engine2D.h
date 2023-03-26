@@ -11,8 +11,10 @@
 #include "ParticleSystem.h"
 #include "RigidBodySystem.h"
 #include "Force.h"
-#include "CircleShape.h"
 #include "Shape.h"
+#include "CircleShape.h"
+#include "PolygonShape.h"
+#include "RectangleShape.h"
 
 
 class Engine2D

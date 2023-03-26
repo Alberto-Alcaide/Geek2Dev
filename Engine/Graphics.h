@@ -41,8 +41,12 @@ public:
     static void drawGrid(void);
     static void drawPixel(int x, int y, Color color);
     static void drawLine(int x0, int y0, int x1, int y1, Color color);
+
     static void drawRect(int x, int y, int width, int height, Color color);
+    static void drawRotatedRect(const std::vector<Vec2D>& vertices, Color color);
     static void drawFillRect(int x, int y, int width, int height, Color color);
+    static void drawRotatedFillRect(const std::vector<Vec2D>& vertices, Color color);
+
     static void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
     static void drawCircle(int x0, int y0, int radius, double rotation, Color color);
     static void drawFillCircle(int x0, int y0, int radius, Color color);

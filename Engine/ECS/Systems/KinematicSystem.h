@@ -5,6 +5,7 @@
 #include "KinematicsComponent.h"
 #include "TransformComponent.h"
 #include "entt/entt.hpp"
+#include "PolygonShape.h"
 
 class KinematicSystem
 {
@@ -28,7 +29,23 @@ public:
             // Integrate angular motion
             kinematic.angularVelocity += kinematic.angularAcceleration * dt;
             transform.rotation += kinematic.angularVelocity * dt;
+
+
+
+            if (world.all_of<RigidBodyComponent>(entity))
+            {
+                Shape* shape;
+                shape = world.get<RigidBodyComponent>(entity).shape;
+                if (shape->GetType() == RECTANGLE || shape->GetType() == POLYGON)
+                {
+                    // Implements Polygon Shape
+                    PolygonShape* polygonShape = (PolygonShape*) world.get<RigidBodyComponent>(entity).shape;
+                    polygonShape->UpdateVertices(transform.rotation, transform.position);
+                }
+            }
         }
+
+        
     }
 };
 

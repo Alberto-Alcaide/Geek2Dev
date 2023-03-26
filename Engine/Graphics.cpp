@@ -159,6 +159,63 @@ void Graphics::drawRect(int x, int y, int width, int height, Color color)
 
 }
 
+void Graphics::drawRotatedRect(const std::vector<Vec2D>& vertices, Color color)
+{
+    //std::cout << vertices[0].x << " " <<  vertices[0].y << " " << vertices[1].x << " " << vertices[1].y << std::endl;
+
+    // order of vertices[]: top-left[0], top-right[1], bottom-left[2], bottom-right[3]
+    drawLine(vertices[0].x, vertices[0].y, vertices[1].x, vertices[1].y, color); // Top of Rectangle
+    drawLine(vertices[2].x, vertices[2].y, vertices[3].x, vertices[3].y, color); // Bottom of Rectangle
+    drawLine(vertices[0].x, vertices[0].y, vertices[2].x, vertices[2].y, color); // Left of Rectangle
+    drawLine(vertices[1].x, vertices[1].y, vertices[3].x, vertices[3].y, color); // Right of Rectangle
+}
+
+
+// TODO does not work yet
+void Graphics::drawRotatedFillRect(const std::vector<Vec2D>& vertices, Color color)
+{
+    // order of vertices[]: top-left[0], top-right[1], bottom-left[2], bottom-right[3]
+    drawLine(vertices[0].x, vertices[0].y, vertices[1].x, vertices[1].y, color); // Top of Rectangle
+    drawLine(vertices[2].x, vertices[2].y, vertices[3].x, vertices[3].y, color); // Bottom of Rectangle
+    drawLine(vertices[0].x, vertices[0].y, vertices[2].x, vertices[2].y, color); // Left of Rectangle
+    drawLine(vertices[1].x, vertices[1].y, vertices[3].x, vertices[3].y, color); // Right of Rectangle
+
+    int y1 = vertices[0].y;
+    int y2 = vertices[2].y;
+    int x1 = vertices[0].x;
+    int x2 = vertices[0].x;
+
+    /* Fill the rectangle with color
+    for (int y = aux + 1; y < y2; y++)
+    {
+        drawLine(x1 + 1, y, x2 - 1, y, color);
+        aux=y;
+    }
+    */
+    
+    int delta_x = (x2 - x1);
+    int delta_y = (y2 - y1);
+
+    int longest_side_lenght = (abs(delta_x) >= abs(delta_y)) ? abs(delta_x) : abs(delta_y);
+
+    int x_inc = delta_x / (float)longest_side_lenght;
+    int y_inc = delta_y / (float)longest_side_lenght;
+
+    //float current_x = x1;
+    //float current_y = y1;
+    
+    for(int i=0; i<= longest_side_lenght; i++)
+    {   
+    std::cout << "longest_side_length:  " << longest_side_lenght << std::endl;
+        std::cout << "x: " << x1+x_inc << " y: " << y1+y_inc << std::endl;
+        drawLine(x1+x_inc, y1+x_inc, x2+x_inc, y2 + x_inc, color);
+        //drawPixel(round(current_x), round(current_y), color);
+        x_inc += x_inc;
+        y_inc += y_inc;
+    }
+    
+}
+
 void Graphics::drawFillRect(int x, int y, int width, int height, Color color)
 {
     int x2 = x + width - 1; // Get the position of the second vertex on the X axis
@@ -184,26 +241,36 @@ void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
 void Graphics::drawCircle(int x0, int y0, int radius, double rotation, Color color)
 {
     const int32_t diameter = (radius * 2);
+
     int32_t x = (radius-1);
     int32_t y = 0;
     int32_t tx = 1;
     int32_t ty = 1;
     int32_t err= (tx - diameter);
+
     int32_t rotationx=radius*cos(rotation);
     int32_t rotationy=radius*sin(rotation);
 
     while(x>=y)
     {
-        drawLine(x0,y0,x0+rotationx,y0+rotationy, color);
+        // Draw a line to be able to see rotation of circle
+        drawLine(x0, y0, x0 + rotationx, y0 + rotationy, color);
+        
         // Each of the following renders an octant of the circle
-        drawPixel(x0 + x, y0 + y, color);
-        drawPixel(x0 + y, y0 + x, color);
-        drawPixel(x0 - y, y0 + y, color);
-        drawPixel(x0 - x, y0 + y, color);
-        drawPixel(x0 - x, y0 - y, color);
-        drawPixel(x0 - y, y0 - x, color);
-        drawPixel(x0 + y, y0 - x, color);
         drawPixel(x0 + x, y0 - y, color);
+        drawPixel(x0 + x, y0 + y, color);
+
+        drawPixel(x0 - x, y0 - y, color);
+        drawPixel(x0 - x, y0 + y, color);
+
+        drawPixel(x0 + y, y0 - x, color);
+        drawPixel(x0 + y, y0 + x, color);
+
+        drawPixel(x0 - y, y0 - x, color);
+        drawPixel(x0 - y, y0 + x, color);
+
+
+        //drawPixel(x0 - y, y0 + y, color); // esto pinta un radio???
 
         if (err <= 0)
         {
