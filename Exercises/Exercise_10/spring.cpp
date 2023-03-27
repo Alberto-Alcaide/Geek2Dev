@@ -3,6 +3,8 @@
 
 int main(int argc, char *args[])
 {
+
+    // example variables
     int width = 800;
     int height = 800;
     Engine2D engine (width,height);
@@ -16,7 +18,7 @@ int main(int argc, char *args[])
     int mass = 1;
     int radius = 10;
 
-    //creates the particles
+    //Initializes objects and their components
     const auto particle1 = engine.world_.create();
     engine.world_.emplace<TransformComponent>(particle1, Vec2D(width/2+20,140));
     engine.world_.emplace<KinematicsComponent>(particle1);
@@ -42,7 +44,7 @@ int main(int argc, char *args[])
     engine.world_.emplace<KinematicsComponent>(particle5);
     engine.world_.emplace<ParticleComponent>(particle5, mass, radius, Color::red());
 
-    //create the components of all particles
+    //create references
     auto& t1 = engine.world_.get<TransformComponent>(particle1);
     auto& t2 = engine.world_.get<TransformComponent>(particle2);
     auto& t3 = engine.world_.get<TransformComponent>(particle3);
@@ -61,12 +63,12 @@ int main(int argc, char *args[])
     auto& p4 = engine.world_.get<ParticleComponent>(particle4);
     auto& p5 = engine.world_.get<ParticleComponent>(particle5);
 
-    //the game loop
+    // game loop
     while (engine.nextFrame())
     {
         engine.update();
 
-        //creates the forces to the particles, drag and spring vector
+        // Apply forces to the particles, drag and spring vector
         spring_force = Force::generateSpringVector(t1.position, anchor,restlenght, k);
         drag_force=Force::generateDragVector(drag_coeficient, kinematic1.velocity);
         p1.AddForce(spring_force);
@@ -98,9 +100,10 @@ int main(int argc, char *args[])
         p5.AddForce(drag_force);
         
 
-        //draw the background and the lines for the springs
+        // draw the background and t
         Graphics::drawFillRect(0, height/2, width, height, Color(14,91,158));
 
+        // draw the spring lines
         Graphics::drawLine(t1.position.x, t1.position.y, anchor.x, anchor.y, Color::white());
         Graphics::drawLine(t2.position.x, t2.position.y, t1.position.x, t1.position.y, Color::white());
         Graphics::drawLine(t3.position.x, t3.position.y, t2.position.x, t2.position.y, Color::white());
