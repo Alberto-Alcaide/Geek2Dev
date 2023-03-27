@@ -28,14 +28,16 @@ int main(int argc, char* args[])
     {
         engine.update();
 
+
         // Add forces to our projectile particle
         particleComp.AddForce(gravityForce);
         particleComp.AddForce(Force::generateDragVector(drag, kinematicComp.velocity));
 
         // Paint background in buffer
-        Graphics::drawFillRect(0, 0, width, height/2, Color(179, 237, 252));
-        Graphics::drawFillRect(0, height * 0.5, width, height/2, Color(11, 99, 23));
+        //Graphics::drawFillRect(0, 0, width, height/2, Color(179, 237, 252));
+        //Graphics::drawFillRect(0, height * 0.5, width, height/2, Color(11, 99, 23));
 
+        Graphics::drawGrid(100);
         engine.render();
     }
 

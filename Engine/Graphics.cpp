@@ -96,10 +96,25 @@ void Graphics::renderFrame()
 }
 
 
-// De momento no es necesaria, posible implementación futura.
-void Graphics::drawGrid(void)
+void Graphics::drawGrid(int gridSize)
 {
-    
+    Color color(224, 224, 224);
+
+    // Calculates number of rows and columns
+    int rows = windowHeight_ / gridSize;
+    int columns = windowWidth_ / gridSize;
+
+    // Draw horizontal lines
+    for(int i=1; i< rows; i++)
+    {
+        drawLine(0, i*gridSize, windowWidth_, i*gridSize, color);
+    }
+
+    // Draw vertical lines
+    for(int j=1; j<columns; j++)
+    {
+        drawLine(j*gridSize, 0, j*gridSize, windowHeight_, color);
+    }
 }
 
 void Graphics::drawPixel(int x, int y, Color color)

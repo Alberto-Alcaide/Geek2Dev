@@ -38,7 +38,7 @@ public:
     static void cleanUpScreen(/*Color c=Color::black()*/);
     static void renderFrame();
 
-    static void drawGrid(void);
+    static void drawGrid(int gridSize);
     static void drawPixel(int x, int y, Color color);
     static void drawLine(int x0, int y0, int x1, int y1, Color color);
 
