@@ -28,6 +28,7 @@ class RigidBodySystem
                 }
             }
         }
+        
         void Render(entt::registry& world)
         {
             auto view = world.view<TransformComponent, RigidBodyComponent>();
