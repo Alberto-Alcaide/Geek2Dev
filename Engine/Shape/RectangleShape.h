@@ -63,8 +63,6 @@ public:
             Graphics::drawRotatedRect(globalVertices, Color::red());
         }
     }
-
-
 };
 
 #endif
