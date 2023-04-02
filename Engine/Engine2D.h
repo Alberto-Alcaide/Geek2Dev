@@ -15,14 +15,17 @@
 #include "CircleShape.h"
 #include "PolygonShape.h"
 #include "RectangleShape.h"
+#include "GridMovementComponent.h"
+#include "GridMovementSystem.h"
+#include "KeyDownEvent.h"
 
 
 class Engine2D
 {
 private:
-    bool isRunning_ = 0;
-    double dt_ = 0;  // seconds
-    int lastFrameTime_ = 0; // miliseconds
+    bool isRunning = 0;
+    double dt = 0;  // seconds
+    int lastFrameTime = 0; // miliseconds
 
 public:
 
@@ -30,8 +33,8 @@ public:
     ~Engine2D();
 
     // Input
-    Mouse* mouse_;
-    Keyboard* keyboard_;
+    Mouse* mouse;
+    Keyboard* keyboard;
 
     // Game loop
     bool nextFrame();
@@ -45,10 +48,12 @@ public:
     double getTotalTimeInSeconds();
 
     // EnTT (ECS)
-    entt::registry world_;
+    entt::registry world;
+    entt::dispatcher eventBus;
 
     // Systems
-    KinematicSystem kinematicSystem_;
-    ParticleSystem particleSystem_;
-    RigidBodySystem rigidbodySystem_;
+    KinematicSystem kinematicSystem;
+    ParticleSystem particleSystem;
+    RigidBodySystem rigidbodySystem;
+    GridMovementSystem gridSystem;
 };

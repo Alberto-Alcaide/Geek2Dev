@@ -1,5 +1,5 @@
-#ifndef MOUSE_H
-#define MOUSE_H
+#ifndef mouseH
+#define mouseH
 #include "Vec2D.h"
 
 

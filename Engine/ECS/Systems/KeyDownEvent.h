@@ -1,0 +1,15 @@
+#ifndef KEYDOWNEVENT_H
+#define KEYDOWNEVENT_H
+
+#include <SDL2/SDL.h>
+#include "entt/entt.hpp"
+
+struct KeyDownEvent
+{
+    SDL_Keycode symbol;
+    entt::registry* world;
+
+    KeyDownEvent(SDL_Keycode symbol, entt::registry& world): symbol(symbol), world(&world) {}
+};
+
+#endif

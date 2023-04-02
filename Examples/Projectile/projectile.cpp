@@ -8,11 +8,11 @@ int main(int argc, char *args[])
     Engine2D engine(800,800);
 
     // Creates an object in our world
-    const auto ball = engine.world_.create();
+    const auto ball = engine.world.create();
 
     // Attaches components to an object
-    engine.world_.emplace<TransformComponent>(ball, Vec2D(width/2, 10));
-    engine.world_.emplace<KinematicsComponent>(ball, Vec2D(100, 0), Vec2D(0, 200));
+    engine.world.emplace<TransformComponent>(ball, Vec2D(width/2, 10));
+    engine.world.emplace<KinematicsComponent>(ball, Vec2D(100, 0), Vec2D(0, 200));
 
     int radius=40;
     Color ball_color = Color::red();
@@ -23,8 +23,8 @@ int main(int argc, char *args[])
         engine.update();
 
         // Get references to ball components
-        const auto &ball_transform = engine.world_.get<TransformComponent>(ball);
-        auto &ball_kinematics = engine.world_.get<KinematicsComponent>(ball);
+        const auto &ball_transform = engine.world.get<TransformComponent>(ball);
+        auto &ball_kinematics = engine.world.get<KinematicsComponent>(ball);
 
         // Check if ball touches ground
         if(ball_transform.position.y >= height * 0.75)

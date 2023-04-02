@@ -7,18 +7,18 @@ int main(int argc, char *args[])
     Vec2D smallWindowForce = Vec2D(10,0);
     Vec2D bigWindForce = Vec2D(30,0);
 
-    const auto smallBall = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(smallBall, Vec2D(100, 700));
-    engine.world_.emplace<KinematicsComponent>(smallBall, Vec2D(0, -100));
-    engine.world_.emplace<ParticleComponent>(smallBall, 1, 10, Color::red());
+    const auto smallBall = engine.world.create();
+    engine.world.emplace<TransformComponent>(smallBall, Vec2D(100, 700));
+    engine.world.emplace<KinematicsComponent>(smallBall, Vec2D(0, -100));
+    engine.world.emplace<ParticleComponent>(smallBall, 1, 10, Color::red());
 
-    const auto bigBall = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(bigBall, Vec2D(200, 700));
-    engine.world_.emplace<KinematicsComponent>(bigBall, Vec2D(0, -100));
-    engine.world_.emplace<ParticleComponent>(bigBall, 5, 20, Color::green());
+    const auto bigBall = engine.world.create();
+    engine.world.emplace<TransformComponent>(bigBall, Vec2D(200, 700));
+    engine.world.emplace<KinematicsComponent>(bigBall, Vec2D(0, -100));
+    engine.world.emplace<ParticleComponent>(bigBall, 5, 20, Color::green());
 
-    auto& smallParticleComponent = engine.world_.get<ParticleComponent>(smallBall);
-    auto& bigParticleComponent = engine.world_.get<ParticleComponent>(bigBall);
+    auto& smallParticleComponent = engine.world.get<ParticleComponent>(smallBall);
+    auto& bigParticleComponent = engine.world.get<ParticleComponent>(bigBall);
 
     while (engine.nextFrame())
     {

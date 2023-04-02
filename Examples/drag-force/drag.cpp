@@ -9,14 +9,14 @@ int main(int argc, char *args[]){
     Vec2D gravityForce = Vec2D(0,50);
     Vec2D dragForce = Vec2D();
 
-    const auto particle = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle, Vec2D(width/2,50));
-    engine.world_.emplace<KinematicsComponent>(particle);
-    engine.world_.emplace<ParticleComponent>(particle, 1, 20, Color::red());
+    const auto particle = engine.world.create();
+    engine.world.emplace<TransformComponent>(particle, Vec2D(width/2,50));
+    engine.world.emplace<KinematicsComponent>(particle);
+    engine.world.emplace<ParticleComponent>(particle, 1, 20, Color::red());
 
-    auto& t = engine.world_.get<TransformComponent>(particle);
-    auto& k = engine.world_.get<KinematicsComponent>(particle);
-    auto& p = engine.world_.get<ParticleComponent>(particle);
+    auto& t = engine.world.get<TransformComponent>(particle);
+    auto& k = engine.world.get<KinematicsComponent>(particle);
+    auto& p = engine.world.get<ParticleComponent>(particle);
 
     
     while (engine.nextFrame())

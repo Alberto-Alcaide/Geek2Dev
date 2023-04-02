@@ -44,7 +44,7 @@ int main(int argc, char *args[])
             Log::Warning("i dont see you");
         }
 
-        player.position = engine.mouse_->position;
+        player.position = engine.mouse->position;
 
         // int x, int y, int radius, Color color
         Graphics::drawFillRect(player.position.x, player.position.y, player.width, player.height, player.color);

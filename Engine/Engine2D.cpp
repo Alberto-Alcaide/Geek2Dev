@@ -5,22 +5,26 @@ Engine2D::Engine2D(int width, int height)
     Log::Info("Turning on Engine2D");
 
     // Setting core variables
-    mouse_ = new Mouse();
-    keyboard_ = new Keyboard();
+    mouse = new Mouse();
+    keyboard = new Keyboard();
 
     // Graphics initialization
     if(Graphics::createWindow(width, height))
         Log::Info("Graphics initialized");
-    
-    isRunning_ = true;
+
+
+    // Perform the subscription of the events for all system
+    eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridSystem);
+
+    isRunning = true;
 }
 
 Engine2D::~Engine2D()
 {
     Log::Info("Turning off Engine2D");
 
-    delete mouse_;
-    delete keyboard_;
+    delete mouse;
+    delete keyboard;
 
     Graphics::closeWindow();
 }
@@ -28,10 +32,10 @@ Engine2D::~Engine2D()
 bool Engine2D::nextFrame()
 {
     Graphics::cleanUpScreen();
-    dt_ = (SDL_GetTicks() - lastFrameTime_) / 1000.0;
-    lastFrameTime_ = SDL_GetTicks();
+    dt = (SDL_GetTicks() - lastFrameTime) / 1000.0;
+    lastFrameTime = SDL_GetTicks();
 
-    return isRunning_;
+    return isRunning;
 }
 
 void Engine2D::update()
@@ -40,9 +44,9 @@ void Engine2D::update()
     checkInput();
 
     //ask all systems to update
-    rigidbodySystem_.Update(dt_, world_);
-    particleSystem_.Update(dt_, world_);
-    kinematicSystem_.Update(dt_, world_);
+    rigidbodySystem.Update(dt, world);
+    particleSystem.Update(dt, world);
+    kinematicSystem.Update(dt, world);
     
     
 }
@@ -51,7 +55,55 @@ void Engine2D::checkInput()
 {
     
     SDL_Event event;
-    
+
+    while(SDL_PollEvent(&event))
+    {
+        switch(event.type)
+        {
+            case SDL_QUIT:
+                isRunning = false;
+                break;
+
+            case SDL_KEYDOWN:
+                if(event.key.keysym.sym == SDLK_ESCAPE)
+                        isRunning = false;
+                        
+                eventBus.trigger(KeyDownEvent{event.key.keysym.sym, world});
+                
+                break;
+
+            case SDL_MOUSEMOTION:
+                {
+                    int x = event.motion.x;
+                    int y = event.motion.y;
+
+                    mouse->updatePosition(x, y);
+                }
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                mouse->updatePosition(x, y);
+
+                if(event.button.button == SDL_BUTTON_LEFT)
+                    mouse->leftButtonPressed = true;
+                if(event.button.button == SDL_BUTTON_RIGHT)
+                    mouse->rightButtonPressed = true;
+                break;
+
+            case SDL_MOUSEBUTTONUP:
+                if(event.button.button == SDL_BUTTON_LEFT)
+                    mouse->leftButtonPressed = true;
+                if(event.button.button == SDL_BUTTON_RIGHT)
+                    mouse->rightButtonPressed = true;
+                break;
+
+            default:
+                break;
+        }
+    }
+  /*  
     while (SDL_PollEvent(&event)) 
     {
         
@@ -59,7 +111,7 @@ void Engine2D::checkInput()
         {
 
             case SDL_QUIT:
-                isRunning_ = false;
+                isRunning = false;
                 break;
 
             case SDL_MOUSEMOTION:
@@ -68,69 +120,70 @@ void Engine2D::checkInput()
                 int x = event.motion.x;
                 int y = event.motion.y;
 
-                mouse_->updatePosition(x, y);
+                mouse->updatePosition(x, y);
             }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
                 int x, y;
                 SDL_GetMouseState(&x, &y);
-                mouse_->updatePosition(x, y);
+                mouse->updatePosition(x, y);
 
                 if(event.button.button == SDL_BUTTON_LEFT)
-                    mouse_->leftButtonPressed = true;
+                    mouse->leftButtonPressed = true;
                 if(event.button.button == SDL_BUTTON_RIGHT)
-                    mouse_->rightButtonPressed = true;
+                    mouse->rightButtonPressed = true;
                 break;
 
             case SDL_MOUSEBUTTONUP:
                 if(event.button.button == SDL_BUTTON_LEFT)
-                    mouse_->leftButtonPressed = true;
+                    mouse->leftButtonPressed = true;
                 if(event.button.button == SDL_BUTTON_RIGHT)
-                    mouse_->rightButtonPressed = true;
+                    mouse->rightButtonPressed = true;
                 break;
 
             case SDL_KEYDOWN:
                 if(event.key.keysym.sym == SDLK_ESCAPE)
-                    isRunning_ = false;
+                    isRunning = false;
                 if(event.key.keysym.sym == SDLK_UP)
-                    keyboard_->upKeyPressed = true;
+                    keyboard->upKeyPressed = true;
                 if(event.key.keysym.sym == SDLK_DOWN)
-                    keyboard_->downKeyPressed = true;
+                    keyboard->downKeyPressed = true;
                 if(event.key.keysym.sym == SDLK_RIGHT)
-                    keyboard_->rightKeyPressed = true;
+                    keyboard->rightKeyPressed = true;
                 if(event.key.keysym.sym == SDLK_LEFT)
-                    keyboard_->leftKeyPressed = true;
+                    keyboard->leftKeyPressed = true;
                 break;
 
             case SDL_KEYUP:
                 if(event.key.keysym.sym == SDLK_UP)
-                    keyboard_->upKeyPressed = false;
+                    keyboard->upKeyPressed = false;
                 if(event.key.keysym.sym == SDLK_DOWN)
-                    keyboard_->downKeyPressed = false;
+                    keyboard->downKeyPressed = false;
                 if(event.key.keysym.sym == SDLK_RIGHT)
-                    keyboard_->rightKeyPressed = false;
+                    keyboard->rightKeyPressed = false;
                 if(event.key.keysym.sym == SDLK_LEFT)
-                    keyboard_->leftKeyPressed = false;
+                    keyboard->leftKeyPressed = false;
                 break;
 
             default:
                 break;
         }   
     }
+    */
 }
 
 void Engine2D::render()
 {
     
-    particleSystem_.Render(world_);
-    rigidbodySystem_.Render(world_);
+    particleSystem.Render(world);
+    rigidbodySystem.Render(world);
     Graphics::renderFrame();
 }
 
 double Engine2D::getDeltaTime()
 {
-    return dt_;
+    return dt;
 }
 
 int Engine2D::getTotalTimeInMilliSeconds()

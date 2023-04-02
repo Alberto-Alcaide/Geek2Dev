@@ -19,49 +19,49 @@ int main(int argc, char *args[])
     int radius = 10;
 
     //Initializes objects and their components
-    const auto particle1 = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle1, Vec2D(width/2+20,140));
-    engine.world_.emplace<KinematicsComponent>(particle1);
-    engine.world_.emplace<ParticleComponent>(particle1, mass, radius, Color::red());
+    const auto particle1 = engine.world.create();
+    engine.world.emplace<TransformComponent>(particle1, Vec2D(width/2+20,140));
+    engine.world.emplace<KinematicsComponent>(particle1);
+    engine.world.emplace<ParticleComponent>(particle1, mass, radius, Color::red());
 
-    const auto particle2 = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle2, Vec2D(width/2+40,150));
-    engine.world_.emplace<KinematicsComponent>(particle2);
-    engine.world_.emplace<ParticleComponent>(particle2, mass, radius, Color::red());
+    const auto particle2 = engine.world.create();
+    engine.world.emplace<TransformComponent>(particle2, Vec2D(width/2+40,150));
+    engine.world.emplace<KinematicsComponent>(particle2);
+    engine.world.emplace<ParticleComponent>(particle2, mass, radius, Color::red());
 
-    const auto particle3 = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle3, Vec2D(width/2+60,160));
-    engine.world_.emplace<KinematicsComponent>(particle3);
-    engine.world_.emplace<ParticleComponent>(particle3, mass, radius, Color::red());
+    const auto particle3 = engine.world.create();
+    engine.world.emplace<TransformComponent>(particle3, Vec2D(width/2+60,160));
+    engine.world.emplace<KinematicsComponent>(particle3);
+    engine.world.emplace<ParticleComponent>(particle3, mass, radius, Color::red());
 
-    const auto particle4 = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle4, Vec2D(width/2+80,170));
-    engine.world_.emplace<KinematicsComponent>(particle4);
-    engine.world_.emplace<ParticleComponent>(particle4, mass, radius, Color::red());
+    const auto particle4 = engine.world.create();
+    engine.world.emplace<TransformComponent>(particle4, Vec2D(width/2+80,170));
+    engine.world.emplace<KinematicsComponent>(particle4);
+    engine.world.emplace<ParticleComponent>(particle4, mass, radius, Color::red());
 
-    const auto particle5 = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(particle5, Vec2D(width/2+100,180));
-    engine.world_.emplace<KinematicsComponent>(particle5);
-    engine.world_.emplace<ParticleComponent>(particle5, mass, radius, Color::red());
+    const auto particle5 = engine.world.create();
+    engine.world.emplace<TransformComponent>(particle5, Vec2D(width/2+100,180));
+    engine.world.emplace<KinematicsComponent>(particle5);
+    engine.world.emplace<ParticleComponent>(particle5, mass, radius, Color::red());
 
     //create references
-    auto& t1 = engine.world_.get<TransformComponent>(particle1);
-    auto& t2 = engine.world_.get<TransformComponent>(particle2);
-    auto& t3 = engine.world_.get<TransformComponent>(particle3);
-    auto& t4 = engine.world_.get<TransformComponent>(particle4);
-    auto& t5 = engine.world_.get<TransformComponent>(particle5);
+    auto& t1 = engine.world.get<TransformComponent>(particle1);
+    auto& t2 = engine.world.get<TransformComponent>(particle2);
+    auto& t3 = engine.world.get<TransformComponent>(particle3);
+    auto& t4 = engine.world.get<TransformComponent>(particle4);
+    auto& t5 = engine.world.get<TransformComponent>(particle5);
 
-    auto& kinematic1 = engine.world_.get<KinematicsComponent>(particle1);
-    auto& kinematic2 = engine.world_.get<KinematicsComponent>(particle2);
-    auto& kinematic3 = engine.world_.get<KinematicsComponent>(particle3);
-    auto& kinematic4 = engine.world_.get<KinematicsComponent>(particle4);
-    auto& kinematic5 = engine.world_.get<KinematicsComponent>(particle5);
+    auto& kinematic1 = engine.world.get<KinematicsComponent>(particle1);
+    auto& kinematic2 = engine.world.get<KinematicsComponent>(particle2);
+    auto& kinematic3 = engine.world.get<KinematicsComponent>(particle3);
+    auto& kinematic4 = engine.world.get<KinematicsComponent>(particle4);
+    auto& kinematic5 = engine.world.get<KinematicsComponent>(particle5);
 
-    auto& p1 = engine.world_.get<ParticleComponent>(particle1);
-    auto& p2 = engine.world_.get<ParticleComponent>(particle2);
-    auto& p3 = engine.world_.get<ParticleComponent>(particle3);
-    auto& p4 = engine.world_.get<ParticleComponent>(particle4);
-    auto& p5 = engine.world_.get<ParticleComponent>(particle5);
+    auto& p1 = engine.world.get<ParticleComponent>(particle1);
+    auto& p2 = engine.world.get<ParticleComponent>(particle2);
+    auto& p3 = engine.world.get<ParticleComponent>(particle3);
+    auto& p4 = engine.world.get<ParticleComponent>(particle4);
+    auto& p5 = engine.world.get<ParticleComponent>(particle5);
 
     // game loop
     while (engine.nextFrame())

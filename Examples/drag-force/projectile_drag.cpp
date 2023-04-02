@@ -14,14 +14,14 @@ int main(int argc, char* args[])
     float drag = 0.01;
 
     // Object initialization
-    const auto projectile = engine.world_.create();
-    engine.world_.emplace<TransformComponent>(projectile, Vec2D(0.0, width/2));
-    engine.world_.emplace<KinematicsComponent>(projectile, Vec2D(150, -150), Vec2D(0, 9.81));
-    engine.world_.emplace<ParticleComponent>(projectile, 1, 10, Color::red());
+    const auto projectile = engine.world.create();
+    engine.world.emplace<TransformComponent>(projectile, Vec2D(0.0, width/2));
+    engine.world.emplace<KinematicsComponent>(projectile, Vec2D(150, -150), Vec2D(0, 9.81));
+    engine.world.emplace<ParticleComponent>(projectile, 1, 10, Color::red());
 
     // Get reference to componenets
-    auto& kinematicComp = engine.world_.get<KinematicsComponent>(projectile);
-    auto& particleComp = engine.world_.get<ParticleComponent>(projectile);
+    auto& kinematicComp = engine.world.get<KinematicsComponent>(projectile);
+    auto& particleComp = engine.world.get<ParticleComponent>(projectile);
 
     // Game loop
     while(engine.nextFrame())

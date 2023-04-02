@@ -1,3 +1,5 @@
+#ifndef RIGIDBODYSYSTEM_H
+#define RIGIDBODYSYSTEM_H
 
 #include "Graphics.h"
 #include "entt/entt.hpp"
@@ -40,3 +42,5 @@ class RigidBodySystem
             }
         }
 };
+
+#endif
