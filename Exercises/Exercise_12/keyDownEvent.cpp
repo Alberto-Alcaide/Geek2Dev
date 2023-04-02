@@ -15,20 +15,14 @@ int main(int argc, char *args[])
     engine.world.emplace<GridMovementComponent>(player1, gridSize);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
 
-    const auto player2 = engine.world.create();
-    engine.world.emplace<TransformComponent>(player2, Vec2D(225,425));
-    engine.world.emplace<GridMovementComponent>(player2, gridSize);
-    engine.world.emplace<NameGroupComponent>(player2, "player2", "players");
-
+    // TODO spawn objects when key pressed
+    
     while (engine.nextFrame())
     {
         engine.update();
 
         Graphics::drawGrid(gridSize);
-
         const auto player1TransformComp =  engine.world.get<TransformComponent>(player1);
-        const auto player2TransformComp =  engine.world.get<TransformComponent>(player2);
-
 
         // draw players
         Graphics::drawFillCircle(
@@ -38,12 +32,7 @@ int main(int argc, char *args[])
             Color::blue()
         );
 
-        Graphics::drawFillCircle(
-            player2TransformComp.position.x, 
-            player2TransformComp.position.y, 
-            radius, 
-            Color::green()
-        );
+ 
 
         engine.render();
     }
