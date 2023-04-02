@@ -47,7 +47,7 @@ public:
 
     float GetMomentOfInertia() const override
     {
-        // Moment of inertia of a rectangle: 1/12* * (w^2 + h^2)
+        // Moment of inertia of a rectangle: 1/12 * (w^2 + h^2)
         // This still needs to be multiplied by the rigidbody's mass
         return 0.08333333333 * (width*width + height*height);
     }

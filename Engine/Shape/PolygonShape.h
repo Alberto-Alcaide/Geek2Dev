@@ -21,25 +21,16 @@ public:
     virtual float GetMomentOfInertia() const = 0;
     virtual void Render(TransformComponent transform) const = 0;
 
-    void UpdateVertices(float rotation, Vec2D position)
+    void UpdateVertices(float angle, Vec2D position)
     {   
-        // Clear the globalVertices vector
-        globalVertices.clear();
 
-        // Compute the sine and cosine of the rotation angle
-        float cosAngle = std::cos(rotation);
-        float sinAngle = std::sin(rotation);
-
-        // Compute the rotated and translated vertices
-        for (const Vec2D& localVertex : localVertices) 
+        // Loop all the vertices, transforming from local to global 
+        for (size_t i = 0; i < localVertices.size(); i++) 
         {
-            // Rotate the vertex
-            Vec2D rotatedVertex = Vec2D(localVertex.x * cosAngle - localVertex.y * sinAngle,
-                                        localVertex.x * sinAngle + localVertex.y * cosAngle);
-            // Translate the vertex
-            Vec2D translatedVertex = rotatedVertex + position;
-            // Add the vertex to the globalVertices vector
-            globalVertices.push_back(translatedVertex);
+
+            // First rotate, then we translate
+            globalVertices[i] = localVertices[i].rotate(angle);
+            globalVertices[i] += position;
         }
     }
 };

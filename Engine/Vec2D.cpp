@@ -22,7 +22,7 @@ void Vec2D::scale(const float scale)
 
 Vec2D Vec2D::rotate(const float angle) const
 {
-    return Vec2D(x*cos(angle) - y*sin(angle), x*cos(angle) + y*sin(angle));
+    return Vec2D(x*cos(angle) - y*sin(angle), x*sin(angle) + y*cos(angle));
 }
 
 float Vec2D::magnitude() const
