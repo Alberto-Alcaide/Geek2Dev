@@ -179,19 +179,19 @@ void Graphics::drawRotatedFillRect(const std::vector<Vec2D>& vertices, Color col
     drawLine(vertices[2].x, vertices[2].y, vertices[3].x, vertices[3].y, color); // Bottom of Rectangle
     drawLine(vertices[0].x, vertices[0].y, vertices[2].x, vertices[2].y, color); // Left of Rectangle
     drawLine(vertices[1].x, vertices[1].y, vertices[3].x, vertices[3].y, color); // Right of Rectangle
-
+/*
     int y1 = vertices[0].y;
     int y2 = vertices[2].y;
     int x1 = vertices[0].x;
     int x2 = vertices[0].x;
 
-    /* Fill the rectangle with color
+    // Fill the rectangle with color
     for (int y = aux + 1; y < y2; y++)
     {
         drawLine(x1 + 1, y, x2 - 1, y, color);
         aux=y;
     }
-    */
+    
     
     int delta_x = (x2 - x1);
     int delta_y = (y2 - y1);
@@ -213,7 +213,7 @@ void Graphics::drawRotatedFillRect(const std::vector<Vec2D>& vertices, Color col
         x_inc += x_inc;
         y_inc += y_inc;
     }
-    
+    */
 }
 
 void Graphics::drawFillRect(int x, int y, int width, int height, Color color)
