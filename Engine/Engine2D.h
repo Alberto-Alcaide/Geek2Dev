@@ -18,6 +18,7 @@
 #include "GridMovementComponent.h"
 #include "GridMovementSystem.h"
 #include "KeyDownEvent.h"
+#include "NameGroupComponent.h"
 
 
 class Engine2D
