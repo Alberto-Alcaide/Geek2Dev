@@ -134,9 +134,7 @@ void Graphics::drawPixel(int x, int y, Color color)
 
 void Graphics::drawLine(int x0, int y0, int x1, int y1, Color color)
 {
-    
-
-    
+ 
     SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
     SDL_RenderDrawLine(renderer_, x0, y0, x1, y1);
     
