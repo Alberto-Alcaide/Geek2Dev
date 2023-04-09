@@ -15,8 +15,6 @@ int main(int argc, char *args[])
     engine.world.emplace<GridMovementComponent>(player1, gridSize);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
 
-    // TODO spawn objects when key pressed
-    
     while (engine.nextFrame())
     {
         engine.update();

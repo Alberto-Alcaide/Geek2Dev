@@ -46,9 +46,7 @@ void Engine2D::update()
     //ask all systems to update
     rigidbodySystem.Update(dt, world);
     particleSystem.Update(dt, world);
-    kinematicSystem.Update(dt, world);
-    
-    
+    kinematicSystem.Update(dt, world);  
 }
 
 void Engine2D::checkInput()
@@ -67,7 +65,7 @@ void Engine2D::checkInput()
             case SDL_KEYDOWN:
                 if(event.key.keysym.sym == SDLK_ESCAPE)
                         isRunning = false;
-                        
+
                 eventBus.trigger(KeyDownEvent{event.key.keysym.sym, world});
                 
                 break;

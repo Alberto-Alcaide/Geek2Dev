@@ -13,6 +13,26 @@ class GridMovementSystem
 public:
     void OnKeyDown(KeyDownEvent& keyDown)
     {
+
+        // spawns objects 
+        switch(keyDown.symbol)
+        {
+                case SDLK_o:
+                    const auto circle = keyDown.world->create();
+                    keyDown.world->emplace<TransformComponent>(circle, Vec2D(rand()%800,rand()%800));
+                    keyDown.world->emplace<KinematicsComponent>(circle);
+                    keyDown.world->emplace<RigidBodyComponent>(circle, 1, CircleShape(50, Color::red(), false));
+                    break;
+/*  
+                case SDLK_p:
+                    const auto rectangle = keyDown.world->create();
+                    keyDown.world->emplace<TransformComponent>(rectangle, Vec2D(rand()%800,rand()%800));
+                    keyDown.world->emplace<KinematicsComponent>(rectangle);
+                    keyDown.world->emplace<RigidBodyComponent>(rectangle, 1, RectangleShape(50, 100, Color::green(), false));
+                    break;                    
+*/
+        }
+
         auto view = keyDown.world->view<TransformComponent, GridMovementComponent, NameGroupComponent>();
         for (auto entity: view) 
         {
@@ -60,6 +80,8 @@ public:
                 }
             }
 
+
+            
             transformComp.position += direction *gridComp.stepSize;
         }
     }
