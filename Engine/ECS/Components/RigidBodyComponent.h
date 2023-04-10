@@ -12,6 +12,7 @@ struct RigidBodyComponent
     float invMass;
     float inertia;
     float invInertia;
+    float restitution; // elasticity
 
     // Forces and torques
     Vec2D sumForces;
@@ -20,8 +21,9 @@ struct RigidBodyComponent
     // Shapes
     Shape* shape;
 
-    RigidBodyComponent(float mass, const Shape& shape)
+    RigidBodyComponent(float mass, const Shape& shape, float restitution)
     {
+        this->restitution=restitution; //Adding elasticity
         this->shape = shape.Clone();
         this->mass = mass;
 
@@ -69,6 +71,14 @@ struct RigidBodyComponent
     {
         sumTorques = 0.0;
     }
+
+    bool IsStatic() const
+    {
+        const float epsilon = 0.005f;
+        return fabs(invMass - 0.0) <epsilon;
+    }
 };
+
+
 
 #endif
