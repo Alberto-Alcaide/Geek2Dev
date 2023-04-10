@@ -7,6 +7,8 @@
 #include "TransformComponent.h" 
 #include "GridMovementComponent.h" 
 #include "NameGroupComponent.h" 
+#include "RigidBodyComponent.h"
+#include "KinematicsComponent.h"
 
 class GridMovementSystem
 {
