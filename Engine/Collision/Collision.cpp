@@ -54,3 +54,53 @@ bool Collision::IsCollidingCircleCircle(entt::entity& a, entt::entity& b, Contac
 
     return true;
 }
+
+
+void Collision::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+{
+    auto const rigidbodyA = world.get<RigidBodyComponent>(a);
+    auto const rigidbodyB = world.get<RigidBodyComponent>(b);
+    auto& transformA = world.get<TransformComponent>(a);
+    auto& transformB = world.get<TransformComponent>(b);
+
+
+    if (rigidbodyA.IsStatic() && rigidbodyB.IsStatic())
+    {
+        return;
+    }
+
+    float da = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyA.invMass;
+    float db = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyB.invMass;
+
+    transformA.position -= contact.normal * da;
+    transformB.position += contact.normal * db;
+}
+
+void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+{
+    ResolvePenetration(a,b,contact,world);
+
+    auto const rigidbodyA = world.get<RigidBodyComponent>(a);
+    auto const rigidbodyB = world.get<RigidBodyComponent>(b);
+    auto& kinematicA = world.get<KinematicsComponent>(a);
+    auto& kinematicB = world.get<KinematicsComponent>(b);
+
+    //Define elasticity (coefficient of restitution e)
+    float e = std::min(rigidbodyA.restitution, rigidbodyB.restitution);
+
+    // Calculate the relative velocity between the two objects
+    const Vec2D vrel = (kinematicA.velocity - kinematicB.velocity);
+
+    // Calculate the relative velocity along the normal collision vector
+    float vrelDotNormal = vrel.dotProduct(contact.normal);
+
+    // Now we proceed to calculate the collision impulse
+    const Vec2D impulseDirection = contact.normal;
+    const float impulseMagnitude = -(1 + e) * vrelDotNormal / (rigidbodyA.invMass + rigidbodyB.invMass);
+
+    Vec2D jn = impulseDirection * impulseMagnitude;
+
+    // Apply the impulse vector to both objects in opposite direction
+    kinematicA.velocity += jn * rigidbodyA.invMass;
+    kinematicB.velocity -= jn * rigidbodyB.invMass;
+}

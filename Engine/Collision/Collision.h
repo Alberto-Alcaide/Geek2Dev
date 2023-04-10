@@ -3,6 +3,8 @@
 #include "Shape.h"
 #include "ColliderComponent.h"
 #include "CircleShape.h"
+#include "RigidBodyComponent.h"
+#include "KinematicsComponent.h"
 
 struct Contact{
     entt::entity a;
