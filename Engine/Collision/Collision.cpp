@@ -27,3 +27,30 @@ bool Collision::IsColliding(entt::entity& a, entt::entity& b, Contact& contact, 
     return false;
     
 }
+
+bool Collision::IsCollidingCircleCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+{
+    const CircleShape* aCircleShape = (CircleShape*)world.get<ColliderComponent>(a).shape;
+    const CircleShape* bCircleShape = (CircleShape*)world.get<ColliderComponent>(b).shape;
+
+    const auto aTransform = world.get<TransformComponent>(a);
+    const auto bTransform = world.get<TransformComponent>(b);
+
+    const Vec2D ab = bTransform.position - aTransform.position;
+    const float radiusSum = aCircleShape->radius + bCircleShape->radius;
+
+    bool isColliding = ab.magnitudeSquared() <= (radiusSum * radiusSum);
+
+    if (!isColliding)
+        return false;
+    
+    contact.a=a;
+    contact.b=b;
+    contact.normal=ab;
+    contact.normal.normalize();
+    contact.start = bTransform.position - contact.normal * bCircleShape->radius;
+    contact.end = aTransform.position + contact.normal * aCircleShape->radius;
+    contact.depth = (contact.end - contact.start).magnitude();
+
+    return true;
+}

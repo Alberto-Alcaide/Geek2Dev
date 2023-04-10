@@ -2,6 +2,7 @@
 #include "Vec2D.h"
 #include "Shape.h"
 #include "ColliderComponent.h"
+#include "CircleShape.h"
 
 struct Contact{
     entt::entity a;
