@@ -7,12 +7,12 @@ int main(int argc, char *args[])
     auto a = engine.world.create();
     engine.world.emplace<TransformComponent>(a, Vec2D(400,400));
     engine.world.emplace<KinematicsComponent>(a);
-    engine.world.emplace<ColliderComponent>(a, CircleShape(75, Color::blue(), false).Clone(), true, false);
+    engine.world.emplace<ColliderComponent>(a, CircleShape(75, Color::blue(), false), true, false);
 
     auto b = engine.world.create();
     engine.world.emplace<TransformComponent>(b, Vec2D(100,100));
     engine.world.emplace<KinematicsComponent>(b);
-    engine.world.emplace<ColliderComponent>(b, CircleShape(80, Color::red(), false).Clone(), true, false);
+    engine.world.emplace<ColliderComponent>(b, CircleShape(80, Color::red(), false), true, false);
 
     while (engine.nextFrame())
     {
