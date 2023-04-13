@@ -104,3 +104,13 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     kinematicA.velocity += jn * rigidbodyA.invMass;
     kinematicB.velocity -= jn * rigidbodyB.invMass;
 }
+
+bool Collision::IsCollidingPolygonPolygon(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+{
+    return false;
+}
+
+bool Collision::IsCollidingPolygonCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
+{
+    return false;
+}
