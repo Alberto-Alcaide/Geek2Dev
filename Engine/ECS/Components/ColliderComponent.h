@@ -1,3 +1,6 @@
+#ifndef COLLIDERCOMPONENT_H
+#define COLLIDERCOMPONENT_H
+
 #include "Shape.h"
 
 struct ColliderComponent
@@ -6,11 +9,13 @@ struct ColliderComponent
     bool renderCollider;
     bool isColliding;
 
-    ColliderComponent(Shape& shape,bool renderCollider, bool isColliding)
+    ColliderComponent(Shape& shape,bool renderCollider=true, bool isColliding=false)
     {
         this->shape = shape.Clone();
         this->renderCollider = renderCollider;
-        this->isColliding = false; //isColliding
+        this->isColliding = isColliding; //isColliding
 
     }
 };
+
+#endif

@@ -21,7 +21,7 @@ struct RigidBodyComponent
     // Shapes
     Shape* shape;
 
-    RigidBodyComponent(float mass, const Shape& shape, float restitution)
+    RigidBodyComponent(float mass, const Shape& shape, float restitution=1)
     {
         this->restitution=restitution; //Adding elasticity
         this->shape = shape.Clone();

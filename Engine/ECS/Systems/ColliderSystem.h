@@ -1,3 +1,6 @@
+#ifndef COLLIDERSYSTEM_H
+#define COLLIDERSYSTEM_H
+
 #include "ColliderComponent.h"
 #include "TransformComponent.h"
 #include "KinematicsComponent.h"
@@ -9,7 +12,7 @@
 class ColliderSystem
 {
     public: 
-        void Update(entt::dispatcher& eventBus, entt::registry& world)
+        void Update(/*entt::dispatcher& eventBus,*/ entt::registry& world)
         {
             auto view = world.view<TransformComponent,KinematicsComponent,RigidBodyComponent,ColliderComponent>();
 
@@ -53,3 +56,5 @@ class ColliderSystem
         }
 
 };
+
+#endif

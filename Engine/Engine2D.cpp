@@ -47,6 +47,7 @@ void Engine2D::update()
     rigidbodySystem.Update(dt, world);
     particleSystem.Update(dt, world);
     kinematicSystem.Update(dt, world);  
+    colliderSystem.Update(world);
 }
 
 void Engine2D::checkInput()
@@ -176,6 +177,7 @@ void Engine2D::render()
     
     particleSystem.Render(world);
     rigidbodySystem.Render(world);
+    colliderSystem.Render(world);
     Graphics::renderFrame();
 }
 

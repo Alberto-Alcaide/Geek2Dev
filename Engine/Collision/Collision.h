@@ -1,3 +1,6 @@
+#ifndef COLLISION_H
+#define COLLISION_H
+
 #include "entt/entt.hpp"
 #include "Vec2D.h"
 #include "Shape.h"
@@ -23,3 +26,5 @@ struct Collision{
     static void ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world);
     static void ResolvePenetration(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world);
 };
+
+#endif

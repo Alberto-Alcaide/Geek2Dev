@@ -10,6 +10,7 @@
 #include "KinematicSystem.h"
 #include "ParticleSystem.h"
 #include "RigidBodySystem.h"
+#include "ColliderSystem.h"
 #include "Force.h"
 #include "Shape.h"
 #include "CircleShape.h"
@@ -19,6 +20,7 @@
 #include "GridMovementSystem.h"
 #include "KeyDownEvent.h"
 #include "NameGroupComponent.h"
+
 
 
 class Engine2D
@@ -57,4 +59,5 @@ public:
     ParticleSystem particleSystem;
     RigidBodySystem rigidbodySystem;
     GridMovementSystem gridSystem;
+    ColliderSystem colliderSystem;
 };
