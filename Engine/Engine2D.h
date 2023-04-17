@@ -1,3 +1,6 @@
+#ifndef ENGINE2D_H
+#define ENGINE2D_H
+
 #include <iostream> 
 #include "Mouse.h"
 #include "Keyboard.h"
@@ -19,6 +22,7 @@
 #include "GridMovementComponent.h"
 #include "GridMovementSystem.h"
 #include "KeyDownEvent.h"
+#include "ColiderEvent.h"
 #include "NameGroupComponent.h"
 
 
@@ -61,3 +65,5 @@ public:
     GridMovementSystem gridSystem;
     ColliderSystem colliderSystem;
 };
+
+#endif

@@ -11,8 +11,6 @@ Engine2D::Engine2D(int width, int height)
     // Graphics initialization
     if(Graphics::createWindow(width, height))
         Log::Info("Graphics initialized");
-
-
     // Perform the subscription of the events for all system
     eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridSystem);
 
@@ -47,7 +45,7 @@ void Engine2D::update()
     rigidbodySystem.Update(dt, world);
     particleSystem.Update(dt, world);
     kinematicSystem.Update(dt, world);  
-    colliderSystem.Update(world);
+    colliderSystem.Update(eventBus,world);
 }
 
 void Engine2D::checkInput()

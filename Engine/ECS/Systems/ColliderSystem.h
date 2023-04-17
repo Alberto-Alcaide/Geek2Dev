@@ -1,18 +1,21 @@
 #ifndef COLLIDERSYSTEM_H
 #define COLLIDERSYSTEM_H
 
+#include "Engine2D.h"
 #include "ColliderComponent.h"
 #include "TransformComponent.h"
 #include "KinematicsComponent.h"
 #include "RigidBodyComponent.h"
 #include "entt/entt.hpp"
 #include "Collision.h"
+#include "ColiderEvent.h"
+
 
 
 class ColliderSystem
 {
     public: 
-        void Update(/*entt::dispatcher& eventBus,*/ entt::registry& world)
+        void Update(entt::dispatcher& eventBus, entt::registry& world)
         {
             auto view = world.view<TransformComponent,KinematicsComponent,RigidBodyComponent,ColliderComponent>();
 
@@ -34,11 +37,10 @@ class ColliderSystem
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collision::ResolveCollision(entityA, entityB, contact, world);
+                        eventBus.trigger(ColiderEvent(entityA,entityB));
                     }
-
                 }
-            }
-                                    
+            }                       
         }
 
         void Render(entt::registry& world)

@@ -1,11 +1,21 @@
 #include "Engine2D.h"
 #include <cmath>
+int width=800;
+int height=800;
+Engine2D engine(width, height);
+
+void OnColider(const ColiderEvent& collision) noexcept{
+    auto view = engine.world.view<NameGroupComponent, TransformComponent>();
+    auto& transform = view.get<TransformComponent>(collision.obj1);
+    transform.position = {425, 775};
+}
+
 
 int main(int argc, char *args[])
 {
-    int width=800;
-    int height=800;
-    Engine2D engine(width, height);
+    //int width=800;
+    //int height=800;
+    //Engine2D engine(width, height);
     int gridSize = 50;
     int radius = gridSize * 0.5;
 
@@ -71,8 +81,9 @@ int main(int argc, char *args[])
                     {
                         Contact contact;
                         auto& transform2 = view.get<TransformComponent>(entity2);
-                        if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
-                            transform.position = {425, 775};
+                        //if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
+                            //transform.position = {425, 775};
+
                     }
                 }
             }
