@@ -8,6 +8,7 @@ void OnColider(const ColiderEvent& collision) noexcept{
     auto view = engine.world.view<NameGroupComponent, TransformComponent>();
     auto& transform = view.get<TransformComponent>(collision.obj1);
     transform.position = {425, 775};
+    std::cout<<"colisiona"<<std::endl;
 }
 
 
@@ -81,8 +82,9 @@ int main(int argc, char *args[])
                     {
                         Contact contact;
                         auto& transform2 = view.get<TransformComponent>(entity2);
-                        //if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
+                        if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
                             //transform.position = {425, 775};
+                            OnColider(ColiderEvent(entity,entity2));
 
                     }
                 }
