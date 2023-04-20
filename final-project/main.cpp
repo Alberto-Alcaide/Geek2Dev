@@ -15,6 +15,10 @@ int main(int argc, char *args[])
 
     int gridSize = 50;
     int radius = gridSize * 0.5;
+    int randomT1 = rand() % 2;
+    int randomT2 = rand() % 2;
+    int randomK1 = rand() % 4;
+    int randomK2 = rand() % 4;
 
 
     // players
@@ -28,22 +32,17 @@ int main(int argc, char *args[])
 
 
     // obstacles
-    for(int i = 0; i<=2; ++i)
+    for(int i = 0; i<=20; ++i)
     {
-        const auto meteor3 = engine.world.create();
-        engine.world.emplace<TransformComponent>(meteor3, Vec2D(i*200, 125));
-        engine.world.emplace<NameGroupComponent>(meteor3, "meteor" + std::to_string(i), "meteor3");
-        engine.world.emplace<ColliderComponent>(meteor3, CircleShape(24, Color::red(), true), true, true);
-        
-        const auto meteor2 = engine.world.create();
-        engine.world.emplace<TransformComponent>(meteor2, Vec2D(i*200 + 100, 325));
-        engine.world.emplace<NameGroupComponent>(meteor2, "meteor" + std::to_string(i+2), "meteor2");
-        engine.world.emplace<ColliderComponent>(meteor2, CircleShape(24, Color::red(), true), true, true);
-        
-        const auto meteor1 = engine.world.create();
-        engine.world.emplace<TransformComponent>(meteor1, Vec2D(i*200 +100, 525));
-        engine.world.emplace<NameGroupComponent>(meteor1, "meteor" + std::to_string(i+4), "meteor1");
-        engine.world.emplace<ColliderComponent>(meteor1, CircleShape(24, Color::red(), true), true, true);
+        int randomT1 = rand() % 2;
+        int randomT2 = rand() % 2;
+        int randomK1 = rand() % 4;
+        int randomK2 = rand() % 4;
+        const auto meteor = engine.world.create();
+        engine.world.emplace<TransformComponent>(meteor, Vec2D(randomT1*1,randomT2*1));
+        engine.world.emplace<KinematicsComponent>(meteor, Vec2D(randomK1*50, randomK2*50));
+        engine.world.emplace<NameGroupComponent>(meteor, "meteor" + std::to_string(i), "meteor");
+        engine.world.emplace<ColliderComponent>(meteor, CircleShape(24, Color::red(), true), true, true);
 
     }
 
@@ -65,10 +64,12 @@ int main(int argc, char *args[])
             {
                 for(auto entity2 : view)
                 {
+                    const auto& nameGroup2 = view.get<NameGroupComponent>(entity2);
                     Contact contact;
-                    std::cout << "Name Group: " << nameGroup.group << std::endl;
-                    if (nameGroup.group!="players")
+                    
+                    if (nameGroup2.group!="players")
                     {
+                        std::cout << "Name Group: " << nameGroup2.group << std::endl;
                         
                         if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
                         {    //transform.position = {425, 775};
@@ -82,7 +83,7 @@ int main(int argc, char *args[])
                 }
             }
 
-            if(nameGroup.group == "meteor3")
+            if(nameGroup.group == "meteor")
             {
                 transform.position += Vec2D(150, 0) * engine.getDeltaTime();
                 if(transform.position.x >= 900)
@@ -91,21 +92,6 @@ int main(int argc, char *args[])
                 Graphics::drawFillCircle(transform.position.x, transform.position.y, 25, Color::red());
             }
 
-            if(nameGroup.group == "meteor2")
-            {
-                transform.position += Vec2D(100, 0) * engine.getDeltaTime();
-                if(transform.position.x >= 900)
-                    transform.position.x = -100;
-                Graphics::drawFillCircle(transform.position.x, transform.position.y, 25, Color::red());
-            }
-
-            if(nameGroup.group == "meteor1")
-            {
-                transform.position += Vec2D(50, 0) * engine.getDeltaTime();
-                if(transform.position.x >= 900)
-                    transform.position.x = -100;
-                Graphics::drawFillCircle(transform.position.x, transform.position.y, 25, Color::red());
-            }
         }
 
 
