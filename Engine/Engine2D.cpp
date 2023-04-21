@@ -46,6 +46,7 @@ void Engine2D::update()
     particleSystem.Update(dt, world);
     kinematicSystem.Update(dt, world);  
     colliderSystem.Update(eventBus,world);
+    scriptSystem.Update(dt,0,world);
 }
 
 void Engine2D::checkInput()

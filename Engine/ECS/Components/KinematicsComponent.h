@@ -20,6 +20,8 @@ struct KinematicsComponent
         this->angularVelocity = angularVelocity;
         this->angularAcceleration = angularAcceleration;
     }
+
+
 };
 
 #endif

@@ -1,16 +1,7 @@
-some_variable = 10 * 10
+-- Create a Lua table with some values
 
-if some_variable > 40 then
-    print("I am inside the If statement")
-end
-
--- This is a Lua table that contain values for the initialization of our game engine
-
-config = {
-    title = "My Game Engine",
-    fullscreen = false,
-    resolution = {
-        width = 900,
-        height = 700
-    }
+game_prices = {
+    nintendo_price = 150.23,
+    playstation_price = 455.9,
+    xbox_price = 400
 }

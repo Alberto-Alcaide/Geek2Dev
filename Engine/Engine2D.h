@@ -24,6 +24,7 @@
 #include "KeyDownEvent.h"
 #include "ColiderEvent.h"
 #include "NameGroupComponent.h"
+#include "ScriptSystem.h"
 
 
 
@@ -64,6 +65,7 @@ public:
     RigidBodySystem rigidbodySystem;
     GridMovementSystem gridSystem;
     ColliderSystem colliderSystem;
+    ScriptSystem scriptSystem;
 };
 
 #endif
