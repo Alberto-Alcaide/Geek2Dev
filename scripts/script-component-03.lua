@@ -6,8 +6,8 @@ on_update_script = {
 
         local position = get_position(entity, world)
 
-        local vx = 50
-        local vy = 50
+        local vx = 20
+        local vy = 20
 
         if position.x > 150 and position.x < 300 then
 
