@@ -50,6 +50,8 @@ public:
     static void drawPolygon(int x, int y, const std::vector<Vec2D>& vertices, Color color);
     static void drawCircle(int x0, int y0, int radius, double rotation, Color color);
     static void drawFillCircle(int x0, int y0, int radius, Color color);
+
+    static void DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation, SDL_Rect _srcRect);
 };
 
 

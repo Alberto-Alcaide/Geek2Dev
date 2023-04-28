@@ -338,3 +338,23 @@ void Graphics::drawFillCircle(int x0, int y0, int radius, Color color)
         }
     }
 }
+
+void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation, SDL_Rect _srcRect)
+{
+    // Set the source rectangle of our original sprite texture
+    SDL_Rect srcRect =  srcRect;
+
+    // Set the destination rectangle with the x,y position to be rendered
+    SDL_Rect dstRect =  {
+        static_cast<int>(position.x-width * scale.x * 0.5),
+        static_cast<int>(position.y-height * scale.y * 0.5),
+        static_cast<int>(width * scale.x),
+        static_cast<int>(height * scale.y * 0.5)
+    };
+
+    // Draw the texture on the destination renderer
+    if(SDL_RenderCopyEx(renderer_, texture, &srcRect, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0)
+    {
+        std::cout << "Error rendering sprite" << SDL_GetError() << std::endl;
+    }
+}
