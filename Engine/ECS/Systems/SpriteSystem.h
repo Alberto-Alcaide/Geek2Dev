@@ -21,7 +21,12 @@ public:
             const auto t = view.get<TransformComponent>(entity);
             const auto s = view.get<SpriteComponent>(entity);
 
-            Graphics::DrawSprite(s.texture, t.position, t.scale, s.width, s.height, t.rotation, s.srcRect);
+
+            // DEBUG
+            std::cout << "x: " << t.position.x << " y: " << t.position.y << std::endl;
+
+
+            Graphics::DrawSprite(s.texture, t.position, t.scale, s.width, s.height, t.rotation);
         }
     }    
 };

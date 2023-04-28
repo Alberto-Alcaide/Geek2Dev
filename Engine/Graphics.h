@@ -53,7 +53,7 @@ public:
     static void drawFillCircle(int x0, int y0, int radius, Color color);
 
     static SDL_Texture* CreateSprite(const char* path);
-    static void DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation, SDL_Rect _srcRect);
+    static void DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation);
 };
 
 

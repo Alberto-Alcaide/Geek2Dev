@@ -22,10 +22,11 @@
 #include "GridMovementComponent.h"
 #include "GridMovementSystem.h"
 #include "KeyDownEvent.h"
-#include "ColiderEvent.h"
+#include "ColliderEvent.h"
 #include "NameGroupComponent.h"
 #include "ScriptSystem.h"
 #include "SpriteComponent.h"
+#include "SpriteSystem.h"
 
 
 
@@ -67,6 +68,7 @@ public:
     GridMovementSystem gridSystem;
     ColliderSystem colliderSystem;
     ScriptSystem scriptSystem;
+    SpriteSystem spriteSystem;
 };
 
 #endif

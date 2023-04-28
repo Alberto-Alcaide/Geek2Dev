@@ -8,7 +8,7 @@
 #include "RigidBodyComponent.h"
 #include "entt/entt.hpp"
 #include "Collision.h"
-#include "ColiderEvent.h"
+#include "ColliderEvent.h"
 
 
 
@@ -37,7 +37,7 @@ class ColliderSystem
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collision::ResolveCollision(entityA, entityB, contact, world);
-                        eventBus.trigger(ColiderEvent(entityA,entityB));
+                        eventBus.trigger(ColliderEvent(entityA,entityB));
                     }
                 }
             }                       
