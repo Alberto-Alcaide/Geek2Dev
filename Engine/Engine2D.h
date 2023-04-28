@@ -25,6 +25,7 @@
 #include "ColiderEvent.h"
 #include "NameGroupComponent.h"
 #include "ScriptSystem.h"
+#include "SpriteComponent.h"
 
 
 

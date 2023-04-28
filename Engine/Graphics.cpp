@@ -339,10 +339,24 @@ void Graphics::drawFillCircle(int x0, int y0, int radius, Color color)
     }
 }
 
+SDL_Texture* Graphics::CreateSprite(const char* path)
+{
+    SDL_Texture* texture = IMG_LoadTexture(renderer_, path);
+
+    if (!texture) 
+    {
+        std::string error = "Couldn't load " + std::string(path) + ": " + SDL_GetError();
+		Log::Error(error);
+		return nullptr;
+	}
+
+    return texture;
+}
+
 void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation, SDL_Rect _srcRect)
 {
     // Set the source rectangle of our original sprite texture
-    SDL_Rect srcRect =  srcRect;
+    SDL_Rect srcRect =  _srcRect;
 
     // Set the destination rectangle with the x,y position to be rendered
     SDL_Rect dstRect =  {
@@ -352,9 +366,10 @@ void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int
         static_cast<int>(height * scale.y * 0.5)
     };
 
-    // Draw the texture on the destination renderer
+    // Draw the texture on the destination renderer or print error when failed
     if(SDL_RenderCopyEx(renderer_, texture, &srcRect, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0)
     {
         std::cout << "Error rendering sprite" << SDL_GetError() << std::endl;
     }
 }
+
