@@ -21,6 +21,8 @@
 #include "RectangleShape.h"
 #include "GridMovementComponent.h"
 #include "GridMovementSystem.h"
+#include "HorizontalMovementComponent.h"
+#include "HorizontalMovementSystem.h"
 #include "KeyDownEvent.h"
 #include "ColiderEvent.h"
 #include "NameGroupComponent.h"
