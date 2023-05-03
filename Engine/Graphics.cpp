@@ -379,12 +379,14 @@ void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int
         static_cast<int>(height * scale.y * 0.5)
     };
 
-    //SDL_RenderCopy(renderer_, texture, NULL,&srcRect);
+    SDL_RenderCopy(renderer_, texture, NULL,&srcRect);
 
+/*
     // Draw the texture on the destination renderer or print error when failed
     if(SDL_RenderCopyEx(renderer_, texture, &srcRect, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0)
     {
         std::cout << "Error rendering sprite" << SDL_GetError() << std::endl;
     }
+*/
 }
 
