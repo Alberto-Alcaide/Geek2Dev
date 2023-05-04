@@ -1,4 +1,4 @@
-OBJS = exercise_14.cpp  
+OBJS = collision-test.cpp  
 ENGINE = C:\Geek2Dev\Engine/Color.cpp C:\Geek2Dev\Engine/Engine2D.cpp C:\Geek2Dev\Engine/Graphics.cpp C:\Geek2Dev\Engine/Log.cpp C:\Geek2Dev\Engine/Vec2D.cpp C:\Geek2Dev\Engine\Collision/Collision.cpp 
 OBJ_NAME = test.exe
 CPP = g++

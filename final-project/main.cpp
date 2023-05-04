@@ -27,7 +27,7 @@ int main(int argc, char *args[])
     engine.world.emplace<TransformComponent>(player1, Vec2D(width/2,height/2));
     engine.world.emplace<GridMovementComponent>(player1, gridSize);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
-    engine.world.emplace<ColliderComponent>(player1, CircleShape(24, Color::white(), true), true, true);
+    engine.world.emplace<ColliderComponent>(player1, CircleShape(radius, Color::white(), true), true, true);
 
 
 
@@ -37,7 +37,7 @@ int main(int argc, char *args[])
         engine.update();
 
         
-        if (cont % 50 == 0)
+        if (cont % 150 == 0)
         {
             if (rand1 == 1)
             {
@@ -48,7 +48,7 @@ int main(int argc, char *args[])
                     engine.world.emplace<TransformComponent>(meteor, Vec2D(1,1));
                     engine.world.emplace<KinematicsComponent>(meteor, Vec2D(50,50));
                     engine.world.emplace<NameGroupComponent>(meteor, "meteor" + std::to_string(cont), "meteor");
-                    engine.world.emplace<ColliderComponent>(meteor, CircleShape(24, Color::red(), true), true, true);
+                    engine.world.emplace<ColliderComponent>(meteor, CircleShape(radius, Color::red(), true), true, true);
 
                 }
                 else
@@ -59,7 +59,7 @@ int main(int argc, char *args[])
                         engine.world.emplace<TransformComponent>(meteor, Vec2D(width,1));
                         engine.world.emplace<KinematicsComponent>(meteor, Vec2D(-50,50));
                         engine.world.emplace<NameGroupComponent>(meteor, "meteor" + std::to_string(cont), "meteor");
-                        engine.world.emplace<ColliderComponent>(meteor, CircleShape(24, Color::red(), true), true, true);
+                        engine.world.emplace<ColliderComponent>(meteor, CircleShape(radius, Color::red(), true), true, true);
                     }
                     else
                     {
@@ -67,7 +67,7 @@ int main(int argc, char *args[])
                         engine.world.emplace<TransformComponent>(meteor, Vec2D(width,height));
                         engine.world.emplace<KinematicsComponent>(meteor, Vec2D(-50,-50));
                         engine.world.emplace<NameGroupComponent>(meteor, "meteor" + std::to_string(cont), "meteor");
-                        engine.world.emplace<ColliderComponent>(meteor, CircleShape(24, Color::red(), true), true, true);
+                        engine.world.emplace<ColliderComponent>(meteor, CircleShape(radius, Color::red(), true), true, true);
                     }
 
                 }
@@ -81,7 +81,7 @@ int main(int argc, char *args[])
                 engine.world.emplace<TransformComponent>(meteor, Vec2D(1,height));
                 engine.world.emplace<KinematicsComponent>(meteor, Vec2D(50,-50));
                 engine.world.emplace<NameGroupComponent>(meteor, "meteor" + std::to_string(cont), "meteor");
-                engine.world.emplace<ColliderComponent>(meteor, CircleShape(24, Color::red(), true), true, true);
+                engine.world.emplace<ColliderComponent>(meteor, CircleShape(radius, Color::red(), true), true, true);
             }
 
             rand1 = rand() % 2;
@@ -97,11 +97,12 @@ int main(int argc, char *args[])
         //Graphics::drawGrid(gridSize);
 
         // draw obstacles
-        auto view = engine.world.view<NameGroupComponent, TransformComponent>();
+        auto view = engine.world.view<NameGroupComponent, TransformComponent, KinematicsComponent>();
         for(auto entity : view)
         {  
             const auto& nameGroup = view.get<NameGroupComponent>(entity);
             auto& transform = view.get<TransformComponent>(entity);
+
 
             if(nameGroup.group == "players")
             {
@@ -112,7 +113,7 @@ int main(int argc, char *args[])
                     
                     if (nameGroup2.group!="players")
                     {
-                        
+                        std::cout << "Not colliding: " << nameGroup2.name << std::endl;
                         if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
                         {    //transform.position = {425, 775};
 
@@ -127,13 +128,17 @@ int main(int argc, char *args[])
 
             if(nameGroup.group == "meteor")
             {
-                transform.position += Vec2D(70, 0) * engine.getDeltaTime();
-                if(transform.position.x >= 1100)
-                    transform.position.x = -100;
-                //Graphics::drawFillRect(transform.position.x, transform.position.y, 50, 50, Color::red());
-                Graphics::drawFillCircle(transform.position.x, transform.position.y, 25, Color::red());
-            }
+                
+                transform.position += Vec2D(1, 1) * engine.getDeltaTime();
+                if(transform.position.x >= 1500)
+                    transform.position.x = -80;
+                if (transform.position.x <=-90)
+                    transform.position.x = width;
 
+                //Graphics::drawFillRect(transform.position.x, transform.position.y, 50, 50, Color::red());
+                Graphics::drawFillCircle(transform.position.x, transform.position.y, radius, Color::red());
+            }
+            
         }
 
 

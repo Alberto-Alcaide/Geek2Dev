@@ -56,13 +56,15 @@ public:
     {
         if(this->filled)
         {
-            Graphics::drawRotatedFillRect(globalVertices, Color::red());
+            Graphics::drawFillRect(transform.position.x,transform.position.y,width,height, this->color);
         }
         else
         {
-            Graphics::drawRotatedRect(globalVertices, Color::red());
+            Graphics::drawRect(transform.position.x,transform.position.y,width,height, this->color);
         }
     }
+
+
 };
 
 #endif
