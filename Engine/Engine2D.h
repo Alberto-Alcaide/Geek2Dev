@@ -9,22 +9,32 @@
 #include "Graphics.h"
 #include "Vec2D.h"
 #include "entt/entt.hpp"
-#include "TransformComponent.h"
-#include "KinematicSystem.h"
-#include "ParticleSystem.h"
-#include "RigidBodySystem.h"
-#include "ColliderSystem.h"
+
+
 #include "Force.h"
+
+//Shape
 #include "Shape.h"
 #include "CircleShape.h"
 #include "PolygonShape.h"
 #include "RectangleShape.h"
+
+//Component
+#include "TransformComponent.h"
 #include "GridMovementComponent.h"
+#include "NameGroupComponent.h"
+
+//System (include components)
+#include "KinematicSystem.h"
+#include "ParticleSystem.h"
+#include "RigidBodySystem.h"
+#include "ColliderSystem.h"
 #include "GridMovementSystem.h"
+#include "ScriptSystem.h"
+
+//Events
 #include "KeyDownEvent.h"
 #include "ColiderEvent.h"
-#include "NameGroupComponent.h"
-#include "ScriptSystem.h"
 
 
 

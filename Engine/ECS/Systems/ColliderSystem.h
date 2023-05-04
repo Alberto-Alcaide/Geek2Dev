@@ -37,7 +37,6 @@ class ColliderSystem
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collision::ResolveCollision(entityA, entityB, contact, world);
-                        eventBus.trigger(ColiderEvent(entityA,entityB));
                     }
                 }
             }                       
