@@ -7,12 +7,12 @@ int main(int argc, char *args[])
     auto a = engine.world.create();
     engine.world.emplace<TransformComponent>(a, Vec2D(400,400));
     engine.world.emplace<KinematicsComponent>(a);
-    engine.world.emplace<ColliderComponent>(a, CircleShape(75, Color::blue(), false), true, false);
+    engine.world.emplace<ColliderComponent>(a, RectangleShape(20,20, Color::blue(), true), true, false);
 
     auto b = engine.world.create();
     engine.world.emplace<TransformComponent>(b, Vec2D(100,100));
     engine.world.emplace<KinematicsComponent>(b);
-    engine.world.emplace<ColliderComponent>(b, CircleShape(80, Color::red(), false), true, false);
+    engine.world.emplace<ColliderComponent>(b, RectangleShape(20,20, Color::red(), true), true, false);
 
     while (engine.nextFrame())
     {
@@ -23,13 +23,15 @@ int main(int argc, char *args[])
         Contact contact;
         if (Collision::IsColliding(a,b,contact,engine.world))
         {
-            Graphics::drawFillCircle(contact.start.x, contact.start.y, 3, 0xFFFF00FF);
-            Graphics::drawFillCircle(contact.end.x, contact.end.y, 3, 0xFFFF00FF);
-            Graphics::drawLine(contact.start.x,contact.start.y,contact.start.x + contact.normal.x * 15, contact.start.y + contact.normal.y * 15, 0xFFFF00FF);
+            //int x, int y, int width, int height, Color color
+            //Graphics::drawFillRect(contact.start.x, contact.start.y,20,20, Color::blue());
+            //Graphics::drawFillRect(contact.end.x, contact.end.y, 20,20, Color::red());
+            //Graphics::drawLine(contact.start.x,contact.start.y,contact.start.x + contact.normal.x * 15, contact.start.y + contact.normal.y * 15, 0xFFFF00FF);
 
-            std::cout << "Depth: " << contact.depth << std::endl;
+            //std::cout << "Depth: " << contact.depth << std::endl;
 
         }
+        
         engine.render();
     }
     return 0;
