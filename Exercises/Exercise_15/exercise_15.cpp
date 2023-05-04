@@ -89,6 +89,7 @@ int main(int argc, char *args[])
                     }
                 }
             }
+            
 
             if(nameGroup.group == "fireObstacle3")
             {

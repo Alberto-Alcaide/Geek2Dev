@@ -56,6 +56,25 @@ public:
                         break;
                 }
             }
+
+            if(nameGroupComp.name == "player2")
+            {
+                switch (keyDown.symbol) 
+                {
+                    case SDLK_w:
+                        direction = Vec2D(0, -1);   // up
+                        break;
+                    case SDLK_d:
+                        direction = Vec2D(1, 0);    // right  
+                        break;
+                    case SDLK_s:
+                        direction = Vec2D(0, 1);    // down
+                        break;
+                    case SDLK_a:
+                        direction = Vec2D(-1, 0);   // left
+                        break;
+                }
+            }
             transformComp.position += direction *gridComp.stepSize;
         }
     }
