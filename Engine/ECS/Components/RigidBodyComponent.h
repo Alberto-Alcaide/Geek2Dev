@@ -62,6 +62,11 @@ struct RigidBodyComponent
         sumForces = Vec2D(0.0, 0.0);
     }
 
+    Vec2D GetForces()
+    {
+        return sumForces;
+    }
+
     void AddTorque(float torque)
     {
         sumTorques += torque;

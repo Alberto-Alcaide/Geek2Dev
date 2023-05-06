@@ -15,19 +15,24 @@ void OnColider(const ColiderEvent& collision) noexcept{
 
 int main(int argc, char *args[])
 {
+
+    Vec2D weight = Vec2D(0.0,25.0);
+
     // players
     const auto player1 = engine.world.create();
     engine.world.emplace<TransformComponent>(player1, Vec2D(width/2,height-height/10));
+    engine.world.emplace<KinematicsComponent>(player1);
     engine.world.emplace<GridMovementComponent>(player1, 50);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
-    engine.world.emplace<ColliderComponent>(player1, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(player1, RectangleShape(100,25,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(100,25, Color::yellow(), true));
 
     //Walls
-        //celing
-    const auto celing = engine.world.create();
-    engine.world.emplace<TransformComponent>(celing, Vec2D(0,0));
-    engine.world.emplace<NameGroupComponent>(celing, "celing", "map");
-    engine.world.emplace<ColliderComponent>(celing, RectangleShape(width,25,Color::yellow(),true), true, true);
+        //celling
+    const auto celling = engine.world.create();
+    engine.world.emplace<TransformComponent>(celling, Vec2D(0,0));
+    engine.world.emplace<NameGroupComponent>(celling, "celling", "map");
+    engine.world.emplace<ColliderComponent>(celling, RectangleShape(width,25,Color::yellow(),true), true, true);
         //left wall
     const auto l_wall = engine.world.create();
     engine.world.emplace<TransformComponent>(l_wall, Vec2D(0,25));
@@ -43,22 +48,28 @@ int main(int argc, char *args[])
 
     //bricks
     const auto brick_1 = engine.world.create();
-    engine.world.emplace<TransformComponent>(r_wall, Vec2D(width/2,200));
-    engine.world.emplace<NameGroupComponent>(r_wall, "brick_1", "brick");
-    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<TransformComponent>(brick_1, Vec2D(width/2,200));
+    engine.world.emplace<NameGroupComponent>(brick_1, "brick_1", "brick");
+    engine.world.emplace<ColliderComponent>(brick_1, RectangleShape(100,50,Color::yellow(),true), true, true);
 
     const auto brick_2 = engine.world.create();
-    engine.world.emplace<TransformComponent>(r_wall, Vec2D(width/2,300));
-    engine.world.emplace<NameGroupComponent>(r_wall, "brick_2", "brick");
-    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<TransformComponent>(brick_2, Vec2D(width/2,300));
+    engine.world.emplace<NameGroupComponent>(brick_2, "brick_2", "brick");
+    engine.world.emplace<ColliderComponent>(brick_2, RectangleShape(100,50,Color::yellow(),true), true, true);
 
     const auto brick_3 = engine.world.create();
-    engine.world.emplace<TransformComponent>(r_wall, Vec2D(width/2,400));
-    engine.world.emplace<NameGroupComponent>(r_wall, "brick_3", "brick");
-    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<TransformComponent>(brick_3, Vec2D(width/2,400));
+    engine.world.emplace<NameGroupComponent>(brick_3, "brick_3", "brick");
+    engine.world.emplace<ColliderComponent>(brick_3, RectangleShape(100,50,Color::yellow(),true), true, true);
 
 
     //ball
+    const auto ball = engine.world.create();
+    engine.world.emplace<TransformComponent>(ball, Vec2D(width/2,height-height/6));
+    engine.world.emplace<KinematicsComponent>(ball);
+    engine.world.emplace<NameGroupComponent>(ball, "ball", "ball");
+    engine.world.emplace<ColliderComponent>(ball, RectangleShape(25,25,Color::white(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(25,25, Color::white(), true));
 
 
 
@@ -71,9 +82,13 @@ int main(int argc, char *args[])
     {
         engine.update();
 
+        engine.world.get<RigidBodyComponent>(ball).AddForce(weight);
+        auto forces = engine.world.get<RigidBodyComponent>(ball).GetForces();
+        std::cout << "Fuerzas: " << forces << std::endl;
 
 
         //Graphics::drawGrid(gridSize);
+
 
         // draw obstacles
         auto view = engine.world.view<NameGroupComponent, TransformComponent>();
@@ -81,6 +96,8 @@ int main(int argc, char *args[])
         {  
             const auto& nameGroup = view.get<NameGroupComponent>(entity);
             auto& transform = view.get<TransformComponent>(entity);
+
+
 
             /*if(nameGroup.group == "players")
             {
@@ -113,11 +130,11 @@ int main(int argc, char *args[])
             player1TransformComp.position.y, 
             playerW,
             playerH, 
-            Color::white()
+            Color::red()
         );
 
         // draw Walls
-        const auto celingTC = engine.world.get<TransformComponent>(celing);
+        const auto celingTC = engine.world.get<TransformComponent>(celling);
         const auto l_wallTC = engine.world.get<TransformComponent>(l_wall);
         const auto r_wallTC = engine.world.get<TransformComponent>(r_wall);
         Graphics::drawFillRect(
@@ -153,9 +170,20 @@ int main(int argc, char *args[])
                 transformComp.position.y, 
                 100,
                 50, 
-                Color::white()
+                Color::red()
             );
         }
+
+        //draw ball
+        auto ballTransform = engine.world.get<TransformComponent>(ball);
+        Graphics::drawFillRect(
+            ballTransform.position.x,
+            ballTransform.position.y,
+            25,
+            25,
+            Color::white()
+        );
+
         engine.render();
     }
 
