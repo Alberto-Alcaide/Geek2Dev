@@ -365,28 +365,28 @@ void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int
 {
     // Set the source rectangle of our original sprite texture
     SDL_Rect srcRect = {
-        static_cast<int>(position.x), 
-        static_cast<int>(position.y), 
+        0,
+        0,
         width,
         height
     };
 
     // Set the destination rectangle with the x,y position to be rendered
     SDL_Rect dstRect =  {
-        static_cast<int>(position.x-width * scale.x * 0.5),
-        static_cast<int>(position.y-height * scale.y * 0.5),
+        static_cast<int>(position.x),
+        static_cast<int>(position.y),
         static_cast<int>(width * scale.x),
-        static_cast<int>(height * scale.y * 0.5)
+        static_cast<int>(height * scale.y)
     };
 
-    SDL_RenderCopy(renderer_, texture, NULL,&srcRect);
+   // SDL_RenderCopy(renderer_, texture, NULL,&srcRect);
 
-/*
+
     // Draw the texture on the destination renderer or print error when failed
     if(SDL_RenderCopyEx(renderer_, texture, &srcRect, &dstRect, rotation, NULL, SDL_FLIP_NONE) != 0)
     {
         std::cout << "Error rendering sprite" << SDL_GetError() << std::endl;
     }
-*/
+
 }
 

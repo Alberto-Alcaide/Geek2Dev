@@ -24,6 +24,9 @@ public:
 
             // DEBUG
             std::cout << "x: " << t.position.x << " y: " << t.position.y << std::endl;
+            std::cout << "w: " << s.width << " h: " << s.height << std::endl;
+            std::cout << "scale: " << t.scale.x << " scaley: " << t.scale.y << std::endl;
+
 
 
             Graphics::DrawSprite(s.texture, t.position, t.scale, s.width, s.height, t.rotation);

@@ -15,13 +15,20 @@ int main(int argc, char *args[])
     engine.world.emplace<TransformComponent>(monster, Vec2D(400, 400));
     engine.world.emplace<SpriteComponent>(monster, 85, 69, monsterSprite);
 
-      
+    SDL_Surface* surface = IMG_Load("../../assets/1_enemy.png");
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(Graphics::getRenderer(), surface);
+    SDL_FreeSurface(surface);
 
 
     while(engine.nextFrame())
     {
         engine.update();
 
+
+        
+        
+
+        //Graphics::drawCircle(400, 400, 50,1,Color::white());
         engine.render();
     }
 

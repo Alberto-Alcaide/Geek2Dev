@@ -27,6 +27,7 @@ public:
 
     static int getWindowWidth();
     static int getWindowHeight();
+    static SDL_Renderer* getRenderer() {return renderer_;};
 
     static bool createWindow(int width, int height);
     static void closeWindow();
