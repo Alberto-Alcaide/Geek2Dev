@@ -12,21 +12,23 @@ bool Collision::IsColliding(entt::entity& a, entt::entity& b, Contact& contact, 
     {
         return IsCollidingCircleCircle(a,b,contact,world);
     }
+
     if (aIsPolygon && bIsPolygon)
     {
         return IsCollidingRectangleRectangle(a,b,contact,world);
     }
+
     if (aIsPolygon && bIsCircle)
     {
         return IsCollidingPolygonCircle(a,b,contact,world);
     }
+
     if (aIsCircle && bIsPolygon)
     {
         return IsCollidingPolygonCircle(a,b,contact,world);
     }
 
-    return false;
-    
+    return false;  
 }
 
 bool Collision::IsCollidingCircleCircle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)

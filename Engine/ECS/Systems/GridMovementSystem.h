@@ -25,7 +25,9 @@ public:
                     keyDown.world->emplace<KinematicsComponent>(circle);
                     keyDown.world->emplace<RigidBodyComponent>(circle, 1, CircleShape(50, Color::red(), false));
                     break;
-/*  
+
+
+/*      
                 case SDLK_p:
                     const auto rectangle = keyDown.world->create();
                     keyDown.world->emplace<TransformComponent>(rectangle, Vec2D(rand()%800,rand()%800));

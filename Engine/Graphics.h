@@ -9,6 +9,7 @@
 #include "Vec2D.h"
 #include "vector"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "TransformComponent.h"
 
 
@@ -26,6 +27,7 @@ public:
 
     static int getWindowWidth();
     static int getWindowHeight();
+    static SDL_Renderer* getRenderer() {return renderer_;};
 
     static bool createWindow(int width, int height);
     static void closeWindow();
@@ -51,6 +53,7 @@ public:
     static void drawCircle(int x0, int y0, int radius, double rotation, Color color);
     static void drawFillCircle(int x0, int y0, int radius, Color color);
 
+    static SDL_Texture* CreateSprite(const char* path);
     static void DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation, SDL_Rect _srcRect);
 };
 

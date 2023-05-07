@@ -1,15 +1,15 @@
-#ifndef COLIDEREVENT_H
-#define COLIDEREVENT_H
+#ifndef COLLIDEREVENT_H
+#define COLLIDEREVENT_H
 
 #include <SDL2/SDL.h>
 #include "entt/entt.hpp"
 
-struct ColiderEvent
+struct ColliderEvent
 {
     entt::entity obj1;
     entt::entity obj2;
 
-    ColiderEvent( entt::entity a, entt::entity b):
+    ColliderEvent( entt::entity a, entt::entity b):
     obj1(a),obj2(b){}
 };
 

@@ -24,9 +24,13 @@
 #include "HorizontalMovementComponent.h"
 #include "HorizontalMovementSystem.h"
 #include "KeyDownEvent.h"
-#include "ColiderEvent.h"
+#include "ColliderEvent.h"
 #include "NameGroupComponent.h"
 #include "ScriptSystem.h"
+#include "SpriteComponent.h"
+#include "SpriteSystem.h"
+#include "AnimationComponent.h"
+#include "AnimationSystem.h"
 
 
 
@@ -68,6 +72,8 @@ public:
     GridMovementSystem gridSystem;
     ColliderSystem colliderSystem;
     ScriptSystem scriptSystem;
+    SpriteSystem spriteSystem;
+    AnimationSystem animationSystem;
 };
 
 #endif

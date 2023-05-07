@@ -5,7 +5,7 @@ int width=650;
 int height=650;
 Engine2D engine(width, height);
 
-void OnColider(const ColiderEvent& collision) noexcept{
+void OnColider(const ColliderEvent& collision) noexcept{
     std::cout<<"GAME OVER"<<std::endl;
     engine.~Engine2D();
 }
@@ -73,7 +73,7 @@ int main(int argc, char *args[])
                         
                         if(Collision::IsColliding(entity,entity2,contact,engine.world))//abs(transform.position.x - (transform2.position.x+25)) < 50 && abs(transform.position.y - (transform2.position.y+25)) < 50)
                         {    //transform.position = {425, 775};
-                            OnColider(ColiderEvent(entity,entity2));
+                            OnColider(ColliderEvent(entity,entity2));
                         }
 
                     }
