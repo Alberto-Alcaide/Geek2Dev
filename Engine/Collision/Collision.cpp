@@ -127,7 +127,7 @@ bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, 
 
     if ((right1 >= left2) && (right2 >= left1) && (bottom1 >= top2) && (bottom2 >= top1))
     {
-
+        std::cout << "PUTO" << std::endl;
 
         contact.a = a;
         contact.b = b;
