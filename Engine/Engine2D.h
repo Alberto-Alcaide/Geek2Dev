@@ -27,6 +27,8 @@
 #include "ScriptSystem.h"
 #include "SpriteComponent.h"
 #include "SpriteSystem.h"
+#include "AnimationComponent.h"
+#include "AnimationSystem.h"
 
 
 
@@ -69,6 +71,7 @@ public:
     ColliderSystem colliderSystem;
     ScriptSystem scriptSystem;
     SpriteSystem spriteSystem;
+    AnimationSystem animationSystem;
 };
 
 #endif

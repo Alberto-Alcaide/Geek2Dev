@@ -12,14 +12,11 @@ struct AnimationComponent
     bool isLoop;
     int startTime;
 
-    SDL_Texture* animation; 
-
-    AnimationComponent(int numFrames = 1, int frameSpeedRate = 5, bool isLoop = true, SDL_Texture* animation)
+    AnimationComponent(int numFrames = 1, int frameSpeedRate = 5, bool isLoop = true)
     {
         this->numFrames = numFrames;
         this->frameSpeedRate = frameSpeedRate;
         this->isLoop = isLoop;
-        this->animation = animation;
 
         currentFrame = 0;
         startTime = SDL_GetTicks();

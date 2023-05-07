@@ -69,7 +69,32 @@ void Engine2D::checkInput()
                         isRunning = false;
 
                 eventBus.trigger(KeyDownEvent{event.key.keysym.sym, world});
-                
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_RIGHT:
+                        keyboard->rightKeyPressed = true;
+                        std::cout << "Right key pressed" << std::endl;
+                        break;
+                    case SDLK_LEFT:
+                        keyboard->leftKeyPressed = true;
+                        std::cout << "Left key pressed" << std::endl;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            case SDL_KEYUP:
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_RIGHT:
+                        keyboard->rightKeyPressed = false;
+                        break;
+                    case SDLK_LEFT:
+                        keyboard->leftKeyPressed = false;
+                    default:
+                        break;
+                }
                 break;
 
             case SDL_MOUSEMOTION:
@@ -181,6 +206,7 @@ void Engine2D::render()
     colliderSystem.Render(world);
     
     spriteSystem.Render(world);
+    animationSystem.Render(world);
 
     Graphics::renderFrame();
 }

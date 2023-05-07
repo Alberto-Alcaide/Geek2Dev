@@ -9,31 +9,43 @@ int main(int argc, char *args[])
     Engine2D engine (width,height);
 
     // Init sprites
-    SDL_Texture* monsterSprite = Graphics::CreateSprite("../../assets/1_enemy.png");
+    SDL_Texture* tankLeft = Graphics::CreateSprite("../../assets/LeftAnim.png");
+    SDL_Texture* tankRight = Graphics::CreateSprite("../../assets/RightAnim.png");
 
-    const auto monster = engine.world.create();
-    engine.world.emplace<TransformComponent>(monster, Vec2D(400, 400));
-    engine.world.emplace<SpriteComponent>(monster, 85, 69, monsterSprite);
+    const auto tank = engine.world.create();
+    engine.world.emplace<NameGroupComponent>(tank, "player1", "player1");
+    engine.world.emplace<GridMovementComponent>(tank, 100);
+    engine.world.emplace<TransformComponent>(tank, Vec2D(400, 400));
+    engine.world.emplace<SpriteComponent>(tank, 138, 130, tankRight);
+    engine.world.emplace<AnimationComponent>(tank, 3, 8, true);
 
       
 
 
     while(engine.nextFrame())
     {
+        
+
         engine.update();
 
-        auto& monsterTransform = engine.world.get<TransformComponent>(monster);
+        if(engine.keyboard->leftKeyPressed)
+        {
+            auto& spriteComp = engine.world.get<SpriteComponent>(tank);
+            spriteComp.texture = tankLeft;
+        }
+
+        if(engine.keyboard->rightKeyPressed)
+        {
+            auto& spriteComp = engine.world.get<SpriteComponent>(tank);
+            spriteComp.texture = tankRight;
+        }
         
-        // Rotate monster
-        monsterTransform.rotation += 1;
-
-        // Scale Monster
-        monsterTransform.scale = Vec2D(2, 2) * sin(engine.getTotalTimeInMilliSeconds() * 0.001);
-
         engine.render();
+        
     }
 
-    SDL_DestroyTexture(monsterSprite);
+    SDL_DestroyTexture(tankLeft);
+    SDL_DestroyTexture(tankRight);
 
     return 0;
 }

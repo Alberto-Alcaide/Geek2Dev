@@ -24,7 +24,6 @@ struct AnimationSystem
                 moduledCurrentFrame = animationComp.numFrames - 1;
 
             animationComp.currentFrame = moduledCurrentFrame;
-            // guardar animacion en animation Component, then spritecomp.texture = animatonComp.texture * currentFrame
             spriteComp.srcRect.x = animationComp.currentFrame * spriteComp.width;
 
         }
