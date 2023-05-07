@@ -361,15 +361,11 @@ SDL_Texture* Graphics::CreateSprite(const char* path)
     return texture;
 }
 
-void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation)
+void Graphics::DrawSprite(SDL_Texture* texture, Vec2D position, Vec2D scale, int width, int height, float rotation, SDL_Rect _srcRect)
 {
     // Set the source rectangle of our original sprite texture
-    SDL_Rect srcRect = {
-        0,
-        0,
-        width,
-        height
-    };
+    //SDL_Rect srcRect = {0, 0, width, height};
+    SDL_Rect srcRect = _srcRect;
 
     // Set the destination rectangle with the x,y position to be rendered
     SDL_Rect dstRect =  {

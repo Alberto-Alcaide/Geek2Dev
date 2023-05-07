@@ -22,8 +22,18 @@ int main(int argc, char *args[])
     {
         engine.update();
 
+        auto& monsterTransform = engine.world.get<TransformComponent>(monster);
+        
+        // Rotate monster
+        monsterTransform.rotation += 1;
+
+        // Scale Monster
+        monsterTransform.scale = Vec2D(2, 2) * sin(engine.getTotalTimeInMilliSeconds() * 0.001);
+
         engine.render();
     }
+
+    SDL_DestroyTexture(monsterSprite);
 
     return 0;
 }
