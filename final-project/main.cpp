@@ -16,7 +16,9 @@ void OnColider(const ColiderEvent& collision) noexcept{
 int main(int argc, char *args[])
 {
 
-    Vec2D weight = Vec2D(0.0,25.0);
+    //Vec2D weight = Vec2D(0.0,25.0);
+
+
 
     // players
     const auto player1 = engine.world.create();
@@ -25,24 +27,34 @@ int main(int argc, char *args[])
     engine.world.emplace<GridMovementComponent>(player1, 50);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
     engine.world.emplace<ColliderComponent>(player1, RectangleShape(100,25,Color::yellow(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(100,25, Color::yellow(), true));
+    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(100,25, Color::white(), true));
+
+
 
     //Walls
         //celling
     const auto celling = engine.world.create();
     engine.world.emplace<TransformComponent>(celling, Vec2D(0,0));
+    engine.world.emplace<KinematicsComponent>(celling);
     engine.world.emplace<NameGroupComponent>(celling, "celling", "map");
-    engine.world.emplace<ColliderComponent>(celling, RectangleShape(width,25,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(celling, RectangleShape(width,25,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(celling, 0, RectangleShape(width, 25, Color::white(), true));
         //left wall
     const auto l_wall = engine.world.create();
     engine.world.emplace<TransformComponent>(l_wall, Vec2D(0,25));
+    engine.world.emplace<KinematicsComponent>(l_wall);
     engine.world.emplace<NameGroupComponent>(l_wall, "l_wall", "map");
-    engine.world.emplace<ColliderComponent>(l_wall, RectangleShape(25,974,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(l_wall, RectangleShape(25,974,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(l_wall, 0, RectangleShape(25, 974, Color::white(), true));
         //right wall
     const auto r_wall = engine.world.create();
     engine.world.emplace<TransformComponent>(r_wall, Vec2D(700,25));
+    engine.world.emplace<KinematicsComponent>(r_wall);
     engine.world.emplace<NameGroupComponent>(r_wall, "r_wall", "map");
-    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(25,974,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(25,974,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(r_wall, 0, RectangleShape(25, 974, Color::white(), true));
+
+
 
 
 
@@ -50,17 +62,24 @@ int main(int argc, char *args[])
     const auto brick_1 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_1, Vec2D(width/2,200));
     engine.world.emplace<NameGroupComponent>(brick_1, "brick_1", "brick");
-    engine.world.emplace<ColliderComponent>(brick_1, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(brick_1, RectangleShape(100,25,Color::yellow(),true), true, true);
 
     const auto brick_2 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_2, Vec2D(width/2,300));
     engine.world.emplace<NameGroupComponent>(brick_2, "brick_2", "brick");
-    engine.world.emplace<ColliderComponent>(brick_2, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(brick_2, RectangleShape(100,25,Color::yellow(),true), true, true);
 
     const auto brick_3 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_3, Vec2D(width/2,400));
     engine.world.emplace<NameGroupComponent>(brick_3, "brick_3", "brick");
-    engine.world.emplace<ColliderComponent>(brick_3, RectangleShape(100,50,Color::yellow(),true), true, true);
+    engine.world.emplace<ColliderComponent>(brick_3, RectangleShape(100,25,Color::yellow(),true), true, true);
+
+
+
+    // visible bricks
+    auto bricks = {brick_1, brick_2, brick_3};
+
+
 
 
     //ball
@@ -70,22 +89,17 @@ int main(int argc, char *args[])
     engine.world.emplace<NameGroupComponent>(ball, "ball", "ball");
     engine.world.emplace<ColliderComponent>(ball, RectangleShape(25,25,Color::white(),true), true, false);
     engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(25,25, Color::white(), true));
-
-
-
-    // visible bricks
-    auto bricks = {brick_1, brick_2, brick_3};
-
+        //ball velocity
+    engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(-70,70);
 
     //game loop
     while (engine.nextFrame())
     {
         engine.update();
 
-        engine.world.get<RigidBodyComponent>(ball).AddForce(weight);
+        /*engine.world.get<RigidBodyComponent>(ball).AddForce(weight);
         auto forces = engine.world.get<RigidBodyComponent>(ball).GetForces();
-        std::cout << "Fuerzas: " << forces << std::endl;
-
+        std::cout << "Fuerzas: " << forces << std::endl;*/
 
         //Graphics::drawGrid(gridSize);
 
@@ -125,12 +139,12 @@ int main(int argc, char *args[])
 
         // draw players
         const auto player1TransformComp =  engine.world.get<TransformComponent>(player1);
-        Graphics::drawFillRect(
+        /*Graphics::drawFillRect(
             player1TransformComp.position.x, 
             player1TransformComp.position.y, 
             playerW,
             playerH, 
-            Color::red()
+            Color::white()
         );
 
         // draw Walls
@@ -157,7 +171,7 @@ int main(int argc, char *args[])
             25,
             974, 
             Color::white()
-        );
+        );*/
 
         //draw briks
         for(auto brick : bricks){
@@ -169,8 +183,8 @@ int main(int argc, char *args[])
                 transformComp.position.x, 
                 transformComp.position.y, 
                 100,
-                50, 
-                Color::red()
+                25, 
+                Color::white()
             );
         }
 
