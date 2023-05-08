@@ -75,8 +75,8 @@ void Collision::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& co
     float da = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyA.invMass;
     float db = contact.depth / (rigidbodyA.invMass + rigidbodyB.invMass) * rigidbodyB.invMass;
 
-    transformA.position -= contact.normal * da;
-    transformB.position += contact.normal * db;
+    transformA.position -= (contact.normal * da)*0.25;
+    transformB.position += (contact.normal * db)*0.25;
 }
 
 void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
