@@ -33,12 +33,12 @@ int main(int argc, char *args[])
 
     //Walls
         //celling PROBLEMA: DETECTA LA COLISIÓN MÁS A LA IZQUIERDA DE LA REALIDAD.
-    const auto celling = engine.world.create();
-    engine.world.emplace<TransformComponent>(celling, Vec2D(0,100));
-    engine.world.emplace<KinematicsComponent>(celling);
-    engine.world.emplace<NameGroupComponent>(celling, "celling", "map");
-    engine.world.emplace<ColliderComponent>(celling, RectangleShape(width,25,Color::yellow(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(celling, 0, RectangleShape(width, 25, Color::white(), true));
+    const auto ceiling = engine.world.create();
+    engine.world.emplace<TransformComponent>(ceiling, Vec2D(0,100));
+    engine.world.emplace<KinematicsComponent>(ceiling);
+    engine.world.emplace<NameGroupComponent>(ceiling, "celling", "map");
+    engine.world.emplace<ColliderComponent>(ceiling, RectangleShape(width,25,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(ceiling, 0, RectangleShape(width, 25, Color::white(), true));
         //left wall 
     const auto l_wall = engine.world.create();
     engine.world.emplace<TransformComponent>(l_wall, Vec2D(0,130));
@@ -165,7 +165,7 @@ int main(int argc, char *args[])
         );
 
         // draw Walls
-        const auto celingTC = engine.world.get<TransformComponent>(celling);
+        const auto ceilingTC = engine.world.get<TransformComponent>(celling);
         const auto l_wallTC = engine.world.get<TransformComponent>(l_wall);
         const auto r_wallTC = engine.world.get<TransformComponent>(r_wall);
         Graphics::drawFillRect(
