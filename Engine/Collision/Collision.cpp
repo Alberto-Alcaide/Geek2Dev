@@ -82,7 +82,7 @@ void Collision::ResolvePenetration(entt::entity& a, entt::entity& b, Contact& co
 void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
 {
     ResolvePenetration(a,b,contact,world);
-    std::cout << "Resolve Penetration" << std::endl;
+    //std::cout << "Resolve Penetration" << std::endl;
 
     auto const rigidbodyA = world.get<RigidBodyComponent>(a);
     auto const rigidbodyB = world.get<RigidBodyComponent>(b);
@@ -107,8 +107,8 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     // Apply the impulse vector to both objects in opposite direction
     kinematicA.velocity += jn * rigidbodyA.invMass;
     kinematicB.velocity -= jn * rigidbodyB.invMass;
-    std::cout << "Velocity entity A: " << kinematicA.velocity << std::endl;
-    std::cout << "Velocity entity B: " << kinematicB.velocity << std::endl;
+    //std::cout << "Velocity entity A: " << kinematicA.velocity << std::endl;
+    //std::cout << "Velocity entity B: " << kinematicB.velocity << std::endl;
 }
 
 bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
@@ -144,11 +144,9 @@ bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, 
     auto bottom2 = bTransform.position.y + bRectangleShape->height/2.0; // The bottom part of Box 2
     */
 
-    // DETECTA EL RECTÁGULO MÁS A LA IZQUIERDA DE LA REALIDAD
-
     if ((right1 >= left2) && (right2 >= left1) && (bottom1 >= top2) && (bottom2 >= top1))
     {
-        std::cout << "Detected Collision" << std::endl;
+        //std::cout << "Detected Collision" << std::endl;
 
         contact.a = a;
         contact.b = b;
