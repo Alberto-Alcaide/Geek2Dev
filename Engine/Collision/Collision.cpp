@@ -107,6 +107,8 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     // Apply the impulse vector to both objects in opposite direction
     kinematicA.velocity += jn * rigidbodyA.invMass;
     kinematicB.velocity -= jn * rigidbodyB.invMass;
+    std::cout << "Velocity entity A: " << kinematicA.velocity << std::endl;
+    std::cout << "Velocity entity B: " << kinematicB.velocity << std::endl;
 }
 
 bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
@@ -117,6 +119,20 @@ bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, 
     const auto aTransform = world.get<TransformComponent>(a);
     const auto bTransform = world.get<TransformComponent>(b);
 
+    auto left1 = aTransform.position.x; // Left limit
+    auto right1 = aTransform.position.x + aRectangleShape->width; // Right limit
+    auto top1 = aTransform.position.y; // Top limit
+    auto bottom1 = aTransform.position.y + aRectangleShape->height; // Bottom limit
+
+    auto left2 = bTransform.position.x; // Left limit
+    auto right2 = bTransform.position.x + bRectangleShape->width; // Right limit
+    auto top2 = bTransform.position.y; // Top limit
+    auto bottom2 = bTransform.position.y + bRectangleShape->height; // Bottom limit
+
+
+
+
+    /*
     auto right1 = aTransform.position.x + aRectangleShape->width/2.0; // The right part of Box 1
     auto left1 = aTransform.position.x - aRectangleShape->width/2.0; // The left part of Box 1
     auto top1 = aTransform.position.y - aRectangleShape->height/2.0; // The top part of Box 1
@@ -126,10 +142,13 @@ bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, 
     auto left2 = bTransform.position.x - bRectangleShape->width/2.0; // The left part of Box 2
     auto top2 = bTransform.position.y - bRectangleShape->height/2.0; // The top part of Box 2
     auto bottom2 = bTransform.position.y + bRectangleShape->height/2.0; // The bottom part of Box 2
+    */
+
+    // DETECTA EL RECTÁGULO MÁS A LA IZQUIERDA DE LA REALIDAD
 
     if ((right1 >= left2) && (right2 >= left1) && (bottom1 >= top2) && (bottom2 >= top1))
     {
-        std::cout << "PUTO" << std::endl;
+        std::cout << "Detected Collision" << std::endl;
 
         contact.a = a;
         contact.b = b;

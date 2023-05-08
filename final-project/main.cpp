@@ -7,7 +7,7 @@ int playerW=100;
 int playerH=25;
 Engine2D engine(width, height);
 
-void OnColider(const ColiderEvent& collision) noexcept{
+void OnColider(const ColliderEvent& collision) noexcept{
     std::cout<<"GAME OVER"<<std::endl;
     engine.~Engine2D();
 }
@@ -26,33 +26,33 @@ int main(int argc, char *args[])
     engine.world.emplace<KinematicsComponent>(player1);
     engine.world.emplace<GridMovementComponent>(player1, 50);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
-    engine.world.emplace<ColliderComponent>(player1, RectangleShape(100,25,Color::yellow(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(100,25, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(player1, RectangleShape(playerW,playerH,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(playerW,playerH, Color::white(), true));
 
 
 
     //Walls
-        //celling
+        //celling PROBLEMA: DETECTA LA COLISIÓN MÁS A LA IZQUIERDA DE LA REALIDAD.
     const auto celling = engine.world.create();
-    engine.world.emplace<TransformComponent>(celling, Vec2D(0,0));
+    engine.world.emplace<TransformComponent>(celling, Vec2D(0,100));
     engine.world.emplace<KinematicsComponent>(celling);
     engine.world.emplace<NameGroupComponent>(celling, "celling", "map");
     engine.world.emplace<ColliderComponent>(celling, RectangleShape(width,25,Color::yellow(),true), true, false);
     engine.world.emplace<RigidBodyComponent>(celling, 0, RectangleShape(width, 25, Color::white(), true));
-        //left wall
+        //left wall 
     const auto l_wall = engine.world.create();
-    engine.world.emplace<TransformComponent>(l_wall, Vec2D(0,25));
+    engine.world.emplace<TransformComponent>(l_wall, Vec2D(0,130));
     engine.world.emplace<KinematicsComponent>(l_wall);
     engine.world.emplace<NameGroupComponent>(l_wall, "l_wall", "map");
-    engine.world.emplace<ColliderComponent>(l_wall, RectangleShape(25,974,Color::yellow(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(l_wall, 0, RectangleShape(25, 974, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(l_wall, RectangleShape(25,height-250,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(l_wall, 0, RectangleShape(25, height-250, Color::white(), true));
         //right wall
     const auto r_wall = engine.world.create();
-    engine.world.emplace<TransformComponent>(r_wall, Vec2D(700,25));
+    engine.world.emplace<TransformComponent>(r_wall, Vec2D(700,130));
     engine.world.emplace<KinematicsComponent>(r_wall);
     engine.world.emplace<NameGroupComponent>(r_wall, "r_wall", "map");
-    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(25,974,Color::yellow(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(r_wall, 0, RectangleShape(25, 974, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(50,height-250,Color::yellow(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(r_wall, 0, RectangleShape(50, height-250, Color::white(), true));
 
 
 
@@ -63,16 +63,22 @@ int main(int argc, char *args[])
     engine.world.emplace<TransformComponent>(brick_1, Vec2D(width/2,200));
     engine.world.emplace<NameGroupComponent>(brick_1, "brick_1", "brick");
     engine.world.emplace<ColliderComponent>(brick_1, RectangleShape(100,25,Color::yellow(),true), true, true);
+    engine.world.emplace<RigidBodyComponent>(brick_1, 0, RectangleShape(100, 25, Color::white(), true));
+    engine.world.emplace<KinematicsComponent>(brick_1);
 
     const auto brick_2 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_2, Vec2D(width/2,300));
     engine.world.emplace<NameGroupComponent>(brick_2, "brick_2", "brick");
     engine.world.emplace<ColliderComponent>(brick_2, RectangleShape(100,25,Color::yellow(),true), true, true);
+    engine.world.emplace<RigidBodyComponent>(brick_2, 0, RectangleShape(100, 25, Color::white(), true));
+    engine.world.emplace<KinematicsComponent>(brick_2);
 
     const auto brick_3 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_3, Vec2D(width/2,400));
     engine.world.emplace<NameGroupComponent>(brick_3, "brick_3", "brick");
     engine.world.emplace<ColliderComponent>(brick_3, RectangleShape(100,25,Color::yellow(),true), true, true);
+    engine.world.emplace<RigidBodyComponent>(brick_3, 0, RectangleShape(100, 25, Color::white(), true));
+    engine.world.emplace<KinematicsComponent>(brick_3);
 
 
 
@@ -84,13 +90,13 @@ int main(int argc, char *args[])
 
     //ball
     const auto ball = engine.world.create();
-    engine.world.emplace<TransformComponent>(ball, Vec2D(width/2,height-height/6));
+    engine.world.emplace<TransformComponent>(ball, Vec2D(width/2,height-height/4));
     engine.world.emplace<KinematicsComponent>(ball);
     engine.world.emplace<NameGroupComponent>(ball, "ball", "ball");
     engine.world.emplace<ColliderComponent>(ball, RectangleShape(25,25,Color::white(),true), true, false);
     engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(25,25, Color::white(), true));
-        //ball velocity
-    engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(-70,70);
+    //ball velocity
+    engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(100,-100);
 
     //game loop
     while (engine.nextFrame())
@@ -102,6 +108,17 @@ int main(int argc, char *args[])
         std::cout << "Fuerzas: " << forces << std::endl;*/
 
         //Graphics::drawGrid(gridSize);
+
+
+        /*
+        auto viewTag = engine.world.view<NameGroupComponent>();
+
+        for (auto entity : viewTag)
+        {
+            if (engine.world.get<NameGroupComponent>(entity).group=="map")
+            std::cout << "Position Walls" << engine.world.get<TransformComponent>(entity).position << std::endl;
+        }
+        */
 
 
         // draw obstacles
@@ -171,7 +188,7 @@ int main(int argc, char *args[])
             25,
             974, 
             Color::white()
-        );*/
+        );
 
         //draw briks
         for(auto brick : bricks){
@@ -196,7 +213,7 @@ int main(int argc, char *args[])
             25,
             25,
             Color::white()
-        );
+        );*/
 
         engine.render();
     }
