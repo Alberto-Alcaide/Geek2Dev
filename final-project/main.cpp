@@ -134,7 +134,7 @@ int main(int argc, char *args[])
         for(auto entity : view)
         {  
             const auto& nameGroup = view.get<NameGroupComponent>(entity);
-            auto& transform = view.get<TransformComponent>(entity);
+            //auto& transform = view.get<TransformComponent>(entity);
 
 
 
@@ -166,7 +166,7 @@ int main(int argc, char *args[])
 
 
         // draw players
-        const auto player1TransformComp =  engine.world.get<TransformComponent>(player1);
+        //const auto player1TransformComp =  engine.world.get<TransformComponent>(player1);
         /*Graphics::drawFillRect(
             player1TransformComp.position.x, 
             player1TransformComp.position.y, 
