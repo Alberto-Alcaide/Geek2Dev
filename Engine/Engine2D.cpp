@@ -73,11 +73,11 @@ void Engine2D::checkInput()
                 {
                     case SDLK_RIGHT:
                         keyboard->rightKeyPressed = true;
-                        std::cout << "Right key pressed" << std::endl;
+                        //std::cout << "Right key pressed" << std::endl;
                         break;
                     case SDLK_LEFT:
                         keyboard->leftKeyPressed = true;
-                        std::cout << "Left key pressed" << std::endl;
+                        //std::cout << "Left key pressed" << std::endl;
                         break;
                     default:
                         break;

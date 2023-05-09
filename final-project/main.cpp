@@ -133,11 +133,11 @@ int main(int argc, char *args[])
         auto view = engine.world.view<NameGroupComponent, TransformComponent>();
         for(auto entity : view)
         {  
-            const auto& nameGroup = view.get<NameGroupComponent>(entity);
+            //const auto& nameGroup = view.get<NameGroupComponent>(entity);
             //auto& transform = view.get<TransformComponent>(entity);
 
 
-
+            /*
             if(nameGroup.group == "ball")
             {
                 for(auto entity2 : view)
@@ -161,6 +161,7 @@ int main(int argc, char *args[])
                 
                 }
             }
+            */
 
         }
 

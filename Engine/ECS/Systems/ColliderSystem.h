@@ -34,9 +34,11 @@ class ColliderSystem
                     Contact contact;
                     if (Collision::IsColliding(entityA,entityB, contact, world))
                     {
+                        Log::Warning("Collision");
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collision::ResolveCollision(entityA, entityB, contact, world);
+                        // LLamar a un evento que sea BallHitBrickEvent.h, donde se hagan cosas (quitar vida, destruir, etc.)
                     }
                 }
             }                       
