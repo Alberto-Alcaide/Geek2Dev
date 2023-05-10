@@ -6,9 +6,11 @@
 #include "TransformComponent.h"
 #include "KinematicsComponent.h"
 #include "RigidBodyComponent.h"
+#include "NameGroupComponent.h"
 #include "entt/entt.hpp"
 #include "Collision.h"
 #include "ColliderEvent.h"
+#include "BallHitBrickEvent.h"
 
 
 
@@ -17,7 +19,7 @@ class ColliderSystem
     public: 
         void Update(entt::dispatcher& eventBus, entt::registry& world)
         {
-            auto view = world.view<TransformComponent,KinematicsComponent,RigidBodyComponent,ColliderComponent>();
+            auto view = world.view<TransformComponent,KinematicsComponent,RigidBodyComponent,ColliderComponent, NameGroupComponent>();
 
             for (auto entity: view)
             {
@@ -34,10 +36,16 @@ class ColliderSystem
                     Contact contact;
                     if (Collision::IsColliding(entityA,entityB, contact, world))
                     {
-                        Log::Warning("Collision");
                         world.get<ColliderComponent>(entityA).isColliding = true;
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collision::ResolveCollision(entityA, entityB, contact, world);
+                        if (world.get<NameGroupComponent>(entityA).group == "ball" && world.get<NameGroupComponent>(entityB).group == "brick")
+                            eventBus.trigger(BallHitBrickEvent{entityA,entityB,contact,world});
+                            //BallHitBrick(BallHitBrickEvent(entityA,entityB,contact,world)); //Brick is always entityB
+
+                        if (world.get<NameGroupComponent>(entityA).group == "brick" && world.get<NameGroupComponent>(entityB).group == "ball")
+                            eventBus.trigger(BallHitBrickEvent{entityB,entityA,contact,world});
+                            //BallHitBrick(BallHitBrickEvent(entityB,entityA,contact,world)); // Brick is always entityB
                         // LLamar a un evento que sea BallHitBrickEvent.h, donde se hagan cosas (quitar vida, destruir, etc.)
                     }
                 }
@@ -56,6 +64,13 @@ class ColliderSystem
                     collider.shape->Render(transform);
                 }
             }
+        }
+
+        void BallHitBrick(BallHitBrickEvent& hit)
+        {
+            Log::Warning("Ladrillo");
+            //hit.world->destroy(hit.b);
+            
         }
 
 };

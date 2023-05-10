@@ -15,6 +15,7 @@ Engine2D::Engine2D(int width, int height)
 
     // Perform the subscription of the events for all system
     eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridSystem);
+    eventBus.sink<BallHitBrickEvent>().connect<&ColliderSystem::BallHitBrick>(colliderSystem);
 
     isRunning = true;
 }

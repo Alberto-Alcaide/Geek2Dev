@@ -7,9 +7,9 @@
 
 struct BallHitBrickEvent
 {
-    entt::entity& a;
-    entt::entity& b; 
-    Contact& contact;
+    entt::entity a;
+    entt::entity b; 
+    Contact contact;
     entt::registry* world;
 
     BallHitBrickEvent(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world): a(a), b(b), contact(contact), world(&world) {}
