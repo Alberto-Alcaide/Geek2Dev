@@ -91,7 +91,7 @@ int main(int argc, char *args[])
 
 
     // visible bricks
-    auto bricks = {brick_1, brick_2, brick_3};
+    //auto bricks = {brick_1, brick_2, brick_3};
 
 
 
@@ -112,6 +112,7 @@ int main(int argc, char *args[])
     {
         engine.update();
 
+
         /*engine.world.get<RigidBodyComponent>(ball).AddForce(weight);
         auto forces = engine.world.get<RigidBodyComponent>(ball).GetForces();
         std::cout << "Fuerzas: " << forces << std::endl;*/
@@ -129,7 +130,7 @@ int main(int argc, char *args[])
         }
         */
 
-
+       /*
         auto view = engine.world.view<NameGroupComponent, TransformComponent>();
         for(auto entity : view)
         {  
@@ -137,7 +138,7 @@ int main(int argc, char *args[])
             //auto& transform = view.get<TransformComponent>(entity);
 
 
-            /*
+            
             if(nameGroup.group == "ball")
             {
                 for(auto entity2 : view)
@@ -161,9 +162,9 @@ int main(int argc, char *args[])
                 
                 }
             }
-            */
+            
 
-        }
+        }*/
 
 
         // draw players
@@ -226,7 +227,7 @@ int main(int argc, char *args[])
             25,
             Color::white()
         );*/
-
+        
         engine.render();
     }
 

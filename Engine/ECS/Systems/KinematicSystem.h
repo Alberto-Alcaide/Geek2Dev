@@ -12,6 +12,7 @@ class KinematicSystem
 public:
     void Update(const double dt, entt::registry& world)
     {
+        Log::Info("Entro KinematicSystem");
         // Collect all entities IDs in our world that have certain components. Multiple arguments in View work as AND operator. 
         auto objectsID_List = world.view<TransformComponent, KinematicsComponent>();
 

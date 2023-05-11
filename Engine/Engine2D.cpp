@@ -48,8 +48,8 @@ void Engine2D::update()
     rigidbodySystem.Update(dt, world);
     particleSystem.Update(dt, world);
     kinematicSystem.Update(dt, world);  
-    colliderSystem.Update(eventBus,world);
     scriptSystem.Update(dt,0,world);
+    colliderSystem.Update(eventBus,world);
 }
 
 void Engine2D::checkInput()
@@ -204,10 +204,12 @@ void Engine2D::render()
     
     particleSystem.Render(world);
     rigidbodySystem.Render(world);
-    colliderSystem.Render(world);
+    
     
     spriteSystem.Render(world);
     animationSystem.Render(world);
+
+    colliderSystem.Render(world);
 
     Graphics::renderFrame();
 }
