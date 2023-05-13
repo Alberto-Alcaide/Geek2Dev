@@ -107,11 +107,17 @@ int main(int argc, char *args[])
     //ball velocity
     engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(100,-100);
 
+
+
+    int level = 1;
     //game loop
     while (engine.nextFrame())
     {
         engine.update();
 
+
+
+        
         auto view = engine.world.view<NameGroupComponent>();
         int i=0;
         for(auto entity : view){
@@ -235,8 +241,57 @@ int main(int argc, char *args[])
             Color::white()
         );*/
         if(i==0){
-            Log::Error("Esplotio");
+            level++;
+            Log::Error(to_string(level));
+            switch (level){
+                case 2:{
+                        const auto brick_1_2 = engine.world.create();
+                        engine.world.emplace<TransformComponent>(brick_1_2, Vec2D(width/2,200));
+                        engine.world.emplace<NameGroupComponent>(brick_1_2, "brick_1", "brick");
+                        engine.world.emplace<ColliderComponent>(brick_1_2, RectangleShape(100,25,Color::green(),true), true, true);
+                        engine.world.emplace<RigidBodyComponent>(brick_1_2, 0, RectangleShape(100, 25, Color::white(), true));
+                        engine.world.emplace<KinematicsComponent>(brick_1_2);
+
+                        const auto brick_2_2 = engine.world.create();
+                        engine.world.emplace<TransformComponent>(brick_2_2, Vec2D(width/2,300));
+                        engine.world.emplace<NameGroupComponent>(brick_2_2, "brick_2", "brick");
+                        engine.world.emplace<ColliderComponent>(brick_2_2, RectangleShape(100,25,Color::yellow(),true), true, true);
+                        engine.world.emplace<RigidBodyComponent>(brick_2_2, 0, RectangleShape(100, 25, Color::white(), true));
+                        engine.world.emplace<KinematicsComponent>(brick_2_2);
+
+                        const auto brick_3_2 = engine.world.create();
+                        engine.world.emplace<TransformComponent>(brick_3_2, Vec2D(width/2,400));
+                        engine.world.emplace<NameGroupComponent>(brick_3_2, "brick_3", "brick");
+                        engine.world.emplace<ColliderComponent>(brick_3_2, RectangleShape(100,25,Color::red(),true), true, true);
+                        engine.world.emplace<RigidBodyComponent>(brick_3_2, 0, RectangleShape(100, 25, Color::white(), true));
+                        engine.world.emplace<KinematicsComponent>(brick_3_2);
+
+                    break;
+                }
+                case 3:{
+                        const auto brick_1_3 = engine.world.create();
+                        engine.world.emplace<TransformComponent>(brick_1_3, Vec2D(width/2,200));
+                        engine.world.emplace<NameGroupComponent>(brick_1_3, "brick_1", "brick");
+                        engine.world.emplace<ColliderComponent>(brick_1_3, RectangleShape(100,25,Color::green(),true), true, true);
+                        engine.world.emplace<RigidBodyComponent>(brick_1_3, 0, RectangleShape(100, 25, Color::white(), true));
+                        engine.world.emplace<KinematicsComponent>(brick_1_3);
+
+                        const auto brick_2_3 = engine.world.create();
+                        engine.world.emplace<TransformComponent>(brick_2_3, Vec2D(width/2,300));
+                        engine.world.emplace<NameGroupComponent>(brick_2_3, "brick_2", "brick");
+                        engine.world.emplace<ColliderComponent>(brick_2_3, RectangleShape(100,25,Color::yellow(),true), true, true);
+                        engine.world.emplace<RigidBodyComponent>(brick_2_3, 0, RectangleShape(100, 25, Color::white(), true));
+                        engine.world.emplace<KinematicsComponent>(brick_2_3);
+                        break;
+                }
+                default:{
+                    //Log::Warning("terminé");
+                    break;
+                }
+            }
+
         }
+
         engine.render();
     }
 
