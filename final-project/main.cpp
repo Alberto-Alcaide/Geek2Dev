@@ -112,7 +112,14 @@ int main(int argc, char *args[])
     {
         engine.update();
 
-
+        auto view = engine.world.view<NameGroupComponent>();
+        int i=0;
+        for(auto entity : view){
+            const auto& nameGroup = view.get<NameGroupComponent>(entity);
+            if(nameGroup.group == "brick"){
+                i++;
+            }
+        }
         /*engine.world.get<RigidBodyComponent>(ball).AddForce(weight);
         auto forces = engine.world.get<RigidBodyComponent>(ball).GetForces();
         std::cout << "Fuerzas: " << forces << std::endl;*/
@@ -227,7 +234,9 @@ int main(int argc, char *args[])
             25,
             Color::white()
         );*/
-        
+        if(i==0){
+            Log::Error("Esplotio");
+        }
         engine.render();
     }
 
