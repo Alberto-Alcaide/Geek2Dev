@@ -31,6 +31,7 @@
 #include "SpriteSystem.h"
 #include "AnimationComponent.h"
 #include "AnimationSystem.h"
+#include "EraseSystem.h"
 
 
 
@@ -74,6 +75,7 @@ public:
     ScriptSystem scriptSystem;
     SpriteSystem spriteSystem;
     AnimationSystem animationSystem;
+    EraseSystem eraseSystem;
 };
 
 #endif

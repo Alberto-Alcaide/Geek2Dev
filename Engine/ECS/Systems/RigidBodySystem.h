@@ -13,7 +13,7 @@ class RigidBodySystem
     public:
         void Update(const double dt, entt::registry& world)
         {
-            Log::Info("Entro RigidBodySystem");
+           
             auto view = world.view<KinematicsComponent, RigidBodyComponent>();
 
 

@@ -11,6 +11,7 @@
 #include "Collision.h"
 #include "ColliderEvent.h"
 #include "BallHitBrickEvent.h"
+#include "EraseComponent.h"
 
 #include <chrono>
 
@@ -22,7 +23,7 @@ class ColliderSystem
     public: 
         void Update(entt::dispatcher& eventBus, entt::registry& world)
         {
-            Log::Info("Entro ColliderSystem");
+            
             auto view = world.view<TransformComponent,KinematicsComponent,RigidBodyComponent,ColliderComponent, NameGroupComponent>();
 
             for (auto entity: view)
@@ -48,10 +49,6 @@ class ColliderSystem
                             || (world.get<NameGroupComponent>(entityA).group == "brick" && world.get<NameGroupComponent>(entityB).group == "ball"))
                             eventBus.trigger(BallHitBrickEvent{entityA,entityB,contact,world});
                         // LLamar a un evento que sea BallHitBrickEvent.h, donde se hagan cosas (quitar vida, destruir, etc.)
-                        Log::Warning("Terminado Evento");
-                        //std::cout << "Entidad A: " << world.get<NameGroupComponent>(entityA).group << std::endl;
-                        std::cout << "Entidad A valid: " << world.valid(entityA) << std::endl;
-                        std::cout << "Entidad B valid: " << world.valid(entityB) << std::endl;
                     }
                 }
             }                       
@@ -74,29 +71,27 @@ class ColliderSystem
 
         void BallHitBrick(BallHitBrickEvent& hit)
         {
-            Log::Warning("Ladrillo");
+            
             if (hit.world->get<NameGroupComponent>(hit.b).group=="brick")
             {
                 if (hit.world->valid(hit.b))
                 {
-                    Log::Error("Destruye B");
+                    
                     //hit.world->remove<ColliderComponent,RigidBodyComponent,KinematicsComponent>(hit.b);
-                    hit.world->destroy(hit.b); //Esta funcion hace que el juego deje de funcionar
-                    Log::Error("Destruido B");
+                    hit.world->emplace<EraseComponent>(hit.b); //Esta funcion hace que el juego deje de funcionar
+                    
                 }
             }
             else
             {
                 if (hit.world->valid(hit.a))
                 {
-                    Log::Error("Destruye A");
+
                     //hit.world->remove<ColliderComponent,RigidBodyComponent,KinematicsComponent>(hit.a);
-                    hit.world->destroy(hit.a); //Esta funcion hace que el juego deje de funcionar
-                    Log::Error("Destruido A");
+                    hit.world->emplace<EraseComponent>(hit.a); //Esta funcion hace que el juego deje de funcionar
+                    
                 }
             }
-
-            
             
         }
 

@@ -50,6 +50,7 @@ void Engine2D::update()
     kinematicSystem.Update(dt, world);  
     scriptSystem.Update(dt,0,world);
     colliderSystem.Update(eventBus,world);
+    eraseSystem.Update(world);
 }
 
 void Engine2D::checkInput()
