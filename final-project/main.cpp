@@ -106,7 +106,7 @@ int main(int argc, char *args[])
     engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(25,25, Color::white(), true));
 
     //ball velocity
-    engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(100,-100);
+    engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(200,-200);
 
 
     int level = 1;
@@ -119,7 +119,7 @@ int main(int argc, char *args[])
 
 
 
-        
+        // Check if all bricks are destroyed 
         auto view = engine.world.view<NameGroupComponent>();
         int i=0;
         for(auto entity : view){
@@ -193,7 +193,7 @@ int main(int argc, char *args[])
         );
 
         // draw Walls
-        const auto ceilingTC = engine.world.get<TransformComponent>(celling);
+        const auto ceilingTC = engine.world.get<Transfor0mComponent>(celling);
         const auto l_wallTC = engine.world.get<TransformComponent>(l_wall);
         const auto r_wallTC = engine.world.get<TransformComponent>(r_wall);
         Graphics::drawFillRect(
@@ -273,14 +273,14 @@ int main(int argc, char *args[])
                 }
                 case 3:{
                         const auto brick_1_3 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_1_3, Vec2D(width/2,200));
+                        engine.world.emplace<TransformComponent>(brick_1_3, Vec2D(width,200));
                         engine.world.emplace<NameGroupComponent>(brick_1_3, "brick_1", "brick");
                         engine.world.emplace<ColliderComponent>(brick_1_3, RectangleShape(100,25,Color::green(),true), true, true);
                         engine.world.emplace<RigidBodyComponent>(brick_1_3, 0, RectangleShape(100, 25, Color::white(), true));
                         engine.world.emplace<KinematicsComponent>(brick_1_3);
 
                         const auto brick_2_3 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_2_3, Vec2D(width/2,300));
+                        engine.world.emplace<TransformComponent>(brick_2_3, Vec2D(width,300));
                         engine.world.emplace<NameGroupComponent>(brick_2_3, "brick_2", "brick");
                         engine.world.emplace<ColliderComponent>(brick_2_3, RectangleShape(100,25,Color::yellow(),true), true, true);
                         engine.world.emplace<RigidBodyComponent>(brick_2_3, 0, RectangleShape(100, 25, Color::white(), true));
