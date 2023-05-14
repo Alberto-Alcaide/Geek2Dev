@@ -1,11 +1,7 @@
 #include "Engine2D.h"
 #include <cmath>
 using namespace std;
-int width=725;
-int height=1000;
-int playerW=100;
-int playerH=25;
-Engine2D engine(width, height);
+
 
 void OnCollider(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) noexcept{
     Log::Warning("HIT");
@@ -25,14 +21,19 @@ int main(int argc, char *args[])
 {
 
     //Vec2D weight = Vec2D(0.0,25.0);
+    int width=725;
+    int height=1000;
+    int playerW=100;
+    int playerH=25;
 
+    Engine2D engine(width, height);
 
 
     // players
     const auto player1 = engine.world.create();
     engine.world.emplace<TransformComponent>(player1, Vec2D(width/2,height-height/10));
     engine.world.emplace<KinematicsComponent>(player1);
-    engine.world.emplace<GridMovementComponent>(player1, 50);
+    engine.world.emplace<InputMovementComponent>(player1, 300, 100);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
     engine.world.emplace<ColliderComponent>(player1, RectangleShape(playerW,playerH,Color::white(),true), true, false);
     engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(playerW,playerH, Color::white(), true));
@@ -108,8 +109,9 @@ int main(int argc, char *args[])
     engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(100,-100);
 
 
-
     int level = 1;
+
+
     //game loop
     while (engine.nextFrame())
     {
@@ -240,6 +242,7 @@ int main(int argc, char *args[])
             25,
             Color::white()
         );*/
+
         if(i==0){
             level++;
             Log::Error(to_string(level));

@@ -24,6 +24,7 @@
 #include "HorizontalMovementComponent.h"
 #include "HorizontalMovementSystem.h"
 #include "KeyDownEvent.h"
+#include "KeyUpEvent.h"
 #include "ColliderEvent.h"
 #include "NameGroupComponent.h"
 #include "ScriptSystem.h"
@@ -32,6 +33,8 @@
 #include "AnimationComponent.h"
 #include "AnimationSystem.h"
 #include "EraseSystem.h"
+#include "InputMovementComponent.h"
+#include "InputMovementSystem.h"
 
 
 
@@ -48,8 +51,8 @@ public:
     ~Engine2D();
 
     // Input
-    Mouse* mouse;
-    Keyboard* keyboard;
+    Mouse mouse;
+    Keyboard keyboard;
 
     // Game loop
     bool nextFrame();
@@ -76,6 +79,7 @@ public:
     SpriteSystem spriteSystem;
     AnimationSystem animationSystem;
     EraseSystem eraseSystem;
+    InputMovementSystem inputMovementSystem;
 };
 
 #endif

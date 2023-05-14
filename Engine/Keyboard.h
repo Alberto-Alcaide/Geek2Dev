@@ -3,10 +3,10 @@
 
 struct Keyboard
 {
-    bool upKeyPressed = false;
-    bool downKeyPressed = false;
-    bool leftKeyPressed = false;
-    bool rightKeyPressed = false;
+    bool isUpPressed = false;
+    bool isDownPressed = false;
+    bool isLeftPressed = false;
+    bool isRightPressed = false;
 
     Keyboard() = default;
     ~Keyboard() = default;

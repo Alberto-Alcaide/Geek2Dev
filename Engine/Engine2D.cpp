@@ -4,17 +4,17 @@ Engine2D::Engine2D(int width, int height)
 {
     Log::Info("Turning on Engine2D");
 
-    // Setting core variables
-    mouse = new Mouse();
-    keyboard = new Keyboard();
-
     // Graphics initialization
     if(Graphics::createWindow(width, height))
         Log::Info("Graphics initialized");
 
 
     // Perform the subscription of the events for all system
-    eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridSystem);
+    eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridSystem);  // subscribe GridMovementSystem to KeyDownEvents
+
+    eventBus.sink<KeyDownEvent>().connect<&InputMovementSystem::OnKeyDown>(inputMovementSystem);
+    eventBus.sink<KeyUpEvent>().connect<&InputMovementSystem::OnKeyUp>(inputMovementSystem);
+    
     eventBus.sink<BallHitBrickEvent>().connect<&ColliderSystem::BallHitBrick>(colliderSystem);
 
     isRunning = true;
@@ -24,8 +24,6 @@ Engine2D::~Engine2D()
 {
     Log::Info("Turning off Engine2D");
 
-    delete mouse;
-    delete keyboard;
 
     Graphics::closeWindow();
 }
@@ -70,33 +68,32 @@ void Engine2D::checkInput()
                 if(event.key.keysym.sym == SDLK_ESCAPE)
                         isRunning = false;
 
-                eventBus.trigger(KeyDownEvent{event.key.keysym.sym, world});
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_RIGHT:
-                        keyboard->rightKeyPressed = true;
-                        //std::cout << "Right key pressed" << std::endl;
+                        keyboard.isRightPressed = true;
                         break;
                     case SDLK_LEFT:
-                        keyboard->leftKeyPressed = true;
-                        //std::cout << "Left key pressed" << std::endl;
+                        keyboard.isLeftPressed = true;
                         break;
                     default:
                         break;
                 }
+                eventBus.trigger(KeyDownEvent(event.key.keysym.sym, keyboard, world));
                 break;
 
             case SDL_KEYUP:
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_RIGHT:
-                        keyboard->rightKeyPressed = false;
+                        keyboard.isRightPressed = false;
                         break;
                     case SDLK_LEFT:
-                        keyboard->leftKeyPressed = false;
+                        keyboard.isLeftPressed = false;
                     default:
                         break;
                 }
+                eventBus.trigger(KeyUpEvent(event.key.keysym.sym, keyboard, world));
                 break;
 
             case SDL_MOUSEMOTION:
@@ -104,26 +101,26 @@ void Engine2D::checkInput()
                     int x = event.motion.x;
                     int y = event.motion.y;
 
-                    mouse->updatePosition(x, y);
+                    mouse.updatePosition(x, y);
                 }
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
                 int x, y;
                 SDL_GetMouseState(&x, &y);
-                mouse->updatePosition(x, y);
+                mouse.updatePosition(x, y);
 
                 if(event.button.button == SDL_BUTTON_LEFT)
-                    mouse->leftButtonPressed = true;
+                    mouse.leftButtonPressed = true;
                 if(event.button.button == SDL_BUTTON_RIGHT)
-                    mouse->rightButtonPressed = true;
+                    mouse.rightButtonPressed = true;
                 break;
 
             case SDL_MOUSEBUTTONUP:
                 if(event.button.button == SDL_BUTTON_LEFT)
-                    mouse->leftButtonPressed = true;
+                    mouse.leftButtonPressed = true;
                 if(event.button.button == SDL_BUTTON_RIGHT)
-                    mouse->rightButtonPressed = true;
+                    mouse.rightButtonPressed = true;
                 break;
 
             default:
