@@ -13,11 +13,6 @@
 #include "BallHitBrickEvent.h"
 #include "EraseComponent.h"
 
-#include <chrono>
-
-
-
-
 class ColliderSystem
 {
     public: 
@@ -45,10 +40,13 @@ class ColliderSystem
                         world.get<ColliderComponent>(entityB).isColliding = true;
                         Collision::ResolveCollision(entityA, entityB, contact, world);
 
+                        // Comprobamos que sean Brick y Ball, y llamamos al evento para eliminar el Brick
+
                         if ((world.get<NameGroupComponent>(entityA).group == "ball" && world.get<NameGroupComponent>(entityB).group == "brick")
                             || (world.get<NameGroupComponent>(entityA).group == "brick" && world.get<NameGroupComponent>(entityB).group == "ball"))
                             eventBus.trigger(BallHitBrickEvent{entityA,entityB,contact,world});
-                        // LLamar a un evento que sea BallHitBrickEvent.h, donde se hagan cosas (quitar vida, destruir, etc.)
+
+                       
                     }
                 }
             }                       
@@ -71,24 +69,24 @@ class ColliderSystem
 
         void BallHitBrick(BallHitBrickEvent& hit)
         {
-            
+            // Vemos que entidad es Brick
             if (hit.world->get<NameGroupComponent>(hit.b).group=="brick")
             {
+                // Comprobar que el Brick está registrado en el world
                 if (hit.world->valid(hit.b))
                 {
                     
-                    //hit.world->remove<ColliderComponent,RigidBodyComponent,KinematicsComponent>(hit.b);
-                    hit.world->emplace<EraseComponent>(hit.b); //Esta funcion hace que el juego deje de funcionar
+                    hit.world->emplace<EraseComponent>(hit.b); // Borramos el Brick
                     
                 }
             }
             else
             {
+                // Comprobar que el Brick está registrado en el world
                 if (hit.world->valid(hit.a))
                 {
 
-                    //hit.world->remove<ColliderComponent,RigidBodyComponent,KinematicsComponent>(hit.a);
-                    hit.world->emplace<EraseComponent>(hit.a); //Esta funcion hace que el juego deje de funcionar
+                    hit.world->emplace<EraseComponent>(hit.a); // Borramos el Brick
                     
                 }
             }

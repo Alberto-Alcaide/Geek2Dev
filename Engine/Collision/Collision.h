@@ -8,6 +8,7 @@
 #include "CircleShape.h"
 #include "RigidBodyComponent.h"
 #include "KinematicsComponent.h"
+#include "NameGroupComponent.h"
 #include "RectangleShape.h"
 #include "PolygonShape.h"
 

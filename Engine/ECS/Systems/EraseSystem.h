@@ -20,7 +20,7 @@ class EraseSystem
             for (auto entity: view)
             {
                 world.destroy(entity);
-                Log::Warning("HIT");
+                
             }
         }
         
