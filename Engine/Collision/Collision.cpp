@@ -169,8 +169,6 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     // Apply the impulse vector to both objects in opposite direction
     kinematicA.velocity += jn * rigidbodyA.invMass;
     kinematicB.velocity -= jn * rigidbodyB.invMass;
-    //std::cout << "Velocity entity A: " << kinematicA.velocity << std::endl;
-    //std::cout << "Velocity entity B: " << kinematicB.velocity << std::endl;
 }
 
 bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)

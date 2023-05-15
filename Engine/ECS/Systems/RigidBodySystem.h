@@ -37,9 +37,13 @@ class RigidBodySystem
             auto view = world.view<TransformComponent, RigidBodyComponent>();
             for (auto entity: view)
             {
-                const auto transform = view.get<TransformComponent>(entity);
-                const auto rigidbody = view.get<RigidBodyComponent>(entity);
-                rigidbody.shape->Render(transform);
+                if (world.get<RigidBodyComponent>(entity).shape->draw)
+                {
+                    const auto transform = view.get<TransformComponent>(entity);
+                    const auto rigidbody = view.get<RigidBodyComponent>(entity);
+                    rigidbody.shape->Render(transform);
+                }
+
             }
         }
 };

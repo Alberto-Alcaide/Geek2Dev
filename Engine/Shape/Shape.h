@@ -16,6 +16,7 @@ class Shape
 public:
     Color color;
     bool filled;
+    bool draw;
 
     virtual Shape* Clone() const = 0;
     virtual ShapeType GetType() const = 0;

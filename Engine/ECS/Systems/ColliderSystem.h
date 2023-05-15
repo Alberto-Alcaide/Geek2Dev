@@ -59,6 +59,7 @@ class ColliderSystem
             for (auto entity: view)
             {
                 const auto collider = view.get<ColliderComponent>(entity);
+                
                 if(collider.renderCollider)
                 {
                     const auto transform = view.get<TransformComponent>(entity);

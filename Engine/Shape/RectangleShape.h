@@ -9,12 +9,13 @@ public:
     float width;    
     float height;
 
-    RectangleShape(float width, float height, Color color = Color::red(), bool filled = true)
+    RectangleShape(float width, float height, Color color = Color::red(), bool filled = true, bool draw=true)
     {
         this->width =  width;
         this->height =  height;
         this->color =  color;
         this->filled =  filled;
+        this->draw = draw;
 
         if(width != 0 && height != 0)
         {

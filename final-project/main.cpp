@@ -3,31 +3,32 @@
 using namespace std;
 
 
-void OnCollider(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) noexcept{
-    Log::Warning("HIT");
-    if (world.get<NameGroupComponent>(a).group == "brick")
-    {
-        world.destroy(a);
-    }
-    if (world.get<NameGroupComponent>(b).group == "brick")
-    {
-        world.destroy(b);
-    }
-
-}
-
-
 int main(int argc, char *args[])
 {
+
+
 
     //Vec2D weight = Vec2D(0.0,25.0);
     int width=600;
     int height=800;
-    int playerW=100;
-    int playerH=25;
+    int playerW=120;
+    int playerH=35;
 
     Engine2D engine(width, height);
 
+
+    // Initialize Sprites
+    SDL_Texture* BlueBrick = Graphics::CreateSprite("assets/Blue-Brick.png");
+    SDL_Texture* GreenBrick = Graphics::CreateSprite("assets/Green-Brick.png");
+    SDL_Texture* RedBrick = Graphics::CreateSprite("assets/Red-Brick.png");
+    SDL_Texture* player = Graphics::CreateSprite("assets/player1.png");
+
+    // Try background image
+    /*
+    SDL_Texture* Background = Graphics::CreateSprite("../Background/Background1.png");
+    SDL_Rect _srcRect = {0, 0, width, height};
+    Graphics::DrawSprite(Background, Vec2D(0,0), Vec2D(1,1), width, height, 0, _srcRect);
+    */
 
     // players
     const auto player1 = engine.world.create();
@@ -35,8 +36,9 @@ int main(int argc, char *args[])
     engine.world.emplace<KinematicsComponent>(player1);
     engine.world.emplace<InputMovementComponent>(player1, 300, 100);
     engine.world.emplace<NameGroupComponent>(player1, "player1", "players");
-    engine.world.emplace<ColliderComponent>(player1, RectangleShape(playerW,playerH,Color::white(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(playerW,playerH, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(player1, RectangleShape(playerW,playerH,Color::black(),false, false), false, false);
+    engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(playerW,playerH, Color::black(), false, false));
+    engine.world.emplace<SpriteComponent>(player1, playerW+5, playerH-5, player);
 
 
 
@@ -71,23 +73,26 @@ int main(int argc, char *args[])
     const auto brick_1 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_1, Vec2D(width/2,200));
     engine.world.emplace<NameGroupComponent>(brick_1, "brick_1", "brick");
-    engine.world.emplace<ColliderComponent>(brick_1, RectangleShape(100,25,Color::green(),true), true, true);
-    engine.world.emplace<RigidBodyComponent>(brick_1, 0, RectangleShape(100, 25, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(brick_1, RectangleShape(100,25,Color::green(),false), false, true);
+    engine.world.emplace<RigidBodyComponent>(brick_1, 0, RectangleShape(100, 25, Color::white(), false, false));
     engine.world.emplace<KinematicsComponent>(brick_1);
+    engine.world.emplace<SpriteComponent>(brick_1, 100, 25, GreenBrick);
 
     const auto brick_2 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_2, Vec2D(width/2,300));
     engine.world.emplace<NameGroupComponent>(brick_2, "brick_2", "brick");
-    engine.world.emplace<ColliderComponent>(brick_2, RectangleShape(100,25,Color::yellow(),true), true, true);
-    engine.world.emplace<RigidBodyComponent>(brick_2, 0, RectangleShape(100, 25, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(brick_2, RectangleShape(100,25,Color::blue(),false, false), false, true);
+    engine.world.emplace<RigidBodyComponent>(brick_2, 0, RectangleShape(100, 25, Color::white(), false, false));
     engine.world.emplace<KinematicsComponent>(brick_2);
+    engine.world.emplace<SpriteComponent>(brick_2, 100, 25, BlueBrick);
 
     const auto brick_3 = engine.world.create();
     engine.world.emplace<TransformComponent>(brick_3, Vec2D(width/2,400));
     engine.world.emplace<NameGroupComponent>(brick_3, "brick_3", "brick");
-    engine.world.emplace<ColliderComponent>(brick_3, RectangleShape(100,25,Color::red(),true), true, true);
-    engine.world.emplace<RigidBodyComponent>(brick_3, 0, RectangleShape(100, 25, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(brick_3, RectangleShape(100,25,Color::red(),false, false), false, true);
+    engine.world.emplace<RigidBodyComponent>(brick_3, 0, RectangleShape(100, 25, Color::white(), false, false));
     engine.world.emplace<KinematicsComponent>(brick_3);
+    engine.world.emplace<SpriteComponent>(brick_3, 100, 25, RedBrick);
 
 
 
@@ -200,6 +205,15 @@ int main(int argc, char *args[])
 
         engine.render();
     }
+
+    SDL_DestroyTexture(BlueBrick);
+    SDL_DestroyTexture(GreenBrick);
+    SDL_DestroyTexture(RedBrick);
+
+    SDL_DestroyTexture(player);
+
+    //SDL_DestroyTexture(Background);
+    
 
     return 0;
 }
