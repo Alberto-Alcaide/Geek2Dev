@@ -2,6 +2,19 @@
 #include <cmath>
 using namespace std;
 
+int width=600;
+int height=800;
+int playerW=120;
+int playerH=35;
+
+Engine2D engine(width, height);
+
+void GameOver() // When the ball falls under the screen
+{
+    Log::Error("GAME OVER");
+    engine.~Engine2D();
+}
+
 
 int main(int argc, char *args[])
 {
@@ -9,19 +22,14 @@ int main(int argc, char *args[])
 
 
     //Vec2D weight = Vec2D(0.0,25.0);
-    int width=600;
-    int height=800;
-    int playerW=120;
-    int playerH=35;
 
-    Engine2D engine(width, height);
 
 
     // Initialize Sprites
     SDL_Texture* BlueBrick = Graphics::CreateSprite("assets/Blue-Brick.png");
     SDL_Texture* GreenBrick = Graphics::CreateSprite("assets/Green-Brick.png");
     SDL_Texture* RedBrick = Graphics::CreateSprite("assets/Red-Brick.png");
-    SDL_Texture* player = Graphics::CreateSprite("assets/player1.png");
+    SDL_Texture* player = Graphics::CreateSprite("assets/player01.png");
 
     // Try background image
     /*
@@ -130,6 +138,12 @@ int main(int argc, char *args[])
         else if (engine.world.get<TransformComponent>(player1).position.x >= (width-playerW))
         {
             engine.world.get<TransformComponent>(player1).position.x = (width-playerW);
+        }
+
+        // Set a GAME OVER
+        if (engine.world.get<TransformComponent>(ball).position.y >=height)
+        {
+            GameOver();
         }
         
 
