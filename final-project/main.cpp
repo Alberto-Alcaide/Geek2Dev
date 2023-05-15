@@ -117,6 +117,19 @@ int main(int argc, char *args[])
     {
         engine.update();
 
+        // Limit movement of player (Can't get out of the screen)
+        if (engine.world.get<TransformComponent>(player1).position.x <= 0) 
+        {
+            engine.world.get<TransformComponent>(player1).position.x = 0;
+        }
+        else if (engine.world.get<TransformComponent>(player1).position.x >= (width-playerW))
+        {
+            engine.world.get<TransformComponent>(player1).position.x = (width-playerW);
+        }
+        
+
+
+
         // Check if all bricks are destroyed 
         auto view = engine.world.view<NameGroupComponent>();
         int i=0;
