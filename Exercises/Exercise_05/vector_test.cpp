@@ -14,6 +14,8 @@ int main()
 
     std::cout << "v1 = " << v1 << ", v2 = " << v2 << std::endl;
 
+    std::cout << "v1.rotate(60): " << v1.rotate(60) << std::endl;
+
     std::cout << "a.dot(b) = " << v1.dotProduct(v2) << std::endl;
 
     std::cout << "v1 + v2: " << v1 + v2 << std::endl;
@@ -29,6 +31,7 @@ int main()
     std::cout << "v1 magnitude squared = " << v1.magnitudeSquared() << std::endl;
     std::cout << "v1 angle =  " << v1.angle() << std::endl;
     std::cout << "from module(4) and angle(45): " << Vec2D::fromModuleAngle(4, 45) << std::endl;
+
 
 
     return 0;

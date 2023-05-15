@@ -1,25 +1,11 @@
 #include "Engine2D.h"
 #include <cmath>
 using namespace std;
-int width=725;
-int height=1000;
+int width=600;
+int height=800;
 int playerW=100;
 int playerH=25;
 Engine2D engine(width, height);
-
-void OnCollider(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world) noexcept{
-    Log::Warning("HIT");
-    if (world.get<NameGroupComponent>(a).group == "brick")
-    {
-        world.destroy(a);
-    }
-    if (world.get<NameGroupComponent>(b).group == "brick")
-    {
-        world.destroy(b);
-    }
-
-}
-
 
 int main(int argc, char *args[])
 {
@@ -56,11 +42,11 @@ int main(int argc, char *args[])
     engine.world.emplace<RigidBodyComponent>(l_wall, 0, RectangleShape(25, height-250, Color::white(), true));
         //right wall
     const auto r_wall = engine.world.create();
-    engine.world.emplace<TransformComponent>(r_wall, Vec2D(700,130));
+    engine.world.emplace<TransformComponent>(r_wall, Vec2D(width-25,130));
     engine.world.emplace<KinematicsComponent>(r_wall);
     engine.world.emplace<NameGroupComponent>(r_wall, "r_wall", "map");
-    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(50,height-250,Color::white(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(r_wall, 0, RectangleShape(50, height-250, Color::white(), true));
+    engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(25,height-250,Color::white(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(r_wall, 0, RectangleShape(25, height-250, Color::white(), true));
 
 
 

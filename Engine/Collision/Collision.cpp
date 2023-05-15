@@ -84,10 +84,17 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     ResolvePenetration(a,b,contact,world);
     //std::cout << "Resolve Penetration" << std::endl;
 
+    const RectangleShape* aRectangleShape = (RectangleShape*)world.get<ColliderComponent>(a).shape;
+    const RectangleShape* bRectangleShape = (RectangleShape*)world.get<ColliderComponent>(b).shape;
+    const auto aTransform = world.get<TransformComponent>(a);
+    const auto bTransform = world.get<TransformComponent>(b);
     auto const rigidbodyA = world.get<RigidBodyComponent>(a);
     auto const rigidbodyB = world.get<RigidBodyComponent>(b);
     auto& kinematicA = world.get<KinematicsComponent>(a);
     auto& kinematicB = world.get<KinematicsComponent>(b);
+    auto nameA = world.get<NameGroupComponent>(a);
+    auto nameB = world.get<NameGroupComponent>(b);
+
 
     //Define elasticity (coefficient of restitution e)
     float e = std::min(rigidbodyA.restitution, rigidbodyB.restitution);
@@ -103,6 +110,61 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     const float impulseMagnitude = -(1 + e) * vrelDotNormal / (rigidbodyA.invMass + rigidbodyB.invMass);
 
     Vec2D jn = impulseDirection * impulseMagnitude;
+
+
+    // Adding a new type of response to the Ball and Player Collision
+
+
+    if (nameA.group=="players" && nameB.group=="ball")
+    {
+        // Divide the player in three parts
+        auto partsLeftPlayer = (aTransform.position.x+aRectangleShape->width/3);
+        auto partsMidPlayer = (aTransform.position.x+2*(aRectangleShape->width/3));
+
+        if (partsLeftPlayer>bTransform.position.x) // Left part of Player
+        {
+
+            Log::Warning("Left");
+            jn = jn + Vec2D(40,0); // Ball will go to the Left
+            
+
+        }
+        else if (partsMidPlayer>bTransform.position.x) // Middle part of Player
+        {
+            Log::Warning("Middle"); // Ball doesn't change
+        }
+        else // Right part of Player
+        {
+            Log::Warning("Right");
+            jn = jn + Vec2D(-40,0); // Ball will go to the right
+            
+        }
+        
+    }
+    else if (nameA.group=="ball" && nameB.group=="players")
+    {
+        auto partsLeftPlayer = (bTransform.position.x+bRectangleShape->width/3);
+        auto partsMidPlayer = (bTransform.position.x+2*(bRectangleShape->width/3));
+
+        if (partsLeftPlayer>aTransform.position.x)
+        {
+            
+            Log::Warning("Izquierda");
+            jn = jn + Vec2D(50,0);
+            
+        }
+        else if (partsMidPlayer>aTransform.position.x)
+        {
+            Log::Warning("Medio");
+        }
+        else
+        {
+            Log::Warning("Derecha");
+            jn = jn + Vec2D(-50,0);
+        }
+    }
+
+
 
     // Apply the impulse vector to both objects in opposite direction
     kinematicA.velocity += jn * rigidbodyA.invMass;
