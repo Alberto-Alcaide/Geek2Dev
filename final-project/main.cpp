@@ -53,9 +53,6 @@ void createBricks(const sol::table& bricksTable)
 
 int main(int argc, char *args[])
 {
-
-
-
     //Vec2D weight = Vec2D(0.0,25.0);
 
     sol::state lua;
@@ -89,8 +86,6 @@ int main(int argc, char *args[])
     engine.world.emplace<RigidBodyComponent>(player1, 0, RectangleShape(playerW,playerH, Color::black(), false, false));
     engine.world.emplace<SpriteComponent>(player1, playerW+5, playerH-5, player);
 
-
-
     //Walls
         //celling
     const auto ceiling = engine.world.create();
@@ -113,10 +108,6 @@ int main(int argc, char *args[])
     engine.world.emplace<NameGroupComponent>(r_wall, "r_wall", "map");
     engine.world.emplace<ColliderComponent>(r_wall, RectangleShape(50,height-125,Color::white(),true), true, false);
     engine.world.emplace<RigidBodyComponent>(r_wall, 0, RectangleShape(50, height-125, Color::white(), true));
-
-
-
-
 
     //bricks
     /*const auto brick_1 = engine.world.create();
@@ -145,12 +136,8 @@ int main(int argc, char *args[])
 
     lua.script_file("bricks.lua");
 
-
     // visible bricks
     //auto bricks = {brick_1, brick_2, brick_3};
-
-
-
 
     // ball
     const auto ball = engine.world.create();
@@ -162,10 +149,6 @@ int main(int argc, char *args[])
 
     // ball velocity
     engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(200,-200);
-
-
-    
-
 
     // Init Sounds and start playing music
     Mix_Chunk* ballHitSound = Sounds::LoadSound("Assets/Sounds/arkanoid1.wav");
@@ -243,7 +226,6 @@ int main(int argc, char *args[])
         engine.render();
     }
 
-
     // deallocate memory
     SDL_DestroyTexture(BlueBrick);
     SDL_DestroyTexture(GreenBrick);
@@ -253,8 +235,6 @@ int main(int argc, char *args[])
 
     Mix_FreeMusic(music);
     Mix_FreeChunk(ballHitSound);
-
-    
 
     return 0;
 }
