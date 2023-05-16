@@ -12,6 +12,28 @@ int main(int argc, char *args[])
     SDL_Texture* tankLeft = Graphics::CreateSprite("../../assets/LeftAnim.png");
     SDL_Texture* tankRight = Graphics::CreateSprite("../../assets/RightAnim.png");
 
+    // Load music and sounds
+    Mix_Music *music = Mix_LoadMUS( "arcade_music.wav" );
+    
+    //If there was a problem loading the music
+    if( music == NULL )
+    {
+       Log::Error("Couln't load music");    
+    }
+
+    //Play the music
+    if( Mix_PlayMusic( music, -1 ) == -1 )
+    {
+        Log::Error("Couln't play music");
+    }
+
+    Mix_Chunk *ball_hit = Mix_LoadWAV( "ball_hit.wav" );
+    if( ball_hit == NULL )
+    {
+       Log::Error("Couln't load ball_hit sound effect");    
+    }
+
+
     const auto tank = engine.world.create();
     engine.world.emplace<NameGroupComponent>(tank, "player1", "player1");
     engine.world.emplace<GridMovementComponent>(tank, 100);
@@ -28,13 +50,19 @@ int main(int argc, char *args[])
 
         engine.update();
 
-        if(engine.keyboard->leftKeyPressed)
+        if(engine.keyboard.isLeftPressed)
         {
             auto& spriteComp = engine.world.get<SpriteComponent>(tank);
             spriteComp.texture = tankLeft;
+
+            //Play the scratch effect
+            if( Mix_PlayChannel( -1, ball_hit, 0 ) == -1 )
+            {
+                Log::Error("Couln't PLAY ball_hit sound effect");    
+            }
         }
 
-        if(engine.keyboard->rightKeyPressed)
+        if(engine.keyboard.isRightPressed)
         {
             auto& spriteComp = engine.world.get<SpriteComponent>(tank);
             spriteComp.texture = tankRight;
@@ -46,6 +74,10 @@ int main(int argc, char *args[])
 
     SDL_DestroyTexture(tankLeft);
     SDL_DestroyTexture(tankRight);
+
+    //Free the music
+    Mix_FreeMusic(music);
+    Mix_FreeChunk( ball_hit );
 
     return 0;
 }

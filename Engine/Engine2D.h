@@ -2,11 +2,13 @@
 #define ENGINE2D_H
 
 #include <iostream> 
+#include <SDL2/SDL_mixer.h>
 #include "Mouse.h"
 #include "Keyboard.h"
 #include "Log.h"
 #include "Color.h"
 #include "Graphics.h"
+#include "Sounds.h"
 #include "Vec2D.h"
 #include "entt/entt.hpp"
 #include "TransformComponent.h"
