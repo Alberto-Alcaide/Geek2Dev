@@ -5,7 +5,7 @@ CPP = g++
 INCLUDE_PATHS = -IC:\mingw_dev_lib\include -IC:\mingw_dev_lib\bin -IC:\Geek2Dev\Engine -IC:\Geek2Dev\libs\entt\src -IC:\Geek2Dev\Engine\ECS\Components -IC:\Geek2Dev\Engine\ECS\Systems -IC:\Geek2Dev\Engine\Shape -IC:\Geek2Dev\Engine\Events -IC:\Geek2Dev\Engine\Collision
 LIBRARY_PATHS = -LC:\mingw_dev_lib\lib
 COMPILER_FLAGS = -std=c++17 -Wall
-LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -llua53 
+LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -llua53 
 
 build:
 		$(CPP) $(ENGINE) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)

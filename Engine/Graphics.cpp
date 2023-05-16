@@ -344,6 +344,7 @@ void Graphics::drawFillCircle(int x0, int y0, int radius, Color color)
 SDL_Texture* Graphics::CreateSprite(const char* path)
 {
     SDL_Texture* texture = IMG_LoadTexture(renderer_, path);
+
 /*
     SDL_Surface* surface = IMG_Load(path);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer_, surface);

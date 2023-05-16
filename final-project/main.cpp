@@ -6,10 +6,12 @@ int width=600;
 int height=800;
 int playerW=120;
 int playerH=35;
+int level = 1;
 
 Engine2D engine(width, height);
 
-struct Brick {
+struct Brick 
+{
     // Propiedades de un brick
     int x;
     int y;
@@ -21,10 +23,12 @@ void GameOver() // When the ball falls under the screen
     engine.~Engine2D();
 }
 
-void createBricks(const sol::table& bricksTable) {
+void createBricks(const sol::table& bricksTable) 
+{
     std::vector<Brick> bricks;
     std::size_t size = bricksTable.size();
-    for (std::size_t i = 1; i <= size; ++i) {
+    for (std::size_t i = 1; i <= size; ++i) 
+    {
         const sol::table brickTable = bricksTable[i];
         Brick brick;
         brick.x = brickTable["x"];
@@ -33,7 +37,8 @@ void createBricks(const sol::table& bricksTable) {
     }
 
     // Utilizar el vector de bricks para crear los bricks según sea necesario
-    for (const auto& p_brick : bricks) {
+    for (const auto& p_brick : bricks) 
+    {
         // Código para crear cada brick
         std::cout << "Creating brick: width=" << p_brick.x << ", height=" << p_brick.y << std::endl;
         const auto brick = engine.world.create();
@@ -147,7 +152,7 @@ int main(int argc, char *args[])
 
 
 
-    //ball
+    // ball
     const auto ball = engine.world.create();
     engine.world.emplace<TransformComponent>(ball, Vec2D(width/2,height-height/4));
     engine.world.emplace<KinematicsComponent>(ball);
@@ -155,17 +160,29 @@ int main(int argc, char *args[])
     engine.world.emplace<ColliderComponent>(ball, RectangleShape(25,25,Color::white(),true), true, false);
     engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(25,25, Color::white(), true));
 
-    //ball velocity
+    // ball velocity
     engine.world.get<KinematicsComponent>(ball).velocity=Vec2D(200,-200);
 
 
-    int level = 1;
+    
+
+
+    // Init Sounds and start playing music
+    Mix_Chunk* ballHitSound = Sounds::LoadSound("Assets/Sounds/arkanoid1.wav");
+    Mix_Music* music = Sounds::LoadMusic("Assets/Sounds/arcade_music.wav");
+    Sounds::PlayMusic(music);
 
 
     //game loop
     while (engine.nextFrame())
     {
         engine.update();
+
+        // Check for GameOver
+        if (engine.world.get<TransformComponent>(ball).position.y >=height)
+        {
+            GameOver();
+        }
 
         // Limit movement of player (Can't get out of the screen)
         if (engine.world.get<TransformComponent>(player1).position.x <= 0) 
@@ -177,12 +194,11 @@ int main(int argc, char *args[])
             engine.world.get<TransformComponent>(player1).position.x = (width-playerW);
         }
 
-        // Set a GAME OVER
-        if (engine.world.get<TransformComponent>(ball).position.y >=height)
+        // Play sound effect on ball collision
+        if (engine.world.get<ColliderComponent>(ball).isColliding)
         {
-            GameOver();
+            Sounds::PlaySound(ballHitSound);
         }
-        
 
 
 
@@ -196,7 +212,7 @@ int main(int argc, char *args[])
             }
         }
         
-        //check the level
+        // Update Graphics depending on level
         if(i==0){
             if(engine.world.get<TransformComponent>(ball).position.y > height-300)
             {
@@ -227,13 +243,17 @@ int main(int argc, char *args[])
         engine.render();
     }
 
+
+    // deallocate memory
     SDL_DestroyTexture(BlueBrick);
     SDL_DestroyTexture(GreenBrick);
     SDL_DestroyTexture(RedBrick);
-
     SDL_DestroyTexture(player);
-
     //SDL_DestroyTexture(Background);
+
+    Mix_FreeMusic(music);
+    Mix_FreeChunk(ballHitSound);
+
     
 
     return 0;

@@ -8,13 +8,16 @@ Engine2D::Engine2D(int width, int height)
     if(Graphics::createWindow(width, height))
         Log::Info("Graphics initialized");
 
+    //Initialize SDL_mixer
+    if(Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
+    {
+        Log::Error("SDL_mixer couldn't be initialized");  
+    }
 
     // Perform the subscription of the events for all system
     eventBus.sink<KeyDownEvent>().connect<&GridMovementSystem::OnKeyDown>(gridSystem);  // subscribe GridMovementSystem to KeyDownEvents
-
     eventBus.sink<KeyDownEvent>().connect<&InputMovementSystem::OnKeyDown>(inputMovementSystem);
-    eventBus.sink<KeyUpEvent>().connect<&InputMovementSystem::OnKeyUp>(inputMovementSystem);
-    
+    eventBus.sink<KeyUpEvent>().connect<&InputMovementSystem::OnKeyUp>(inputMovementSystem); 
     eventBus.sink<BallHitBrickEvent>().connect<&ColliderSystem::BallHitBrick>(colliderSystem);
 
     isRunning = true;
