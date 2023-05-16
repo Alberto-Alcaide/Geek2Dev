@@ -76,10 +76,10 @@ int main(int argc, char *args[])
     lua.set_function("createBricks", &createBricks);
 
     // Initialize Sprites
-    SDL_Texture* BlueBrick = Graphics::CreateSprite("assets/Blue-Brick.png");
-    SDL_Texture* GreenBrick = Graphics::CreateSprite("assets/Green-Brick.png");
-    SDL_Texture* RedBrick = Graphics::CreateSprite("assets/Red-Brick.png");
-    SDL_Texture* player = Graphics::CreateSprite("assets/player01.png");
+    SDL_Texture* BlueBrick = Graphics::CreateSprite("assets/sprites/Blue-Brick.png");
+    SDL_Texture* GreenBrick = Graphics::CreateSprite("assets/sprites/Green-Brick.png");
+    SDL_Texture* RedBrick = Graphics::CreateSprite("assets/sprites/Red-Brick.png");
+    SDL_Texture* player = Graphics::CreateSprite("assets/sprites/player01.png");
 
     // Try background image
     /*
