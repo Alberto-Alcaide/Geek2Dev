@@ -21,20 +21,6 @@ void GameOver() // When the ball falls under the screen
     engine.~Engine2D();
 }
 
-/*void createBricks(const std::vector<Brick>& bricks) {
-    // Crear los bricks según el vector proporcionado por Lua
-    for (const auto& p_brick : bricks) {
-        // Código para crear cada brick
-        const auto brick = engine.world.create();
-        engine.world.emplace<TransformComponent>(brick, Vec2D(p_brick.x,p_brick.y));
-        engine.world.emplace<NameGroupComponent>(brick, "brick_1", "brick");
-        engine.world.emplace<ColliderComponent>(brick, RectangleShape(100,25,Color::green(),true), true, true);
-        engine.world.emplace<RigidBodyComponent>(brick, 0, RectangleShape(100, 25, Color::white(), false, false));
-        engine.world.emplace<KinematicsComponent>(brick);
-        //engine.world.emplace<SpriteComponent>(brick, 100, 25, GreenBrick);
-    }
-}*/
-
 void createBricks(const sol::table& bricksTable) {
     std::vector<Brick> bricks;
     std::size_t size = bricksTable.size();
@@ -212,62 +198,31 @@ int main(int argc, char *args[])
         
         //check the level
         if(i==0){
-            level++;
-            Log::Error(to_string(level));
-            switch (level){
-                case 2:{
-                        /*const auto brick_1_2 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_1_2, Vec2D(width/2,200));
-                        engine.world.emplace<NameGroupComponent>(brick_1_2, "brick_1", "brick");
-                        engine.world.emplace<ColliderComponent>(brick_1_2, RectangleShape(100,25,Color::green(),true), true, true);
-                        engine.world.emplace<RigidBodyComponent>(brick_1_2, 0, RectangleShape(100, 25, Color::white(), true));
-                        engine.world.emplace<KinematicsComponent>(brick_1_2);
-
-                        const auto brick_2_2 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_2_2, Vec2D(width/2,300));
-                        engine.world.emplace<NameGroupComponent>(brick_2_2, "brick_2", "brick");
-                        engine.world.emplace<ColliderComponent>(brick_2_2, RectangleShape(100,25,Color::yellow(),true), true, true);
-                        engine.world.emplace<RigidBodyComponent>(brick_2_2, 0, RectangleShape(100, 25, Color::white(), true));
-                        engine.world.emplace<KinematicsComponent>(brick_2_2);
-
-                        const auto brick_3_2 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_3_2, Vec2D(width/2,400));
-                        engine.world.emplace<NameGroupComponent>(brick_3_2, "brick_3", "brick");
-                        engine.world.emplace<ColliderComponent>(brick_3_2, RectangleShape(100,25,Color::red(),true), true, true);
-                        engine.world.emplace<RigidBodyComponent>(brick_3_2, 0, RectangleShape(100, 25, Color::white(), true));
-                        engine.world.emplace<KinematicsComponent>(brick_3_2);*/
-
-                        lua.script_file("bricks.lua");
-                    break;
-                }
-                case 3:{
-                        const auto brick_1_3 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_1_3, Vec2D(width,200));
-                        engine.world.emplace<NameGroupComponent>(brick_1_3, "brick_1", "brick");
-                        engine.world.emplace<ColliderComponent>(brick_1_3, RectangleShape(100,25,Color::green(),true), true, true);
-                        engine.world.emplace<RigidBodyComponent>(brick_1_3, 0, RectangleShape(100, 25, Color::white(), true));
-                        engine.world.emplace<KinematicsComponent>(brick_1_3);
-
-                        const auto brick_2_3 = engine.world.create();
-                        engine.world.emplace<TransformComponent>(brick_2_3, Vec2D(width,300));
-                        engine.world.emplace<NameGroupComponent>(brick_2_3, "brick_2", "brick");
-                        engine.world.emplace<ColliderComponent>(brick_2_3, RectangleShape(100,25,Color::yellow(),true), true, true);
-                        engine.world.emplace<RigidBodyComponent>(brick_2_3, 0, RectangleShape(100, 25, Color::white(), true));
-                        engine.world.emplace<KinematicsComponent>(brick_2_3);
+            if(engine.world.get<TransformComponent>(ball).position.y > height-300)
+            {
+                level++;
+                Log::Error(to_string(level));
+                switch (level){
+                    case 2:{
+                            lua.script_file("level_2.lua");
                         break;
+                    }
+                    case 3:{
+                            lua.script_file("level_3.lua");
+                        break;
+                    }
+                    default:{
+                        Log::Warning("terminé");
+                        break;
+                    }
                 }
-                default:{
-                    //Log::Warning("terminé");
-                    break;
-                }
-
-                //fix the enviorement
-
-
-
             }
-
         }
+
+
+        //fix the enviorement
+        Graphics::drawFillRect(0, 25, 25, 2, Color::white());
+        Graphics::drawFillRect(0, width-25, 25, 2, Color::white());
 
         engine.render();
     }
