@@ -1,7 +1,7 @@
 -- Crear un vector de bricks en Lua
 local bricks = {
-    { position = { x = 100, y = 200 }, color = "red" },
-    { position = { x = 150, y = 250 }, color = "blue" },
+    { x = 100, y = 200 },
+    { x = 150, y = 300 }
     -- Agregar más bricks según sea necesario
 }
 
