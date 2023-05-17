@@ -114,13 +114,15 @@ int main(int argc, char *args[])
     SDL_Texture* player2 = Graphics::CreateSprite("assets/sprites/player02.png");
     SDL_Texture* player3 = Graphics::CreateSprite("assets/sprites/player03.png");
     SDL_Texture* ballSprite = Graphics::CreateSprite("assets/sprites/ball.png");
-    SDL_Texture* Wall = Graphics::CreateSprite("../Background/Wall.png");
-    SDL_Texture* Ceiling = Graphics::CreateSprite("../Background/Ceiling.png");
+
+    // Walls Sprites
+    SDL_Texture* Wall = Graphics::CreateSprite("Assets/Sprites/Background/Wall.png");
+    SDL_Texture* Ceiling = Graphics::CreateSprite("Assets/Sprites/Background/Ceiling.png");
 
     // Background Sprites
-    SDL_Texture* Background = Graphics::CreateSprite("../Background/Background1.png");
-    SDL_Texture* Background2 = Graphics::CreateSprite("../Background/Background2.png");
-    SDL_Texture* Background3 = Graphics::CreateSprite("../Background/Background3.png");
+    SDL_Texture* Background = Graphics::CreateSprite("Assets/Sprites/Background/Background1.png");
+    SDL_Texture* Background2 = Graphics::CreateSprite("Assets/Sprites/Background/Background2.png");
+    SDL_Texture* Background3 = Graphics::CreateSprite("Assets/Sprites/Background/Background3.png");
     
 
 
@@ -164,12 +166,12 @@ int main(int argc, char *args[])
 
     // ball
     const auto ball = engine.world.create();
-    engine.world.emplace<TransformComponent>(ball, Vec2D(width/2,height-300));
+    engine.world.emplace<TransformComponent>(ball, Vec2D((width+35)/2,height-300));
     engine.world.emplace<KinematicsComponent>(ball);
     engine.world.emplace<NameGroupComponent>(ball, "ball", "ball");
-    engine.world.emplace<ColliderComponent>(ball, RectangleShape(21,21,Color::white(),true), true, false);
-    engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(21,21, Color::white(), true, false));
-    //engine.world.emplace<SpriteComponent>(ball, 21, 21, ballSprite);
+    engine.world.emplace<ColliderComponent>(ball, RectangleShape(12,12,Color::white(),true), true, false);
+    engine.world.emplace<RigidBodyComponent>(ball, 1, RectangleShape(12,12, Color::white(), true, false));
+    //engine.world.emplace<SpriteComponent>(ball, 15, 15, ballSprite);
     
 
     // ball velocity
@@ -238,21 +240,27 @@ int main(int argc, char *args[])
                 switch (level){
                     case 1:{
 
-                            lua.script_file("level_1.lua");
+                            lua.script_file("Scripts/level_1.lua");
                            
                         break;
                     }
                     case 2:{
                 
-                            lua.script_file("level_2.lua");
+                            lua.script_file("Scripts/level_2.lua");
                             
 
                         break;
                     }
                     case 3:{
                             
-                            lua.script_file("level_3.lua");
+                            lua.script_file("Scripts/level_3.lua");
                             
+                        break;
+                    }
+                    case 4:{
+                        Log::Info("WINNER");
+                        engine.~Engine2D();
+
                         break;
                     }
                     default:{
