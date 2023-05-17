@@ -8,6 +8,9 @@ int height=800;
 int playerW=120;
 int playerH=30;
 int level = 0;
+int score=0;
+int for_brick_count=0;
+int score_global = 0;
 std::map<int, SDL_Texture*> scoreMap;
 
 bool Flag=true;
@@ -44,7 +47,7 @@ void createBricks(const sol::table& bricksTable)
         brick.color = brickTable["color"];
         bricks.push_back(brick);
     }
-
+    for_brick_count=0;
     // Utilizar el vector de bricks para crear los bricks según sea necesario
     for (const auto& p_brick : bricks) 
     {
@@ -62,6 +65,8 @@ void createBricks(const sol::table& bricksTable)
             engine.world.emplace<SpriteComponent>(brick, 100, 25, BlueBrick);        
         else if(p_brick.color=="red")
             engine.world.emplace<SpriteComponent>(brick, 100, 25, RedBrick);
+
+        for_brick_count++;
     }
 
     
@@ -220,11 +225,14 @@ int main(int argc, char *args[])
                 i++;
             }
         }
-        
+        //score update
+        score=score_global + ((for_brick_count-i) * 100);
+        std::cout << score << std::endl;
         // Update Graphics depending on level
         if(i==0){
             if(engine.world.get<TransformComponent>(ball).position.y > height-300 || level==0)
             {
+                score_global=score_global + score;
                 level++;
                 Log::Error(to_string(level));
                 switch (level){
