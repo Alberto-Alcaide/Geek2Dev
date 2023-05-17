@@ -278,6 +278,16 @@ int main(int argc, char *args[])
     SDL_DestroyTexture(player);
     //SDL_DestroyTexture(Background);
 
+    SDL_DestroyTexture(zeroSprite);
+    SDL_DestroyTexture(twoSprite);
+    SDL_DestroyTexture(threeSprite);
+    SDL_DestroyTexture(fourSprite);
+    SDL_DestroyTexture(fiveSprite);
+    SDL_DestroyTexture(sixSprite);
+    SDL_DestroyTexture(sevenSprite);
+    SDL_DestroyTexture(eightSprite);
+    SDL_DestroyTexture(nineSprite);
+
     Mix_FreeMusic(music);
     Mix_FreeChunk(ballHitSound);
 
