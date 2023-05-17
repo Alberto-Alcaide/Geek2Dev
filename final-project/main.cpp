@@ -1,5 +1,6 @@
 #include "Engine2D.h"
 #include <cmath>
+#include <map>
 using namespace std;
 
 int width=600;
@@ -7,6 +8,7 @@ int height=800;
 int playerW=120;
 int playerH=35;
 int level = 1;
+std::map<int, SDL_Texture*> scoreMap;
 
 Engine2D engine(width, height);
 
@@ -68,6 +70,29 @@ int main(int argc, char *args[])
     SDL_Texture* GreenBrick = Graphics::CreateSprite("assets/sprites/Green-Brick.png");
     SDL_Texture* RedBrick = Graphics::CreateSprite("assets/sprites/Red-Brick.png");
     SDL_Texture* player = Graphics::CreateSprite("assets/sprites/player01.png");
+
+    SDL_Texture* zeroSprite = Graphics::CreateSprite("assets/sprites/0.png");
+    SDL_Texture* oneSprite = Graphics::CreateSprite("assets/sprites/1.png");
+    SDL_Texture* twoSprite = Graphics::CreateSprite("assets/sprites/2.png");
+    SDL_Texture* threeSprite = Graphics::CreateSprite("assets/sprites/3.png");
+    SDL_Texture* fourSprite = Graphics::CreateSprite("assets/sprites/4.png");
+    SDL_Texture* fiveSprite = Graphics::CreateSprite("assets/sprites/5.png");
+    SDL_Texture* sixSprite = Graphics::CreateSprite("assets/sprites/6.png");
+    SDL_Texture* sevenSprite = Graphics::CreateSprite("assets/sprites/7.png");
+    SDL_Texture* eightSprite = Graphics::CreateSprite("assets/sprites/8.png");
+    SDL_Texture* nineSprite = Graphics::CreateSprite("assets/sprites/9.png");
+
+    // Map score values with sprites
+    scoreMap[0] = zeroSprite;
+    scoreMap[1] = oneSprite;
+    scoreMap[2] = twoSprite;
+    scoreMap[3] = threeSprite;
+    scoreMap[4] = fourSprite;
+    scoreMap[5] = fiveSprite;
+    scoreMap[6] = sixSprite;
+    scoreMap[7] = sevenSprite;
+    scoreMap[8] = eightSprite;
+    scoreMap[9] = nineSprite;
 
     // Try background image
     /*
@@ -217,7 +242,27 @@ int main(int argc, char *args[])
                 }
             }
         }
+    
 
+    /*
+        // Draw Score
+        int score;  // TODO score
+        int auxiliary = score;
+        int digit;
+        Vec2D scorePosition(width*0.8, 700);
+        Vec2D scoreScale(1,1);
+        SDL_Rect scoreSpriteRect = {0, 0, 52, 65};
+
+        if (score == 0)
+            Graphics::DrawSprite(zeroSprite, scorePosition,scoreScale, 52, 65, 0, scoreSpriteRect);
+        while (auxiliary > 0) 
+        {
+            digit = auxiliary % 10;
+            auxiliary = auxiliary / 10;
+            Graphics::DrawSprite(scoreMap[digit], scorePosition,scoreScale, 52, 65, 0, scoreSpriteRect);
+            scorePosition.x -= 20;
+        }
+    */
 
         //fix the enviorement
         Graphics::drawFillRect(0, 25, 25, 2, Color::white());
