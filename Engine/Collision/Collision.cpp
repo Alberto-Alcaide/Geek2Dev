@@ -125,18 +125,22 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
         {
 
             Log::Warning("Left");
-            jn = jn + Vec2D(40,0); // Ball will go to the Left
+
+            jn = jn + Vec2D(jn.y,0); // Ball will go to the Left
+            //std::cout << "jn: " << jn << std::endl;
             
 
         }
         else if (partsMidPlayer>bTransform.position.x) // Middle part of Player
         {
             Log::Warning("Middle"); // Ball doesn't change
+            //std::cout << "jn: " << jn << std::endl;
         }
         else // Right part of Player
         {
             Log::Warning("Right");
-            jn = jn + Vec2D(-40,0); // Ball will go to the right
+            jn = jn + Vec2D(-jn.y,0); // Ball will go to the right
+            //std::cout << "jn: " << jn << std::endl;
             
         }
         
@@ -150,17 +154,20 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
         {
             
             Log::Warning("Izquierda");
-            jn = jn + Vec2D(50,0);
+            jn = jn + Vec2D(-jn.y,0);
+            //std::cout << "jn: " << jn << std::endl;
             
         }
         else if (partsMidPlayer>aTransform.position.x)
         {
             Log::Warning("Medio");
+            //std::cout << "jn: " << jn << std::endl;
         }
         else
         {
             Log::Warning("Derecha");
-            jn = jn + Vec2D(-50,0);
+            jn = jn + Vec2D(jn.y,0);
+            //std::cout << "jn: " << jn << std::endl;
         }
     }
 
@@ -169,6 +176,52 @@ void Collision::ResolveCollision(entt::entity& a, entt::entity& b, Contact& cont
     // Apply the impulse vector to both objects in opposite direction
     kinematicA.velocity += jn * rigidbodyA.invMass;
     kinematicB.velocity -= jn * rigidbodyB.invMass;
+
+    // Apply a limit to the velocity
+    if (kinematicA.velocity.x>400)
+    {
+        kinematicA.velocity.x=400;
+    }
+    else if (kinematicA.velocity.x<-400)
+    {
+        kinematicA.velocity.x=-400;
+    }
+
+    if (kinematicB.velocity.x>400)
+    {
+        kinematicB.velocity.x=400;
+    }
+    else if (kinematicB.velocity.x<-400)
+    {
+        kinematicB.velocity.x=-400;
+        kinematicB.velocity.y=-200;
+    }
+
+    if (kinematicB.velocity.x==0 && nameB.group=="ball")
+    {
+        if (kinematicB.velocity.y<0)
+        {
+            kinematicB.velocity.y=-400;
+        }
+        else
+        {
+            kinematicB.velocity.y=400;
+        }
+        
+    }
+    else
+    {
+        if (kinematicB.velocity.y<0)
+        {
+            kinematicB.velocity.y=-200;
+        }
+        else
+        {
+            kinematicB.velocity.y=200;
+        }
+    }
+    //std::cout << "Velocidad A: " << kinematicA.velocity << std::endl;
+    //std::cout << "Velocidad B: " << kinematicB.velocity << std::endl;
 }
 
 bool Collision::IsCollidingRectangleRectangle(entt::entity& a, entt::entity& b, Contact& contact, entt::registry& world)
