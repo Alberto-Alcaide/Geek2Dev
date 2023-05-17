@@ -9,7 +9,6 @@ int playerW=120;
 int playerH=30;
 int level = 0;
 std::map<int, SDL_Texture*> scoreMap;
-
 bool Flag=true;
 
 Engine2D engine(width, height);
@@ -70,9 +69,7 @@ void createBricks(const sol::table& bricksTable)
 
 int main(int argc, char *args[])
 {
-    //Vec2D weight = Vec2D(0.0,25.0);
-
-
+ 
     sol::state lua;
     lua.open_libraries(sol::lib::base);
     lua.new_usertype<Brick>("Brick",
@@ -107,12 +104,18 @@ int main(int argc, char *args[])
     scoreMap[8] = eightSprite;
     scoreMap[9] = nineSprite;
 
+    // Player Sprites
     SDL_Texture* player = Graphics::CreateSprite("assets/sprites/player01.png");
     SDL_Texture* player2 = Graphics::CreateSprite("assets/sprites/player02.png");
     SDL_Texture* player3 = Graphics::CreateSprite("assets/sprites/player03.png");
     SDL_Texture* ballSprite = Graphics::CreateSprite("assets/sprites/ball.png");
     SDL_Texture* Wall = Graphics::CreateSprite("../Background/Wall.png");
     SDL_Texture* Ceiling = Graphics::CreateSprite("../Background/Ceiling.png");
+
+    // Background Sprites
+    SDL_Texture* Background = Graphics::CreateSprite("../Background/Background1.png");
+    SDL_Texture* Background2 = Graphics::CreateSprite("../Background/Background2.png");
+    SDL_Texture* Background3 = Graphics::CreateSprite("../Background/Background3.png");
     
 
 
@@ -172,10 +175,7 @@ int main(int argc, char *args[])
     Mix_Music* music = Sounds::LoadMusic("Assets/Sounds/arcade_music.wav");
     Sounds::PlayMusic(music);
 
-    // Background image
-    SDL_Texture* Background = Graphics::CreateSprite("../Background/Background1.png");
-    SDL_Texture* Background2 = Graphics::CreateSprite("../Background/Background2.png");
-    SDL_Texture* Background3 = Graphics::CreateSprite("../Background/Background3.png");
+    
     
     const auto background = engine.world.create();
     engine.world.emplace<TransformComponent>(background, Vec2D(0,0));
@@ -264,9 +264,7 @@ int main(int argc, char *args[])
             }
 
             Flag=false;
-
             engine.world.emplace<SpriteComponent>(player1, playerW, playerH, player);
-
             engine.world.emplace<SpriteComponent>(background, width, height, Background);
 
         }
@@ -297,7 +295,6 @@ int main(int argc, char *args[])
 
             engine.world.remove<SpriteComponent>(background);
             engine.world.emplace<SpriteComponent>(background, width, height, Background3);
-
         }
 
         
