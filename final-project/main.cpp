@@ -7,7 +7,7 @@ int width=600;
 int height=800;
 int playerW=120;
 int playerH=30;
-int level = 1;
+int level = 0;
 std::map<int, SDL_Texture*> scoreMap;
 
 bool Flag=true;
